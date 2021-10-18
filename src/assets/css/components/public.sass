@@ -1,0 +1,318 @@
+
+body, html
+	font-size: 14px
+	color: $black
+	font-family: Montserrat, sans-serif
+
+.logo
+	display: inline-flex
+	align-items: center
+	&__text
+		white-space: pre
+		margin-left: 14px
+		font-weight: 500
+		font-size: 9px
+		color: $gray
+		line-height: 125%
+		text-transform: uppercase
+
+.default-page
+	min-width: 950px
+	font-size: 13px
+	min-height: inherit
+	display: grid
+	grid-template-columns: 90px 1fr
+	grid-template-rows: 60px 45px 1fr
+	grid-template-areas: "header header" "menu breadcrumbs" "menu content"
+
+.header
+	padding: 0 35px 0 22px
+	display: flex
+	align-items: center
+	justify-content: space-between
+	border-bottom: 1px solid $gray-border
+	grid-area: header
+
+.header-user
+	display: flex
+	align-items: center
+	&__name
+		font-weight: 600
+	&__text
+		margin-left: 10px
+	&__role
+		font-size: 12px
+		color: $gray
+
+.header-contacts
+	display: flex
+	align-items: center
+	margin-right: 56px
+	&__item
+		margin-left: 14px
+		svg
+			height: 15px
+			width: 14px
+	&__help-link
+		font-size: 12px
+		color: $gray
+
+.language
+	margin-right: auto
+	margin-left: 5vw
+	position: relative
+	&__current
+		display: flex
+		align-items: center
+		&.open
+			~ .language__list
+				opacity: 1 !important
+				display: block !important
+	&__flag
+		display: flex
+		svg
+			width: 22px
+			height: 22px
+	&__arrow
+		width: 10px
+		height: 6px
+		margin-left: 8px
+		background: url("assets/img/public/arrow-down-black.svg")
+	&__list
+		box-shadow: 0 0 10px rgba(0, 0, 0, 0.07)
+		opacity: 0
+		display: none
+		padding: 5px 10px
+		background: $white
+		position: absolute
+	&__item
+		cursor: pointer
+		padding: 5px
+		display: flex
+		align-items: center
+		transition: background-color .3s ease
+		svg
+			width: 22px
+			height: 14px
+		use
+			margin-right: 5px
+		&:not(:last-child)
+			border-bottom: 1px solid $gray-border
+		&:hover 
+			background-color: $blue
+			color: $white
+
+	&--login
+		margin-left: auto
+		position: absolute
+		right: -61px
+
+.menu
+	grid-area: menu
+	background: $gray2
+	border-right: 1px solid $gray-border
+	&__list
+		margin: 0
+		padding: 0
+	&__item
+		&:hover,
+		&--selected
+			.menu__link
+				border-left: 3px solid $red
+				font-weight: 600
+				use
+					fill: $red
+		&:not(:last-child)
+			border-bottom: 1px solid $gray-border
+	&__link
+		transition: .3s border-color
+		border-left: 3px solid transparent
+		border-right: 3px solid transparent
+		color: $black
+		padding: 20px 5px
+		display: flex
+		align-items: center
+		justify-content: center
+		flex-direction: column
+		use
+			fill: $icon-color
+		svg
+			margin-bottom: 10px
+			max-height: 19px
+			max-width: 100%
+
+.breadcrumbs
+	display: flex
+	align-items: center
+	padding-left: 28px
+	border-bottom: 1px solid $gray-border
+	grid-area: breadcrumbs
+	&__list
+		display: flex
+		align-items: center
+		& > *:last-child
+			color: $black
+			font-weight: 600
+	&__item
+		color: $gray
+	&__separator
+		margin: 0 15px 0 20px
+		width: 7px
+		height: 10px
+		background: url("assets/img/public/breadcrumb-arrow.svg") no-repeat center center
+	&__link
+		color: $red
+		text-decoration: underline
+		text-decoration-skip-ink: none
+		
+.content
+	grid-area: content
+	background: $gray2
+
+.copyrights
+	font-size: 12px
+	text-align: center
+	color: $gray
+	&__text
+	&__policy
+		text-decoration-skip-ink: none
+		color: inherit
+		text-decoration: underline
+		
+.content_block 
+	background: $gray2
+	margin: 0px 33px 0px 29px
+	border: 1px solid $gray-border
+	border-radius: 4px
+
+.content_block_grey 
+	background: $gray2
+	margin: 0px 33px 0px 29px
+
+.flex_block 
+	display: flex
+	
+.separator_all_grey
+	width: 100%
+	height: 0px
+	border-bottom: 1px solid $gray-border
+
+.left-act
+	grid-template-columns: 90px 260px 1fr
+	grid-template-areas: "header header header" "menu menu-act breadcrumbs" "menu menu-act content"
+
+.menu-act
+	&__close
+		position: absolute
+		top: 12px
+		right: 17px
+
+.tabs-control-menu
+	display: block
+	list-style: none
+	margin: 0px
+	position: relative
+	padding: 0px 17px 0px 14px
+	&__list
+		display: block
+		float: left
+		padding: 9px 0px
+		text-align: center
+		cursor: pointer
+		color: $black
+		position: relative
+		border: 0px
+		border-bottom: 1px solid $gray-border
+		width: 50%
+		&:hover
+			font-weight: 600
+			border-bottom: 1px solid $red
+	&__active 
+		font-weight: 600
+		border-bottom: 1px solid $red
+	&__link
+		color: $black 
+		
+.all_adres 
+	margin: 18px 17px 0px 14px
+	.select2-container
+		.select2-selection--single
+			padding: 7px 0px 7px 0px
+
+.add_adres
+	display: flex
+	align-items: center
+	color: $black
+	margin: 10px 17px 0px 14px
+	&__icon
+		width: 16px
+		height: 16px
+		background: url("assets/img/public/add_icon.svg") no-repeat center left
+		display: inline-block
+		margin-right: 9px
+
+.menu-act-heading
+	font-weight: 600
+	margin: 19px 17px 0px 14px
+
+.menu-categories
+	list-style: none
+	padding: 0px
+	margin: 4px 17px 0px 14px
+	&__lev1
+		display: grid
+		grid-template-columns: 21px 26px 1fr 20px 14px
+		border-bottom: 1px solid $gray-border
+		padding: 9px 0px 9px 0px
+	&__lev2
+		list-style: none
+		padding: 0px
+		margin: 0px
+		&__list
+			display: grid
+			grid-template-columns: 21px 26px 1fr 20px 14px
+			padding: 9px 0px 9px 22px
+			&:not(:last-child)
+				border-bottom: 1px solid $gray-border
+			&__act
+				color: $red
+				font-weight: 600
+	.icon--edit
+		margin-top: 4px
+	.icon
+		margin: 0px
+
+.menu-categories-hover
+	display: grid
+	grid-template-columns: auto 1fr 20px 14px
+	padding: 13px 17px 13px 14px
+	background: $gray2
+	color: $dark_blue
+	&__label
+		font-size: 10px
+		font-weight: 600
+		padding: 1px 7px
+		background: $red
+		color: $white
+		border-radius: 0.325rem
+		text-transform: uppercase
+		height: 16px
+		align-self: center
+		display: flow-root
+		margin-left: 21px
+		margin-right: 9px
+	.icon--edit
+		display: inline-flex
+		align-self: center
+	.icon
+		margin: 0px
+
+
+@include media($tablet)
+	.language
+		&--login
+			right: 0
+
+			.language__list
+				left: -100px
+				z-index: 100

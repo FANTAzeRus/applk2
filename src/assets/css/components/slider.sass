@@ -1,0 +1,128 @@
+.swiper-pagination-bullet
+	background: $red !important
+	opacity: 1 !important
+
+	&:not(:last-child):after
+		content: ''
+		width: 0
+		height: 8px
+		background-color: $red
+		border-radius: 0 40% 40% 0
+		position: absolute
+		transition: width .2s linear
+
+	&-active
+		position: relative
+		&:not(:last-child):after
+			content: ''
+			width: 20px
+			left: 4px
+			
+
+.login-slider
+	height: 607px
+
+	.button
+		color: $black
+		max-width: 241px
+		margin-top: 20px
+		font-weight: 600
+
+		&:hover
+			color: $white
+
+	&__content
+		display: flex
+		height: 100%
+		padding-left: 2px
+		justify-content: space-between
+		align-items: center
+		padding-right: 25px
+
+	&__img
+		min-width: 332px
+		height: 528px
+		position: relative
+
+		padding: 4px
+		
+		&:after
+			content: ""
+			height: 100%
+			width: 100%
+			object-fit: cover
+			position: absolute
+			background-image: url("../public/phone-frame.png")
+			background-repeat: no-repeat
+			background-size: contain
+			top: 0
+			left: -3px
+
+		img
+			width: 100%
+			height: auto
+
+	&__text
+		display: flex
+		flex-direction: column
+		justify-content: space-between
+		max-width: 347px
+		height: 313px
+
+		position: relative
+
+		h3
+			font-size: 26px
+			font-weight: 600
+			line-height: 1.2
+		p
+			display: inline-block
+			max-width: 309px
+			margin-top: 26px
+
+			font-size: 15px
+			font-weight: 400
+			line-height: 1.6
+
+@include media(1439px, "min")
+	.login-slider
+		&__content
+			justify-content: safe center
+			gap: 44px
+			padding-right: 0
+
+@include media(1290px)
+	.login-slider
+		&__content
+			padding-right: 0
+
+@include media(1260px)
+	.login-slider
+		&__text p
+			margin-top: 20px
+			font-size: 14px
+
+@include media(1220px)
+	.login-slider
+		&__text p
+			margin-top: 26px
+			font-size: 15px
+
+@include media(1080px)
+	.login-slider
+		&__content
+			text-align: center
+			padding-right: 10px
+		&__text
+			max-width: 100%	
+			align-items: center
+		&__img
+			display: none
+
+@include media(970px)
+	.login-slider__text
+		h3
+			font-size: 23px
+		p
+			font-size: 14px
+			line-height: 1.5

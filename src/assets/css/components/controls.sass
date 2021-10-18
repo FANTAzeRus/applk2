@@ -1,0 +1,642 @@
+// Controls page style
+.container
+	max-width: 1100px
+	width: 100%
+	margin: 0 auto
+
+.controls
+	padding: 3rem 0
+	&__wrapper
+		display: grid
+		grid-gap: 3rem
+		grid-template-columns: 1fr 1fr
+	&__header
+		margin-bottom: 1rem
+	&__items
+		display: flex
+		flex-direction: column
+		align-items: flex-start
+		grid-gap: 1rem
+// Controls page style end
+
+
+//Buttons block
+.button
+	outline: none
+	cursor: pointer
+	color: $white
+	background: $red
+	align-items: center
+	border: 1px solid transparent
+	border-radius: .35em
+	box-shadow: none
+	display: inline-flex
+	font-size: 1rem
+	height: 3.5em
+	justify-content: center
+	padding-bottom: calc(1em - 1px)
+	padding-left: 2em
+	padding-right: 2em
+	padding-top: calc(1em - 1px)
+	vertical-align: top
+	position: relative
+	transition: .3s color, .3s background
+	&:hover, &--hover
+		color: $white
+		background: #C72712
+	&--filled
+		color: $white
+		background: $red
+	&--bordered
+		color: $red
+		border: 1px solid $red
+		background: transparent
+		white-space: pre
+		&:hover, &--hover
+			color: $white
+			background: $red
+	&--small
+		font-size: .75rem
+	&--medium
+		font-size: 1.25rem
+	&--large
+		font-size: 1.5rem
+	&--full-width
+		display: flex
+		width: 100%
+	&__add
+		outline: none
+		cursor: pointer
+		color: $black
+		align-items: center
+		box-shadow: none
+		display: inline-flex
+		justify-content: center
+		padding-bottom: 5px
+		padding-left: 22px
+		padding-right: 20px
+		padding-top: 4px
+		border: 1px solid $red
+		border-radius: 5px
+		font-weight: 600
+		margin-top: 8px
+		margin-bottom: 5px
+	&--bordered-grey
+		background: #fff
+		color: $gray
+		border: 1px solid $gray
+	&--arrow-back
+		border: solid $gray
+		margin-top: -2px
+		margin-right: 11px
+		border-width: 0 1px 1px 0
+		display: inline-block
+		padding: 3px
+		transform: rotate(135deg)
+		-webkit-transform: rotate(135deg)
+	&:hover
+		.button--arrow-back
+			border: solid $white
+			border-width: 0 1px 1px 0
+	&:disabled
+		background-color: grayscale($red)
+//Buttons block end
+
+
+// Inputs block
+input[type="tel"],
+input[type="text"],
+input[type="email"],
+input[type="number"],
+input[type="password"]
+	background: white
+	border: 1px solid $gray-border
+	border-radius: 5px
+	width: 100%
+	height: 45px
+	padding-left: 20px
+	font-size: 13px
+	font-family: inherit
+	outline: none
+	appearance: none
+	box-shadow: none
+	&:hover,
+	&:focus
+		outline: none
+	&::placeholder
+		color: $gray
+input.input-text
+	border: 1px solid $gray-border
+	box-sizing: border-box
+	border-radius: .375rem
+	height: 3rem
+	&:disabled
+		background: $gray2
+	&--error
+		border-color: #E6442F
+// Inputs block end
+
+// Textarea block
+textarea
+	background: white
+	border: 1px solid $gray-border
+	border-radius: 5px
+	width: 100%
+	height: 112px
+	padding-left: 20px
+	padding-top: 10px
+	font-size: 13px
+	font-family: inherit
+	outline: none
+// Textarea block end
+
+// Checkboxes & radios block
+.radio,
+.checkbox
+	cursor: pointer
+	display: inline-flex
+	align-items: center
+	&__input
+		position: absolute
+		height: 0
+		width: 0
+		overflow: hidden
+		opacity: 0
+		appearance: none
+	&__span
+		position: relative
+		background: transparent center center no-repeat
+		border-radius: .3rem
+		display: inline-flex
+		width: 1.5rem
+		height: 1.5rem
+		border: 1px solid $gray-border
+		box-sizing: content-box
+	&__text
+		font-size: 13px
+		margin-left: 8px
+		display: inline-block
+	&--small
+		.checkbox__span
+			width: 1.25rem
+			height: 1.25rem
+		.radio__span
+			width: 1.25rem
+			height: 1.25rem
+			&:after
+				width: 0.625rem
+				height: 0.625rem
+	&--super--small
+		.checkbox__span
+			width: 14px
+			height: 14px
+		.radio__span
+			width: 14px
+			height: 14px
+			&:after
+				width: 7px
+				height: 7px
+.checkbox
+	&__input:checked + span
+		background-position: left 5px center
+		background-image: url("assets/img/public/checkbox-check.svg")
+	&--filled
+		.checkbox__input:checked
+			& + span
+				border-color: $red
+				background-color: $red
+				background-image: url("assets/img/public/checkbox-check-white.svg")
+				
+.checkbox--super--small.checkbox--filled
+	.checkbox__input:checked + span
+		background-position: left 2px center
+		background-image: url("assets/img/public/checkbox-check-small.svg")
+		
+.radio
+	&__span
+		border-radius: 50%
+		&:after
+			position: absolute
+			background: $red
+			width: 11px
+			height: 11px
+			content: ''
+			top: 0
+			left: 0
+			bottom: 0
+			right: 0
+			margin: auto
+			border-radius: 50%
+			opacity: 0
+	&__input:checked + span
+		&:after
+			opacity: 1
+	&--filled
+		.radio__input:checked
+			& + span
+				border-color: $red
+				background-color: $red
+				&:after
+					background: $white
+// Checkboxes & radios block end
+
+// Checkboxes & radios block
+.select
+	appearance: none
+	background: url(assets/img/public/select--arrow--down.png) no-repeat right center
+	background-size: 29px 7px
+	width: 100%
+	border: 1px solid $gray-border 
+	padding: 12px 24px
+	outline: 0
+	border-radius: 5px
+	background-color: $white
+	cursor: pointer
+
+// Tags block
+.tag
+	&__list
+		display: flex
+		align-items: center
+		flex-wrap: wrap
+	&__item
+		font-size: .9rem
+		padding: .375rem 1.25rem
+		background: $gray2
+		border-radius: 30px
+		display: inline-flex
+		align-items: center
+		&:not(:last-child)
+			margin-left: 5px
+	&__close
+		cursor: pointer
+		margin-left: 5px
+		width: 10px
+		height: 10px
+		background: url('assets/img/public/icons/close.svg')
+	&__add
+		margin-left: 10px
+		cursor: pointer
+		display: inline-flex
+		width: 18px
+		height: 18px
+		background: url("assets/img/public/icons/add.svg")
+	&__title
+		font-weight: 600
+// Tags block end
+		
+
+// Diagram block end
+.diagram
+	position: relative
+	display: inline-flex
+	&__inner
+		text-align: center
+		top: 0
+		bottom: 0
+		right: 0
+		left: 0
+		position: absolute
+		display: flex
+		flex-direction: column
+		align-items: center
+		justify-content: center
+	&__digit
+		font-weight: 700
+		font-size: .8rem
+		line-height: .8rem
+	&__text
+		line-height: .7rem
+		font-size: .65rem
+		color: #9B9B9B
+	circle
+		fill: rgba($black, 0)
+		stroke: $gray-border
+		stroke-width: 3
+		stroke-dasharray: 140px 140px
+	circle:nth-child(2n)
+		fill: rgba($black, 0)
+		stroke: $red
+		stroke-width: 3
+		stroke-dasharray: calc(var(--percent) * 1.4) 138px
+// Diagram block end
+
+
+// Notifications block
+.notification
+	border-radius: .375rem
+	padding: 11px 30px 12px 47px
+	border: 1px solid $gray-border
+	background: no-repeat left 15px center
+	font-weight: normal
+	font-size: 13px
+	line-height: 130%
+	&--full-width
+		width: 100%
+		display: block
+	&--alert
+		border-color: $red
+		background-color: rgba($red, .1)
+		background-image: url("assets/img/public/icons/notify-alert.svg")
+	&--success
+		border-color: $green
+		background-color: rgba($green, .1)
+		background-image: url("assets/img/public/icons/notify-success.svg")
+// Notifications block end
+
+
+// Forms block
+.form
+	width: 100%
+	max-width: 415px
+	position: relative
+	&__close
+		cursor: pointer
+		position: absolute
+		display: flex
+		top: 18px
+		right: 21px
+		width: 15px
+		height: 15px
+		background: url("assets/img/public/icons/close.svg") center center no-repeat
+		background-size: cover
+	&__header
+		font-weight: 700
+		font-size: 20px
+		line-height: 110%
+		text-align: center
+		margin-bottom: 22px
+	&__subheader
+		font-weight: 400
+		margin-top: 6px
+		font-size: 13px
+		line-height: 130%
+	&__form
+	&__input-text
+		margin-bottom: 10px
+	&__button
+		margin: 0 auto
+		margin-top: 15px
+		display: flex
+.modal-form
+	box-shadow: 0 0 20px rgba($black, 0.07)
+	border-radius: .375rem
+	padding: 50px 40px 60px 40px
+// Forms block end
+
+
+// Icons block
+.icon
+	cursor: pointer
+	display: inline-flex
+	width: 20px
+	height: 20px
+	margin: .3rem
+	transition: .3s color
+	align-self: center
+	fill: $icon-color
+	&--soc
+		width: 29px
+		height: 28px
+		fill: $blue
+		&:hover
+			fill: $red
+	&:hover
+		fill: $red
+	&__list
+		display: flex
+	&--attention
+		width: 14px
+		height: 13px
+	&--close-round
+		width: 16px
+		height: 16px
+	&--check-round
+		width: 8px
+		height: 7px
+	&--menu
+		width: 8px
+		height: 7px
+	&--add
+		width: 15px
+		height: 14px
+	&--copy
+		width: 12px
+		height: 14px
+	&--email
+		width: 14px
+		height: 12px
+	&--filter
+		width: 13px
+		height: 12px
+	&--layers
+		width: 14px
+		height: 13px
+	&--phone
+		width: 13px
+		height: 14px
+	&--zoom
+		width: 17px
+		height: 16px
+	&--trash
+		width: 10px
+		height: 12px
+	&--stop
+		width: 40px
+		height: 40px
+	&--closed-grey
+		width: 16px
+		height: 16px
+	&--edit
+		cursor: pointer
+		margin: 0.2rem
+		display: inline-flex
+		fill: $icon-color
+		width: 12px
+		height: 12px
+		&:hover
+			fill: $red	
+// Icons block end
+
+
+// Labels block
+.text-label
+	font-size: 10px
+	font-weight: 600
+	padding: 3px 11px
+	background: $red
+	color: $white
+	border-radius: .325rem
+	text-transform: uppercase
+	display: inline-flex
+
+.text-label-grey
+	background: $icon-color
+	
+.text-label--with-arrow
+	position: relative
+	background: $gray2
+	border-radius: 20px
+	padding: 4px 2.5rem 4px 2rem
+	text-align: center
+	font-size: 13px
+	&:before
+		border-radius: 50%
+		background: $white
+		position: absolute
+		content: ''
+		width: 19px
+		height: 19px
+		top: 0
+		bottom: 0
+		right: 3px
+		margin: auto
+	&:after
+		content: ''
+		transform: rotate(-135deg)
+		right: 11px
+		top: 10px
+		margin: auto
+		position: absolute
+		width: 7px
+		height: 7px
+		border-left: 1px solid $red
+		border-bottom: 1px solid $red
+// Labels block
+
+
+// Tooltips block
+.tooltip-container
+	display: flex
+	align-items: center
+	.tooltip
+		margin-left: 10px
+.tooltip
+	position: relative
+	width: 18px
+	height: 18px
+	display: inline-block
+	background: url("assets/img/public/tooltip-icon.svg") no-repeat center center
+	&__text
+		visibility: hidden
+		position: absolute
+		background-color: $black
+		color: $white
+		text-align: center
+		padding: 5px 0
+		border-radius: 6px
+		z-index: 1
+		opacity: 0
+		transition: opacity .6s
+		left: 0
+		width: 230px
+		max-width: none
+		bottom: 150%
+		margin-left: -6px
+		&:after
+			content: ""
+			position: absolute
+			top: 100%
+			left: 15px
+			margin-left: -5px
+			border-width: 5px
+			border-style: solid
+			border-color: $black transparent transparent transparent
+	&:hover
+		.tooltip__text
+			visibility: visible
+			opacity: 1
+// Tooltips block end
+
+// Pagination block
+.pagination 
+	text-align: center
+	&__list
+		list-style: none
+		margin: 0
+		padding: 0
+		margin-top: 43px
+	&__item 
+		display: inline-block
+		margin-right: 7px
+	&__link 
+		display: flex
+		justify-content: center
+		align-items: center
+		width: 28px
+		height: 28px
+		border: 1px solid $icon-color
+		border-radius: 5px
+		color: $gray
+		font-size: 11px
+		line-height: 13px
+		&--active 
+			border: 1px solid $red
+			font-weight: 600
+			color: $black
+		&:hover
+			border: 1px solid $red
+			font-weight: 600
+			color: $black
+		&__prev
+			border: 0px
+			background: url(assets/img/public/_prev.svg) 0px 8px no-repeat
+			width: 8px
+			margin-right:1px
+			&:hover
+				border: 0px
+		&__next
+			border: 0px
+			background: url(assets/img/public/_next.svg) 0px 8px no-repeat
+			width: 8px
+			margin-left:1px
+			&:hover
+				border: 0px
+		&__ellipsis
+			border: 0px
+// Tooltips block end
+
+.clear
+	clear: both
+
+
+
+.selectLang
+	appearance: none
+	object-fit: cover
+
+	border: none
+	border-radius: 4px
+	overflow: hidden
+
+	font-size: 0
+
+	outline: none
+
+	.drop-arrow
+		transform: transform .2s ease
+
+		&.open
+			transform: rotate(180deg)
+
+	&__wrap
+		display: flex
+		align-items: center 
+		justify-content: center
+		width: 36px
+		height: 22px
+
+		gap: 0 8px
+
+		border: none
+		border-radius: 4px
+		background-color: var(--white)
+
+		position: absolute
+		top: 12px
+		left: 20px
+		
+		z-index: 2
+
+	option
+		font-size: 12.6px

@@ -1,32 +1,27 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
-  </div>
+  <router-view/>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+</script>
 
-#nav {
-  padding: 30px;
+<style lang="sass">
+@import "@/assets/css/base/normalize"
+@import "@/assets/css/base/reset"
+@import "@/assets/css/base/colors"
+@import "@/assets/css/base/breakpoints"
+@import "@/assets/css/base/fonts"
+@import "@/assets/css/base/mixins"
+@import "@/assets/countries/sprite"
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
+@import "@/assets/css/components/controls"
+@import "@/assets/css/components/public"
+@import "@/assets/css/components/popup"
+@import "@/assets/css/components/slider"
 
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
+@import '@/assets/css/pages/default-page'
+@import '@/assets/css/pages/table-page'
+@import '@/assets/css/pages/card_product'
+@import '@/assets/css/pages/login'
+
 </style>
