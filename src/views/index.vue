@@ -11,10 +11,7 @@
 			</div>
 
 			<div class="login-alert" ref="alert">
-				<svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-					<circle cx="11" cy="11" r="11" fill="#E6442F"/>
-					<path d="M15 7.80571L14.1943 7L11 10.1943L7.80571 7L7 7.80571L10.1943 11L7 14.1943L7.80571 15L11 11.8057L14.1943 15L15 14.1943L11.8057 11L15 7.80571Z" fill="white"/>
-				</svg>
+				<img src="@/assets/img/public/icons/alert-close.svg" alt="">
 
 				<div class="form__sub-header tooltip-container">
 					Войти можно через {{cooldownTimer}} сек.
@@ -147,9 +144,7 @@
 						</option>
 					</select>
 
-					<svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg" ref="arrow" class="drop-arrow">
-						<path d="M0.893939 -3.90753e-08L-2.2249e-07 0.910026L5 6L10 0.910026L9.10606 -3.98039e-07L5 4.17995L0.893939 -3.90753e-08Z" fill="black"/>
-					</svg>
+					<img src="@/assets/img/public/icons/drop-arrow.svg"  alt="">
 
 				</label>
 
