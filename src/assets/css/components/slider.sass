@@ -35,9 +35,9 @@
 		display: flex
 		height: 100%
 		padding-left: 2px
-		justify-content: space-between
+		justify-content: flex-start
+		gap: 35px
 		align-items: center
-		padding-right: 25px
 
 	&__img
 		min-width: 332px
@@ -84,17 +84,11 @@
 			font-weight: 400
 			line-height: 1.6
 
-@include media(1439px, "min")
+@media only screen and (max-height: 720px)
 	.login-slider
-		&__content
-			justify-content: safe center
-			gap: 44px
-			padding-right: 0
-
-@include media(1290px)
-	.login-slider
-		&__content
-			padding-right: 0
+		height: 507px
+		&__img
+			height: 428px
 
 @include media(1260px)
 	.login-slider
@@ -104,6 +98,9 @@
 
 @include media(1220px)
 	.login-slider
+		height: 507px
+		&__img
+			height: 428px
 		&__text p
 			margin-top: 26px
 			font-size: 15px
