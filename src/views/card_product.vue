@@ -1,318 +1,6 @@
 <template>
-	<!--Default page-->
-	<div class="page default-page left-act">
 
-		<!--Site header block-->
-		<header class="header">
-			<a href="#" class="logo">
-				<img src="@/assets/img/public/logo.svg" alt="Логотип Apps4B" class="logo__img">
-				<span class="logo__text">Мобильные приложения<br>для бизнеса</span>
-			</a>
-			<div class="language">
-				<div class="language__current">
-					<div class="language__flag">
-						<svg class="icon"><use xlink:href="img/public/icon-lang.svg#rus" /></svg>
-					</div>
-					<div class="language__arrow"></div>
-				</div>
-				<div class="language__list">
-					<div class="language__item">
-						<svg class="icon"><use xlink:href="img/public/icon-lang.svg#rus" /></svg>
-						Русский
-					</div>
-					<div class="language__item">
-						<svg class="icon"><use xlink:href="img/public/icon-lang.svg#eng" /></svg>
-						English
-					</div>
-				</div>
-			</div>
-
-			<div class="header-contacts">
-				<a href="#" class="header-contacts__help-link">Нужна помощь?</a>
-				<a href="mailto:" class="header-contacts__item header-contacts__email">
-					<svg class="icon icon--email">
-						<use xlink:href="img/public/icons-pack.svg#email"></use>
-					</svg>
-				</a>
-				<a href="tel:" class="header-contacts__item header-contacts__phone">
-					<svg class="icon icon--phone">
-						<use xlink:href="img/public/icons-pack.svg#phone"></use>
-					</svg>
-				</a>
-				<a href="tel:" class="header-contacts__item header-contacts__plus">
-					<svg class="icon icon--add">
-						<use xlink:href="img/public/icons-pack.svg#add"></use>
-					</svg>
-				</a>
-			</div>
-			<div class="header-user">
-				<div class="diagram" style="--percent: 75;">
-					<div class="diagram__inner">
-						<div class="diagram__digit">255</div>
-						<div class="diagram__text">дней</div>
-					</div>
-					<svg width="50" height="50">
-						<circle transform="rotate(-90)" r="22" cx="-25" cy="25" />
-						<circle transform="rotate(-90)" r="22" cx="-25" cy="25" />
-					</svg>
-				</div>
-				<div class="header-user__text">
-					<div class="header-user__name">Иванов Александр</div>
-					<div class="header-user__role">Администратор</div>
-				</div>
-			</div>
-		</header>
-		<!--Site header block end-->
-
-		<!--Left menu block-->
-		<nav class="menu">
-			<ul class="menu__list">
-				<li class="menu__item menu__item--selected">
-					<a href="#" class="menu__link">
-						<svg class="icon"><use xlink:href="img/public/icons-pack.svg#address" /></svg>
-						Адреса
-					</a>
-				</li>
-				<li class="menu__item">
-					<a href="#" class="menu__link">
-						<svg class="icon"><use xlink:href="img/public/icons-pack.svg#catalog" /></svg>
-						Каталог
-					</a>
-				</li>
-				<li class="menu__item">
-					<a href="#" class="menu__link">
-						<svg class="icon"><use xlink:href="img/public/icons-pack.svg#clients" /></svg>
-						Клиенты
-					</a>
-				</li>
-				<li class="menu__item">
-					<a href="#" class="menu__link">
-						<svg class="icon"><use xlink:href="img/public/icons-pack.svg#actions" /></svg>
-						Акции</a>
-				</li>
-				<li class="menu__item">
-					<a href="#" class="menu__link">
-						<svg class="icon"><use xlink:href="img/public/icons-pack.svg#news" /></svg>
-						Новости
-					</a>
-				</li>
-				<li class="menu__item">
-					<a href="#" class="menu__link">
-						<svg class="icon"><use xlink:href="img/public/icons-pack.svg#maps" /></svg>
-						Карты
-					</a>
-				</li>
-				<li class="menu__item">
-					<a href="#" class="menu__link">
-						<svg class="icon"><use xlink:href="img/public/icons-pack.svg#push" /></svg>
-						Push
-					</a>
-				</li>
-				<li class="menu__item">
-					<a href="#" class="menu__link">
-						<svg class="icon"><use xlink:href="img/public/icons-pack.svg#settings" /></svg>
-						Настройки
-					</a>
-				</li>
-			</ul>
-		</nav>
-		<!--Left menu block end-->
-		
-		<!--Left menu Activ block-->
-		<section class="menu-act">
-			<ul class="tabs-control-menu">
-				<li class="tabs-control-menu__list tabs-control-menu__active"><a class="tabs-control-menu__link" href="#">Активные</a></li>
-				<li class="tabs-control-menu__list"><a class="tabs-control-menu__link" lass="tabs-control-menu__link"href="#">Все</a></li>
-				<a class="menu-act__close" href="" ><img src="@/assets/img/public/double-arrows-grey.svg" alt="" /></a>
-			</ul>
-			<div class="clear"></div>
-			
-			<div class="all_adres">
-				<select class="select">
-					<option value="" selected>Все адреса</option>
-					<option>Адрес1</option>
-					<option>Адрес2</option>
-				</select>
-			</div>
-			<a href="#" class="add_adres">
-				<span class="add_adres__icon"></span>
-				<span>Добавить адрес</span>
-			</a>
-			
-			<div class="menu-act-heading">Категории</div>
-			<ul class="menu-categories">
-			
-				<!--Categories Level1 block-->
-				<li>
-					<div class="menu-categories__lev1">
-						<svg class="icon icon--menu">
-							<use xlink:href="img/public/icons-pack.svg#menu"></use>
-						</svg>
-						<label class="checkbox checkbox--filled checkbox--super--small">
-							<input class="checkbox__input" type="checkbox">
-							<span class="checkbox__span"></span>
-						</label>
-						<span>Пиццерия</span>
-						<svg class="icon--edit" xmlns="http://www.w3.org/2000/svg"><path d="M.974 9.062v2.188h2.188l6.451-6.452-2.187-2.187L.974 9.062zm10.331-5.955a.58.58 0 000-.823L9.94.92a.58.58 0 00-.823 0L8.05 1.987l2.188 2.187 1.067-1.067z"/></svg>
-						<svg class="icon icon--trash">
-							<use xlink:href="img/public/icons-pack.svg#trash"></use>
-						</svg>
-					</div>
-					
-					<ul class="menu-categories__lev2">
-						<!--Categories Level2 block-->
-						<li class="menu-categories__lev2__list">
-							<svg class="icon icon--menu">
-								<use xlink:href="img/public/icons-pack.svg#menu"></use>
-							</svg>
-							<label class="checkbox checkbox--filled checkbox--super--small">
-								<input class="checkbox__input" type="checkbox">
-								<span class="checkbox__span"></span>
-							</label>
-							<span>Пиццы</span>
-							<svg class="icon--edit" xmlns="http://www.w3.org/2000/svg"><path d="M.974 9.062v2.188h2.188l6.451-6.452-2.187-2.187L.974 9.062zm10.331-5.955a.58.58 0 000-.823L9.94.92a.58.58 0 00-.823 0L8.05 1.987l2.188 2.187 1.067-1.067z"/></svg>
-							<svg class="icon icon--trash">
-								<use xlink:href="img/public/icons-pack.svg#trash"></use>
-							</svg>
-						</li>
-						<!--Categories Level1 block end-->
-						
-						<!--Categories Level1 block-->
-						<li class="menu-categories__lev2__list">
-							<svg class="icon icon--menu">
-								<use xlink:href="img/public/icons-pack.svg#menu"></use>
-							</svg>
-							<label class="checkbox checkbox--filled checkbox--super--small">
-								<input class="checkbox__input" type="checkbox">
-								<span class="checkbox__span"></span>
-							</label>
-							<span>Роллы</span>
-							<svg class="icon--edit" xmlns="http://www.w3.org/2000/svg"><path d="M.974 9.062v2.188h2.188l6.451-6.452-2.187-2.187L.974 9.062zm10.331-5.955a.58.58 0 000-.823L9.94.92a.58.58 0 00-.823 0L8.05 1.987l2.188 2.187 1.067-1.067z"/></svg>
-							<svg class="icon icon--trash">
-								<use xlink:href="img/public/icons-pack.svg#trash"></use>
-							</svg>
-						</li class="menu-categories__list">
-						<!--Categories Level1 block end-->
-						
-						<!--Categories Level1 block-->
-						<li class="menu-categories__lev2__list">
-							<svg class="icon icon--menu">
-								<use xlink:href="img/public/icons-pack.svg#menu"></use>
-							</svg>
-							<label class="checkbox checkbox--filled checkbox--super--small">
-								<input class="checkbox__input" type="checkbox">
-								<span class="checkbox__span"></span>
-							</label>
-							<span>Пироги</span>
-							<svg class="icon--edit" xmlns="http://www.w3.org/2000/svg"><path d="M.974 9.062v2.188h2.188l6.451-6.452-2.187-2.187L.974 9.062zm10.331-5.955a.58.58 0 000-.823L9.94.92a.58.58 0 00-.823 0L8.05 1.987l2.188 2.187 1.067-1.067z"/></svg>
-							<svg class="icon icon--trash">
-								<use xlink:href="img/public/icons-pack.svg#trash"></use>
-							</svg>
-						</li>
-						<!--Categories Level1 block end-->
-					</ul>
-				</li>
-				<!--Categories Level1 block end-->
-				
-				<!--Categories Level1 block-->
-				<li>
-					<div class="menu-categories__lev1">
-						<svg class="icon icon--menu">
-							<use xlink:href="img/public/icons-pack.svg#menu"></use>
-						</svg>
-						<label class="checkbox checkbox--filled checkbox--super--small">
-							<input class="checkbox__input" type="checkbox">
-							<span class="checkbox__span"></span>
-						</label>
-						<span>Пиццерия</span>
-						<svg class="icon--edit" xmlns="http://www.w3.org/2000/svg"><path d="M.974 9.062v2.188h2.188l6.451-6.452-2.187-2.187L.974 9.062zm10.331-5.955a.58.58 0 000-.823L9.94.92a.58.58 0 00-.823 0L8.05 1.987l2.188 2.187 1.067-1.067z"/></svg>
-						<svg class="icon icon--trash">
-							<use xlink:href="img/public/icons-pack.svg#trash"></use>
-						</svg>
-					</div>
-					
-					<ul class="menu-categories__lev2">
-						<!--Categories Level2 block-->
-						<li class="menu-categories__lev2__list">
-							<svg class="icon icon--menu">
-								<use xlink:href="img/public/icons-pack.svg#menu"></use>
-							</svg>
-							<label class="checkbox checkbox--filled checkbox--super--small">
-								<input class="checkbox__input" type="checkbox" checked>
-								<span class="checkbox__span"></span>
-							</label>
-							<span class="menu-categories__lev2__list__act">Пиццы</span>
-							<svg class="icon--edit" xmlns="http://www.w3.org/2000/svg"><path d="M.974 9.062v2.188h2.188l6.451-6.452-2.187-2.187L.974 9.062zm10.331-5.955a.58.58 0 000-.823L9.94.92a.58.58 0 00-.823 0L8.05 1.987l2.188 2.187 1.067-1.067z"/></svg>
-							<svg class="icon icon--trash">
-								<use xlink:href="img/public/icons-pack.svg#trash"></use>
-							</svg>
-						</li>
-						<!--Categories Level1 block end-->
-						
-						<!--Categories Level1 block-->
-						<li class="menu-categories__lev2__list">
-							<svg class="icon icon--menu">
-								<use xlink:href="img/public/icons-pack.svg#menu"></use>
-							</svg>
-							<label class="checkbox checkbox--filled checkbox--super--small">
-								<input class="checkbox__input" type="checkbox">
-								<span class="checkbox__span"></span>
-							</label>
-							<span>Роллы</span>
-							<svg class="icon--edit" xmlns="http://www.w3.org/2000/svg"><path d="M.974 9.062v2.188h2.188l6.451-6.452-2.187-2.187L.974 9.062zm10.331-5.955a.58.58 0 000-.823L9.94.92a.58.58 0 00-.823 0L8.05 1.987l2.188 2.187 1.067-1.067z"/></svg>
-							<svg class="icon icon--trash">
-								<use xlink:href="img/public/icons-pack.svg#trash"></use>
-							</svg>
-						</li>
-						<!--Categories Level1 block end-->
-						
-						<!--Categories Level1 block-->
-						<li class="menu-categories__lev2__list">
-							<svg class="icon icon--menu">
-								<use xlink:href="img/public/icons-pack.svg#menu"></use>
-							</svg>
-							<label class="checkbox checkbox--filled checkbox--super--small">
-								<input class="checkbox__input" type="checkbox">
-								<span class="checkbox__span"></span>
-							</label>
-							<span>Пироги</span>
-							<svg class="icon--edit" xmlns="http://www.w3.org/2000/svg"><path d="M.974 9.062v2.188h2.188l6.451-6.452-2.187-2.187L.974 9.062zm10.331-5.955a.58.58 0 000-.823L9.94.92a.58.58 0 00-.823 0L8.05 1.987l2.188 2.187 1.067-1.067z"/></svg>
-							<svg class="icon icon--trash">
-								<use xlink:href="img/public/icons-pack.svg#trash"></use>
-							</svg>
-						</li>
-						<!--Categories Level1 block end-->
-					</ul>
-				</li>
-				<!--Categories Level1 block end-->
-			</ul>
-			<div class="menu-categories-hover">
-				<div class="menu-categories-hover__label">1</div>
-				<span>1 выделен</span>
-				<svg class="icon--edit" xmlns="http://www.w3.org/2000/svg"><path d="M.974 9.062v2.188h2.188l6.451-6.452-2.187-2.187L.974 9.062zm10.331-5.955a.58.58 0 000-.823L9.94.92a.58.58 0 00-.823 0L8.05 1.987l2.188 2.187 1.067-1.067z"/></svg>
-				<svg class="icon icon--trash">
-					<use xlink:href="img/public/icons-pack.svg#trash"></use>
-				</svg>
-			</div>
-			
-		</section>
-		<!--Left menu Activ block end-->
-		 
-		<!--Breadcrumbs block-->
-		<section class="breadcrumbs">
-			<div class="breadcrumbs__list">
-				<a href="#" class="breadcrumbs__item">Категория 1</a>
-				<div class="breadcrumbs__separator"></div>
-				<a href="#" class="breadcrumbs__item">Категория 1</a>
-				<div class="breadcrumbs__separator"></div>
-				<div class="breadcrumbs__item">Позиции в категории
-					<a class="breadcrumbs__link">Пицца</a>
-				</div>
-			</div>
-		</section>
-		<!--Breadcrumbs block end-->
-
-		<!--Content block-->
+	<default-page class="left-act" :pageOptions="pageOptions">
 		<section class="content">
 			<div class="content_block content_block-card">
 				<!--Card Product Heder-->
@@ -344,7 +32,7 @@
 				
 				<div class="separator_all_grey"></div>
 				<div class="content_section">
-				  <div class="content_section__block">
+					<div class="content_section__block">
 					<div class="heading-grey">Основные параметры</div>
 					<div class="separator_all_grey"></div>
 					
@@ -361,11 +49,11 @@
 						<div>
 							<div class="content_heading default-heading heading-first">Адреса</div>
 							<select class="select js-select-tags">
-								  <option selected="selected">Адрес 1</option>
-								  <option selected="selected">Адрес 2</option>
-								  <option>Адрес 3</option>
-								  <option>Адрес 3</option>
-								  <option>Адрес 3</option>
+									<option selected="selected">Адрес 1</option>
+									<option selected="selected">Адрес 2</option>
+									<option>Адрес 3</option>
+									<option>Адрес 3</option>
+									<option>Адрес 3</option>
 							</select>
 						</div>
 					</div>
@@ -419,7 +107,7 @@
 								
 								<div class="promo-date-heading__date">
 									<span class="promo-date-heading__date--text">Дата и время акции</span>
-									<a class="promo-date-heading__date-icon" href="" ><img src="@/assets/img/public/calendar-icon.svg" alt="" /></a>
+									<a class="promo-date-heading__date-icon" href="" ><img src="img/public/calendar-icon.svg" alt="" /></a>
 								</div>
 							</div>
 							<label for="temp-name" class="content_heading default-heading">Временное название</label>
@@ -722,7 +410,7 @@
 						</div>
 						<!--Product Table row end-->	
 						
-					  <div class="card-table-products--scroll">
+						<div class="card-table-products--scroll">
 						<!--Product Table row-->				
 						<div class="card-table-products__list">				
 							<a class="card-table-products__item card-table-products__item--menudrop">
@@ -736,7 +424,7 @@
 									<span class="checkbox__span"></span>
 								</label>
 							</div>
-							<div class="card-table-products__item card-table-products__item--photo"><img src="@/assets/img/public/pic/table-products-photo1.svg" alt="" /></div>
+							<div class="card-table-products__item card-table-products__item--photo"><img src="img/public/pic/table-products-photo1.svg" alt="" /></div>
 							<div class="card-table-products__item card-table-products__item--art">AA3456</div>
 							<div class="card-table-products__item card-table-products__item--name">
 								Размер пиццы 30см, тесто тонкое, мука классическая
@@ -772,7 +460,7 @@
 									<span class="checkbox__span"></span>
 								</label>
 							</div>
-							<div class="card-table-products__item card-table-products__item--photo"><img src="@/assets/img/public/pic/table-products-photo1.svg" alt="" /></div>
+							<div class="card-table-products__item card-table-products__item--photo"><img src="img/public/pic/table-products-photo1.svg" alt="" /></div>
 							<div class="card-table-products__item card-table-products__item--art">AA3456</div>
 							<div class="card-table-products__item card-table-products__item--name">
 								Размер пиццы 30см, тесто тонкое, мука классическая
@@ -806,7 +494,7 @@
 									<span class="checkbox__span"></span>
 								</label>
 							</div>
-							<div class="card-table-products__item card-table-products__item--photo"><img src="@/assets/img/public/pic/table-products-photo1.svg" alt="" /></div>
+							<div class="card-table-products__item card-table-products__item--photo"><img src="img/public/pic/table-products-photo1.svg" alt="" /></div>
 							<div class="card-table-products__item card-table-products__item--art">AA3456</div>
 							<div class="card-table-products__item card-table-products__item--name">
 								Размер пиццы 30см, тесто тонкое, мука классическая
@@ -842,7 +530,7 @@
 									<span class="checkbox__span"></span>
 								</label>
 							</div>
-							<div class="card-table-products__item card-table-products__item--photo"><img src="@/assets/img/public/pic/table-products-photo1.svg" alt="" /></div>
+							<div class="card-table-products__item card-table-products__item--photo"><img src="img/public/pic/table-products-photo1.svg" alt="" /></div>
 							<div class="card-table-products__item card-table-products__item--art">AA3456</div>
 							<div class="card-table-products__item card-table-products__item--name">
 								Размер пиццы 30см, тесто тонкое, мука классическая
@@ -878,7 +566,7 @@
 									<span class="checkbox__span"></span>
 								</label>
 							</div>
-							<div class="card-table-products__item card-table-products__item--photo"><img src="@/assets/img/public/pic/table-products-photo1.svg" alt="" /></div>
+							<div class="card-table-products__item card-table-products__item--photo"><img src="img/public/pic/table-products-photo1.svg" alt="" /></div>
 							<div class="card-table-products__item card-table-products__item--art">AA3456</div>
 							<div class="card-table-products__item card-table-products__item--name">
 								Размер пиццы 30см, тесто тонкое, мука классическая
@@ -914,7 +602,7 @@
 									<span class="checkbox__span"></span>
 								</label>
 							</div>
-							<div class="card-table-products__item card-table-products__item--photo"><img src="@/assets/img/public/pic/table-products-photo1.svg" alt="" /></div>
+							<div class="card-table-products__item card-table-products__item--photo"><img src="img/public/pic/table-products-photo1.svg" alt="" /></div>
 							<div class="card-table-products__item card-table-products__item--art">AA3456</div>
 							<div class="card-table-products__item card-table-products__item--name">
 								Размер пиццы 30см, тесто тонкое, мука классическая
@@ -950,7 +638,7 @@
 									<span class="checkbox__span"></span>
 								</label>
 							</div>
-							<div class="card-table-products__item card-table-products__item--photo"><img src="@/assets/img/public/pic/table-products-photo1.svg" alt="" /></div>
+							<div class="card-table-products__item card-table-products__item--photo"><img src="img/public/pic/table-products-photo1.svg" alt="" /></div>
 							<div class="card-table-products__item card-table-products__item--art">AA3456</div>
 							<div class="card-table-products__item card-table-products__item--name">
 								Размер пиццы 30см, тесто тонкое, мука классическая
@@ -972,7 +660,7 @@
 							</div>
 						</div>
 						<!--Product Table row end-->	
-					  </div>
+						</div>
 					<!--Card Product Table block end-->
 					</div>
 					
@@ -1095,13 +783,11 @@
 								<use xlink:href="img/public/icons-pack.svg#trash"></use>
 							</svg>
 						</div>
-					</div>	
-					<!--Additional goods row end-->
-				  </div>
-				  <!--Additional goods Table block end-->
-				  
-				  <div class="content_section__block">
-					<!--Additional goods add category-->
+					</div>
+					<!--Additional goods Table block end-->
+					
+					<div class="content_section__block">
+						<!--Additional goods add category-->
 					<a class="button__add add_category_button">Добавить категорию</a>	
 					<div class="content_heading default-heading">По умолчанию позиция добавляется в конец списка</div>
 					<label class="checkbox checkbox--filled checkbox--super--small">
@@ -1115,17 +801,33 @@
 					
 					<a class="button card_product_add_position">Добавить позицию</a>
 					<a class="button button--bordered-grey card_product_button_back"><span class="button--arrow-back"></span>Назад в каталог</a>
-				  </div>	
+					</div>	
 				</div>
 			</div>
 		</section>
-		<!--Content block end-->
-	</div>
-	<!--Default page end-->
+	</default-page>
+
 </template>
 
 <script>
+import DefaultPage from '@/components/DefaultPage'
+
 export default {
-  name: 'card_product',
+	name: 'card_product',
+
+	components: {
+		DefaultPage
+	},
+
+	data() {
+		return {
+			pageOptions: {
+				components: {
+					menuAct: true,
+					content: true,
+				}
+			}
+		}
+	}
 }
 </script>

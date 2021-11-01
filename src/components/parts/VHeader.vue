@@ -6,25 +6,15 @@
 			<span class="logo__text">Мобильные приложения<br>для бизнеса</span>
 		</a>
 		<lang-switcher />
-		<div class="header-contacts">
-			<a href="#" class="header-contacts__help-link">Нужна помощь?</a>
-			<a href="mailto:" class="header-contacts__item header-contacts__email">
-				<svg class="icon icon--email">
-					<use xlink:href="@/assets/img/public/icons-pack.svg#email"></use>
-				</svg>
-			</a>
-			<a href="tel:" class="header-contacts__item header-contacts__phone">
-				<svg class="icon icon--phone">
-					<use xlink:href="@/assets/img/public/icons-pack.svg#phone"></use>
-				</svg>
-			</a>
-			<a href="tel:" class="header-contacts__item header-contacts__plus">
-				<svg class="icon icon--add">
-					<use xlink:href="@/assets/img/public/icons-pack.svg#add"></use>
-				</svg>
-			</a>
-		</div>
+
 		<div class="header-user">
+			<div class="header-user__news">
+				<img src="@/assets/img/public/pic/chines-news.svg" alt="">
+				<select>
+					<option value="chines" selected="">Китайские новости</option>
+				</select>
+			</div>
+
 			<div class="diagram" style="--percent: 75;">
 				<div class="diagram__inner">
 					<div class="diagram__digit">255</div>
@@ -35,9 +25,22 @@
 					<circle transform="rotate(-90)" r="22" cx="-25" cy="25" />
 				</svg>
 			</div>
+
+			<div class="header-user__role-text">
+				Осталось до<br>блокировки ЛК
+			</div>
+
+			<img src="@/assets/img/public/pic/user-photo.jpg" class="header-user__photo" alt="">
+			
 			<div class="header-user__text">
 				<div class="header-user__name">Иванов Александр</div>
 				<div class="header-user__role">Администратор</div>
+				<img src="@/assets/img/public/icons/drop-arrow.svg" class="header-user__icon" alt="">
+			</div>
+
+			<div class="header-user__actions">
+				<img src="@/assets/img/public/icons/notification.svg" alt="">
+				<img src="@/assets/img/public/icons/quest.svg" alt="">
 			</div>
 		</div>
 	</header>

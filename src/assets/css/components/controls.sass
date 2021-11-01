@@ -172,6 +172,7 @@ textarea
 		height: 1.5rem
 		border: 1px solid $gray-border
 		box-sizing: content-box
+		background-color: $white
 	&__text
 		font-size: 13px
 		margin-left: 8px
@@ -243,8 +244,8 @@ textarea
 // Checkboxes & radios block
 .select
 	appearance: none
-	background: url(assets/img/public/select--arrow--down.png) no-repeat right center
-	background-size: 29px 7px
+	background: url(assets/img/public/select-arrow-down-black.png) no-repeat calc(100% - 14px) center
+	background-size: 12px 7px
 	width: 100%
 	border: 1px solid $gray-border 
 	padding: 12px 24px
@@ -252,6 +253,25 @@ textarea
 	border-radius: 5px
 	background-color: $white
 	cursor: pointer
+	transition: background-color .3s ease
+	&:hover
+		color: $white
+		background: url(assets/img/public/select-arrow-down-white.png) no-repeat  calc(100% - 14px) center
+		background-size: 12px 7px
+		background-color: $red
+	option
+		background: $white
+		color: $black
+
+.dateRange .reportrange-text
+	background-color: $white !important
+	transition: background-color .3s ease
+	&:hover
+		background-color: $red !important
+		color: $white
+
+		path
+			fill: $white
 
 // Tags block
 .tag
@@ -556,9 +576,13 @@ textarea
 		margin: 0
 		padding: 0
 		margin-top: 43px
+		display: flex
+		align-items: center
+		justify-content: center
 	&__item 
 		display: inline-block
 		margin-right: 7px
+		 
 	&__link 
 		display: flex
 		justify-content: center
@@ -570,26 +594,27 @@ textarea
 		color: $gray
 		font-size: 11px
 		line-height: 13px
+		transition: border .1s ease,
 		&--active 
 			border: 1px solid $red
 			font-weight: 600
 			color: $black
 		&:hover
-			border: 1px solid $red
+			border: 2px solid $red
 			font-weight: 600
 			color: $black
 		&__prev
 			border: 0px
-			background: url(assets/img/public/_prev.svg) 0px 8px no-repeat
 			width: 8px
 			margin-right:1px
+			transition: transform .3s ease
 			&:hover
 				border: 0px
 		&__next
 			border: 0px
-			background: url(assets/img/public/_next.svg) 0px 8px no-repeat
 			width: 8px
 			margin-left:1px
+			transition: transform .3s ease
 			&:hover
 				border: 0px
 		&__ellipsis
@@ -640,3 +665,15 @@ textarea
 
 	option
 		font-size: 12.6px
+
+
+.daterangepicker .drp-buttons .btn
+	margin-left: 8px
+	font-size: 12px
+	font-weight: 700
+	padding: 10px
+	border-radius: 4px
+
+
+.daterangepicker .btn-success
+	background-color: $red !important

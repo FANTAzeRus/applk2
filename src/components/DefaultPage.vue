@@ -1,15 +1,21 @@
 <template>
 	<!--Default page-->
-	<div class="page default-page">
+	<div :class="['page', 'default-page', pageOptions.components.menuAct ? 'left-act' : '']">
 		<v-header />
 
-		<v-menu />
+		<v-menu :selectedItem="pageOptions.name" />
 
-		<v-menu-act />
+		<slot v-if="pageOptions.components.menuAct" name="menuAct">
+			<v-menu-act />
+		</slot>
 
-		<breadcrumbs />
-
-		<Content />
+		<slot v-if="pageOptions.components.breadcrumbs" name="top-content">
+			<breadcrumbs />
+		</slot>
+		
+		<!--Content block-->
+		<slot></slot>
+		<!--Content block end-->
 	</div>
 	<!--Default page end-->
 </template>
@@ -19,7 +25,6 @@ import VHeader from "@/components/parts/VHeader"
 import VMenu from "@/components/parts/VMenu"
 import VMenuAct from "@/components/parts/VMenuAct"
 import Breadcrumbs from "@/components/parts/Breadcrumbs"
-import Content from "@/components/parts/Content"
 
 export default {
 
@@ -28,13 +33,14 @@ export default {
 		VMenu,
 		VMenuAct,
 		Breadcrumbs,
-		Content
 	},
 
 	name: 'default-page',
 
 	props: {
 		pageOptions: {
+			name: "",
+
 			components: {
 				header: {
 					type: Boolean,

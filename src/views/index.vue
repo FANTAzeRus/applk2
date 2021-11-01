@@ -54,7 +54,7 @@
 							<span class="checkbox__span"></span>
 							<span class="checkbox__text">Запомнить логин</span>
 						</label>
-						<button :disabled="!login || !password || timer != 30000" class="button form__button" ref="loginBtn">Войти</button>
+						<button @click="$router.push({name:'orders'})" :disabled="!login || !password || timer != 30000" class="button form__button" ref="loginBtn">Войти</button>
 					</div>
 				</div>
 				<div class="form__bottom-part">

@@ -127,8 +127,7 @@
 						</div>
 						<form action="" method="post" class="form__form">
 							<input type="text" name="login" placeholder="Логин" class="input-text form__input-text">
-							<input type="text" name="name" placeholder="Название организации"
-								   class="input-text form__input-text">
+							<input type="text" name="name" placeholder="Название организации" class="input-text form__input-text">
 							<button class="button form__button">Отправить</button>
 						</form>
 					</div>
@@ -213,6 +212,6 @@
 
 <script>
 export default {
-  name: 'library',
+	name: 'library',
 }
 </script>

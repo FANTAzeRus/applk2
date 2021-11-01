@@ -121,7 +121,7 @@
 		<section class="menu-act">
 			<ul class="tabs-control-menu">
 				<li class="tabs-control-menu__list tabs-control-menu__active"><a class="tabs-control-menu__link" href="#">Активные</a></li>
-				<li class="tabs-control-menu__list"><a class="tabs-control-menu__link" lass="tabs-control-menu__link"href="#">Все</a></li>
+				<li class="tabs-control-menu__list"><a class="tabs-control-menu__link" href="#">Все</a></li>
 				<a class="menu-act__close" href="" ><img src="@/assets/img/public/double-arrows-grey.svg" alt="" /></a>
 			</ul>
 			<div class="clear"></div>
@@ -184,11 +184,11 @@
 								<span class="checkbox__span"></span>
 							</label>
 							<span>Роллы</span>
-							<img class="icon--edit" class="icon--edit" src="img/public/icons/edit.svg" alt="">
+							<img class="icon--edit" src="img/public/icons/edit.svg" alt="">
 							<svg class="icon icon--trash">
 								<use xlink:href="img/public/icons-pack.svg#trash"></use>
 							</svg>
-						</li class="menu-categories__list">
+						</li>
 						<!--Categories Level1 block end-->
 						
 						<!--Categories Level1 block-->
@@ -293,7 +293,7 @@
 			</div>
 		</section>
 		<!--Left menu Activ block end-->
-		 
+
 		<!--Breadcrumbs block-->
 		<section class="breadcrumbs">
 			<div class="breadcrumbs__list">

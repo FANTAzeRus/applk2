@@ -1,8 +1,10 @@
 <template>
 	<!-- popup -->
 	<div @click="closeOutsidePopup" class="popup" v-if="show">
-		<div class="popup__wrap">
-			<div class="popup__header">
+		<div class="popup__wrap" :class="type == 'orders' ? 'popup__wrap--orders' : ''">
+			<div class="popup__header" :class="type == 'orders' ? 'popup__header--orders' : ''">
+				<slot name="header">
+				</slot>
 				<img
 					src="@/assets/img/public/icons/close-popup.svg"
 					class="popup__close"
@@ -10,7 +12,7 @@
 					alt=""
 				>
 			</div>
-			<div class="popup__content">
+			<div class="popup__content" :class="type == 'orders' ? 'popup__content--orders' : ''">
 				<slot></slot>
 			</div>
 		</div>
@@ -35,6 +37,8 @@ export default {
 			require: true,
 			type: Boolean
 		},
+
+		type: String
 	},
 
 	methods: {
@@ -54,7 +58,7 @@ export default {
 
 	watch: {
 		show() {
-			if(this.show && this.meal){
+			if(document.body.style.overflowY != 'hidden'){
 				document.body.style.overflowY = 'hidden'
 			} else {
 				document.body.style.overflowY = 'auto'

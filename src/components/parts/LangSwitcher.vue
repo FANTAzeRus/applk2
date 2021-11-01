@@ -1,8 +1,11 @@
 <template>
 	<div class="language">
+
 		<div @click="$event.currentTarget.classList.toggle('open')" ref="languageCurrent" class="language__current">
 			<div class="language__flag">
-				<svg class="icon"><use xlink:href="@/assets/img/public/icon-lang.svg#rus" /></svg>
+				<svg v-if="$i18n.locale == 'ru'" class="icon"><use xlink:href="@/assets/img/public/icon-lang.svg#ru" /></svg>
+				<svg v-else-if="$i18n.locale == 'en'" class="icon"><use xlink:href="@/assets/img/public/icon-lang.svg#en" /></svg>
+				<svg v-else-if="$i18n.locale == 'ua'" class="icon"><use xlink:href="@/assets/img/public/icon-lang.svg#ua" /></svg>
 			</div>
 			<div class="language__arrow"></div>
 		</div>
@@ -13,7 +16,7 @@
 				@click="selLang(locale)"
 				class="language__item"
 			>
-				<svg class="icon"><use xlink:href="@/assets/img/public/icon-lang.svg#rus" /></svg>
+				<svg class="icon"><use :xlink:href="`img/icon-lang.2897b249.svg#${locale}`" /></svg>
 				{{formatedLang(locale)}}
 			</div>
 			

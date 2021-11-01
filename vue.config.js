@@ -21,5 +21,5 @@
        enableInSFC: false,
        enableBridge: false
      }
-   }
+   },
  }
