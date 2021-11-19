@@ -695,17 +695,17 @@ export default {
 				{
 					name: "Острое",
 					model: false,
-					icon: "/img/marker-moon.jpg"
+					icon: "/applk2/img/marker-moon.jpg"
 				},
 				{
 					name: "Халяль",
 					model: false,
-					icon: "/img/marker-moon.jpg"
+					icon: "/applk2/img/marker-moon.jpg"
 				},
 				{
 					name: "Вегетарианское",
 					model: false,
-					icon: "/img/marker-moon.jpg"
+					icon: "/applk2/img/marker-moon.jpg"
 				},
 			],
 
