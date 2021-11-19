@@ -972,7 +972,7 @@ export default {
 		addMarkPopup() {
 			this.markList.push({
 				name: this.newMarkName,
-				icon: "/img/marker-moon.jpg",
+				icon: "/applk2/img/marker-moon.jpg",
 				model: false
 			})
 			this.newMarkName = ""

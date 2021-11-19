@@ -283,21 +283,21 @@ textarea
 			.select
 				width: 248px !important
 			.card-addres-tags
+				width: inherit
 				bottom: 6px
 				left: 7px
 				p 
 					padding: 1px 0 4px 10px
 					height: 18px
-					padding-right: 30px
+					padding-right: 13px
 					font-size: 12px
-					&:after
-						width: 7px
-						height: 7px
-						top: 4px
-						right: 9px
-						content: url("assets/img/public/icons/close-grey-tag-small.svg")
+				&--overflowed
+				p
+					&:nth-child(2)
+						visibility: visible
 
-		&--fheight .select
+		&--fheight
+		.select
 			height: 45px
 			overflow: hidden
 			padding-left: 14px
@@ -366,6 +366,9 @@ textarea
 			background-color: $gray2
 	&--open
 		background-color: $white
+		background: url(assets/img/public/select-arrow-down-black-open.png) no-repeat calc(100% - 14px) center
+		&:hover
+			background-size: 10px 7px
 	&--grey
 		background-color: $gray2
 		border: 1px solid $gray-border
