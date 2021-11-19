@@ -1,12 +1,18 @@
 <template>
 	<!--Default page-->
-	<div :class="['page', 'default-page', pageOptions.components.menuAct ? 'left-act' : '']">
+	<div 
+		:class="
+			['page', 'default-page',
+				pageOptions.components.menuAct ? 'left-act' : '',
+				!this.$store.state.categoryMenuShow && this.$store.state.categoryMenuShow != undefined ? 'left-act--close' : ''
+			]"
+	>
 		<v-header />
 
 		<v-menu :selectedItem="pageOptions.name" />
 
 		<slot v-if="pageOptions.components.menuAct" name="menuAct">
-			<v-menu-act />
+			<v-menu-act/>
 		</slot>
 
 		<slot v-if="pageOptions.components.breadcrumbs" name="top-content">
@@ -50,7 +56,13 @@ export default {
 					type: Boolean,
 					default: true
 				},
-				menuAct: Boolean,
+				menuAct: {
+					type: Boolean,
+					// default: {
+					// 	showMenu: false,
+					// 	toggleMenu: ()=>
+					// }
+				},
 				breadcrumbs: {
 					type: Boolean,
 					default: true

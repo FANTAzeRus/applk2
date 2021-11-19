@@ -64,6 +64,12 @@
 	&--full-width
 		display: flex
 		width: 100%
+	&--narrow
+		font-weight: 600
+		max-height: 30px
+		padding: 0 2em
+		display: flex
+		align-items: center
 	&__add
 		outline: none
 		cursor: pointer
@@ -81,10 +87,18 @@
 		font-weight: 600
 		margin-top: 8px
 		margin-bottom: 5px
+		transition: background-color .3s ease
+		&:hover, &--hover
+			color: $white
+			background-color: $red
 	&--bordered-grey
 		background: #fff
 		color: $gray
 		border: 1px solid $gray
+	&--grey
+		background-color: #D4D4D4
+		padding: calc(1em - 1px) 18px
+		color: $black
 	&--arrow-back
 		border: solid $gray
 		margin-top: -2px
@@ -148,12 +162,13 @@ textarea
 	font-size: 13px
 	font-family: inherit
 	outline: none
+	resize: none
 // Textarea block end
 
 // Checkboxes & radios block
 .radio,
 .checkbox
-	cursor: pointer
+	cursor: pointer !important
 	display: inline-flex
 	align-items: center
 	&__input
@@ -163,6 +178,7 @@ textarea
 		overflow: hidden
 		opacity: 0
 		appearance: none
+		cursor: pointer !important
 	&__span
 		position: relative
 		background: transparent center center no-repeat
@@ -173,6 +189,8 @@ textarea
 		border: 1px solid $gray-border
 		box-sizing: content-box
 		background-color: $white
+		cursor: pointer !important
+		transition: background-color .3s ease
 	&__text
 		font-size: 13px
 		margin-left: 8px
@@ -241,6 +259,8 @@ textarea
 					background: $white
 // Checkboxes & radios block end
 
+
+
 // Checkboxes & radios block
 .select
 	appearance: none
@@ -255,13 +275,101 @@ textarea
 	cursor: pointer
 	transition: background-color .3s ease
 	&:hover
-		color: $white
-		background: url(assets/img/public/select-arrow-down-white.png) no-repeat  calc(100% - 14px) center
 		background-size: 12px 7px
-		background-color: $red
-	option
-		background: $white
-		color: $black
+		background-color: $gray2
+	&-box
+		position: relative
+		&--small
+			.select
+				width: 248px !important
+			.card-addres-tags
+				bottom: 6px
+				left: 7px
+				p 
+					padding: 1px 0 4px 10px
+					height: 18px
+					padding-right: 30px
+					font-size: 12px
+					&:after
+						width: 7px
+						height: 7px
+						top: 4px
+						right: 9px
+						content: url("assets/img/public/icons/close-grey-tag-small.svg")
+
+		&--fheight .select
+			height: 45px
+			overflow: hidden
+			padding-left: 14px
+	&__search
+		display: flex
+		align-items: center
+		gap: 0 8px
+		width: calc(100% + 26px)
+		margin-left: -13px
+		margin-bottom: 11px
+		padding-left: 13px
+		padding-bottom: 12px
+
+		border-bottom: 1px solid $gray-border
+		
+		position: relative
+
+		&:hover
+			*
+				fill: $red
+		
+		.select__search-icon
+			position: relative
+			padding: 0
+			top: -2px
+			width: 12px
+			height: 12px
+			text-align: center
+			& .icon
+				margin: 0
+				width: inherit
+				height: inherit
+		.select__search-input
+			height: auto
+			padding: 0
+			border: none
+			background-color: transparent
+	&__list
+		width: 100%
+		padding: 17px 14px
+		margin: 0
+		list-style: none
+		
+		border-radius: 5px
+		background-color: $white
+
+		box-shadow: 0px 0px 20px rgba($black, .07)
+
+		position: absolute
+		top: 56px
+		left: 0
+		right: 0
+		z-index: 3
+		&--narrow
+			top: 46px
+	&__item
+		cursor: pointer
+		padding: 5px 14px 7px
+		display: flex
+		align-items: center
+		border-radius: 3px
+
+		font-size: 13px
+		line-height: 1.1
+		&:hover
+			background-color: $gray2
+	&--open
+		background-color: $white
+	&--grey
+		background-color: $gray2
+		border: 1px solid $gray-border
+
 
 .dateRange .reportrange-text
 	background-color: $white !important
@@ -484,8 +592,7 @@ textarea
 	font-size: 10px
 	font-weight: 600
 	padding: 3px 11px
-	background: $red
-	color: $white
+	color: $red
 	border-radius: .325rem
 	text-transform: uppercase
 	display: inline-flex

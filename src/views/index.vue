@@ -96,7 +96,7 @@
 			<a href="tel:88001234578" class="login-contacts__phone">8 (800) 123-45-78</a>
 		</div>
 
-		<popup :show="popupRecovShow" @closePopup="closeRecPopup">
+		<popup :show="popupRecovShow" type="login" @closePopup="closeRecPopup">
 			<h3>Забыли пароль?</h3>
 			<p class="popup__text">Заполните данные, ссылка на смену пароля придет Вам на почту</p>
 			<div class="form__control">
@@ -123,7 +123,7 @@
 			<button @click="popupRecovShow = false" :disabled="!login || !organizationName" class="button">Подтвердить</button>
 		</popup>
 
-		<popup :show="popupRegistrationShow" @closePopup="closeRegPopup">
+		<popup :show="popupRegistrationShow" type="login" @closePopup="closeRegPopup">
 			<h3>Регистрация</h3>
 			<p class="popup__text">Заполните данные, на почту придет пароль для входа в личный кабинет</p>
 			<div class="form__control">

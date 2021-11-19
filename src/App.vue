@@ -7,9 +7,9 @@
 
 <style lang="sass">
 @import "@/assets/css/base/normalize"
-@import "@/assets/css/base/reset"
 @import "@/assets/css/base/colors"
 @import "@/assets/css/base/breakpoints"
+@import "@/assets/css/base/reset"
 @import "@/assets/css/base/fonts"
 @import "@/assets/css/base/mixins"
 @import "@/assets/countries/sprite"

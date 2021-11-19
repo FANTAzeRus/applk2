@@ -15,9 +15,11 @@
     "swiper": "^5.4.5",
     "vue": "^2.6.11",
     "vue-awesome-swiper": "^4.1.1",
+    "vue-draggable-nested-tree": "^3.0.0-beta2",
     "vue-i18n": "^8.26.3",
     "vue-router": "^3.2.0",
     "vue2-daterange-picker": "^0.6.7",
+    "vuedraggable": "^2.24.3",
     "vuex": "^3.4.0"
   },
   "devDependencies": {

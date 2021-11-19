@@ -1,7 +1,11 @@
 <template>
 	<!-- popup -->
-	<div @click="closeOutsidePopup" class="popup" v-if="show">
-		<div class="popup__wrap" :class="type == 'orders' ? 'popup__wrap--orders' : ''">
+	<div @click="closeOutsidePopup" class="popup" v-show="show">
+		<div class="popup__wrap" :class="[
+			type == 'orders' ? 'popup__wrap--orders' : '', 
+			type == 'login' ? 'popup__wrap--login' : '',
+			type == 'addCat' ? 'popup__wrap--addCart' : ''
+			]">
 			<div class="popup__header" :class="type == 'orders' ? 'popup__header--orders' : ''">
 				<slot name="header">
 				</slot>
@@ -50,7 +54,7 @@ export default {
 		},
 
 		closeOutsidePopup(event) {
-			if (!event.target.closest(".popup__wrap")) {
+			if (!event.target.closest(".popup__wrap") && !event.target.closest(".select__list")) {
 				this.closePopup()
 			}
 		}

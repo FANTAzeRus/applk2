@@ -4,6 +4,7 @@ import Index from '../views/index'
 import Catalog from '../views/catalog'
 import Orders from '../views/orders'
 import CardProduct from '../views/card_product'
+// import Address from '../views/address'
 
 import Library from '../views/library'
 import test from '../views/test'
@@ -26,9 +27,19 @@ const routes = [
     name: 'orders',
     component: Orders
   },
+  // {
+  //   path: '/address',
+  //   name: 'address',
+  //   component: Address
+  // },
   {
     path: '/card-product',
     name: 'card-product',
+    component: CardProduct
+  },
+  {
+    path: '/card-product/:name',
+    name: 'card-product-name',
     component: CardProduct
   },
   {

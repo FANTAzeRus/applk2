@@ -30,13 +30,36 @@
 									<span class="checkbox__text">Только активные</span>
 								</label>
 							</div>
-							<div class="table-heder-filtr__dates table-heder-filtr__dates--time">
+							<div class="table-heder-filtr__dates table-heder-filtr__dates--time select-box">
+								<div @click="selectListShow = !selectListShow" :class="['select', selectListShow ? 'select--open' : '']">
+									{{selectListSel}}
+								</div>
+								<ul v-if="selectList.length && selectListShow" class="select__list select__list--narrow">
+									<div class="select__search">
+										<button class="select__search-icon" type="submit">
+											<svg class="icon icon--zoom">
+													<use xlink:href="@/assets/img/public/icons-pack.svg#zoom"></use>
+											</svg>
+										</button>
+										<input class="select__search-input" type="text" placeholder="Поиск..." name="search">
+									</div>
+									<li
+										v-for="(selectItem, index) in selectList"
+										:key="index"
+										@click="selSelectList(selectItem)"
+										class="select__item"
+									>
+										{{selectItem}}
+									</li>
+								</ul>
+							</div>
+							<!-- <div class=" ">
 								<select class="select">
 									<option value="" selected>Все адреса</option>
 									<option>Адрес1</option>
 									<option>Адрес2</option>
 								</select>
-							</div>
+							</div> -->
 						</div>
 
 						<div class="table-heder-filtr-search table-heder-filtr-search--table">
@@ -582,15 +605,28 @@ export default {
 
 	created() {
 		setInterval(()=> {
-			this.$refs.reloadProgress.value++;
-			if (this.$refs.reloadProgress?.value >= 1000) {
-				this.$refs.reloadProgress.value = 0;
+			if (this.$refs.reloadProgress) {
+				this.$refs.reloadProgress.value++;
+				if (this.$refs.reloadProgress?.value >= 1000) {
+					this.$refs.reloadProgress.value = 0;
+				}
 			}
-		}, 100)
+		}, 200)
 	},
 
 	data() {
 		return {
+			selectList: [
+				"Профсоюзная 1, корп. 2",
+				"Профсоюзная 1, корп. 2",
+				"Профсоюзная 1, корп. 2",
+				"Профсоюзная 1, корп. 2",
+				"г. Москва, Московская 1, корп. 2",
+				"ул. Кирова, д. 5"
+			],
+			selectListShow: false,
+			selectListSel: "Все адреса",
+
 			orderPopup: false,
 
 			dateRange: {
@@ -643,6 +679,11 @@ export default {
 	},
 
 	methods: {
+		selSelectList(item) {
+			this.selectListShow = false
+			this.selectListSel = item
+		},
+
 		filterSelect(event) {
 			event.currentTarget.parentElement.children.forEach(btn=> {
 				btn.classList.remove("selected")	

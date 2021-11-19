@@ -8,8 +8,9 @@
 				v-for="({title, svgId}, index) in menuList"
 				:key="index"
 			>
+			<!-- :xlink:href="`img/icons-pack.6a51f700.svg#${svgId}`" -->
 				<a href="#" @click.prevent="$router.push({name: svgId})" class="menu__link">
-					<svg class="icon"><use :xlink:href="`img/icons-pack.da6dec73.svg#${svgId}`" /></svg>
+					<svg class="icon"><use :xlink:href="`img/icons-pack.d85fddc4.svg#${svgId}`" /></svg>
 					{{title}}
 				</a>
 			</li>
@@ -31,6 +32,8 @@ export default {
 	data() {
 		return {
 			menuList: [
+				{ title: 'Сводка', svgId: 'dashboard' },
+				{ title: 'Компании', svgId: 'company' },
 				{ title: 'Адреса', svgId: 'address' },
 				{ title: 'Каталог', svgId: 'catalog' },
 				{ title: 'Заказы', svgId: 'orders' },
