@@ -64,12 +64,12 @@
 
 						<div class="table-heder-filtr-search table-heder-filtr-search--table">
 							<form class="table-heder-filtr-search__search" action="">
-								<button class="table-heder-filtr-search__search--button" type="submit">
+								<div class="table-heder-filtr-search__search--button" type="submit">
 									<svg class="icon icon--zoom">
 											<use xlink:href="@/assets/img/public/icons-pack.svg#zoom"></use>
 									</svg>
-								</button>
-								<input class="table-heder-filtr-search__input" type="text" placeholder="Поиск" name="search">
+								</div>
+								<input class="table-heder-filtr-search__input" type="text" placeholder="Поиск..." name="search">
 								<a class="table-heder-filtr-search__download" href="#">Выгрузить в XSL</a>
 							</form>
 						</div>
@@ -140,14 +140,14 @@
 						<!--Filter and Search block-->
 						<div class="table-heder-filtr-search table-heder-filtr-search--table-hide">
 							<form class="table-heder-filtr-search__search" action="">
-								<button class="table-heder-filtr-search__search--button" type="submit">
+								<div class="table-heder-filtr-search__search--button" type="submit">
 									<svg class="icon icon--zoom">
 											<use xlink:href="@/assets/img/public/icons-pack.svg#zoom"></use>
 									</svg>
-								</button>
-								<input class="table-heder-filtr-search__input" type="text" placeholder="Поиск" name="search">
-								<a class="table-heder-filtr-search__download" href="#">Выгрузить в XSL</a>
+								</div>
+								<input class="table-heder-filtr-search__input" type="text" placeholder="Поиск..." name="search">
 							</form>
+							<a class="table-heder-filtr-search__download" href="#">Выгрузить в XSL</a>
 						</div>
 					</div>
 					<!--Filter and Search block end-->

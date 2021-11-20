@@ -102,11 +102,11 @@
 			font-size: 13px
 			line-height: 1.1
 	&__dates
-		max-height: 35px
 		margin-top: 14px
 		&--time
 			margin-top: 10px
 		.select
+			max-height: 35px
 			line-height: 1.1
 			padding: 9px 21px
 	&__btns-row
@@ -211,6 +211,8 @@
 			font-weight: 600
 
 .table-heder-filtr-search
+	display: flex
+	align-items: center
 	text-align: center
 	position: relative
 	&__input
@@ -251,6 +253,7 @@
 			.icon
 				fill: $red
 	&__search
+		max-width: 234px
 		position: relative
 		display: flex
 		align-items: center
@@ -261,7 +264,7 @@
 		max-height: 30px
 
 		.table-heder-filtr-search__search--button
-			top: 10px
+			top: 2px
 
 		.table-heder-filtr-search__search--button svg
 			transition: .3s ease

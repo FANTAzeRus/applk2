@@ -5,7 +5,9 @@
 			<div class="content_block content_block-card">
 				<!--Card Product Heder-->
 				<div class="flex_block">
-					<router-link class="add_positionk" :to="{name:'catalog'}">Добавление новой позиции</router-link>
+					
+					<router-link v-if="isCreatePage" class="add_positionk" :to="{name:'catalog'}">Добавление новой позиции</router-link>
+					<span v-else class="add_positionk" @click="$router.go(-1)">Редактирование {{$route.params.name}}</span>
 
 					<div class="language_razdel">
 						<div class="language_razdel-txt">Язык раздела</div>

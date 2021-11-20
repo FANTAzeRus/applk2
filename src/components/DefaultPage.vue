@@ -4,7 +4,7 @@
 		:class="
 			['page', 'default-page',
 				pageOptions.components.menuAct ? 'left-act' : '',
-				!this.$store.state.categoryMenuShow && this.$store.state.categoryMenuShow != undefined ? 'left-act--close' : ''
+				pageOptions.components.menuAct && !this.$store.state.categoryMenuShow ? 'left-act--close' : ''
 			]"
 	>
 		<v-header />

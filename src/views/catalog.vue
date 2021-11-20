@@ -249,7 +249,7 @@
 							<svg @click="blockItem(idx)" :class="item.blocked ? 'icon--attention--hover' : ''" class="icon icon--attention">
 								<use xlink:href="@/assets/img/public/icons-pack.svg#attention"></use>
 							</svg>
-							<svg class="icon--edit" xmlns="http://www.w3.org/2000/svg"><path d="M.974 9.062v2.188h2.188l6.451-6.452-2.187-2.187L.974 9.062zm10.331-5.955a.58.58 0 000-.823L9.94.92a.58.58 0 00-.823 0L8.05 1.987l2.188 2.187 1.067-1.067z"/></svg>
+							<svg @click="$router.push({name:'card-product-name', params:{name: item.name}})" class="icon--edit" xmlns="http://www.w3.org/2000/svg"><path d="M.974 9.062v2.188h2.188l6.451-6.452-2.187-2.187L.974 9.062zm10.331-5.955a.58.58 0 000-.823L9.94.92a.58.58 0 00-.823 0L8.05 1.987l2.188 2.187 1.067-1.067z"/></svg>
 							<svg @click="removeAt(idx, true)" class="icon icon--trash">
 								<use xlink:href="@/assets/img/public/icons-pack.svg#trash"></use>
 							</svg>

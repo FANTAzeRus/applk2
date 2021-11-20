@@ -3,7 +3,7 @@
 		<div v-if="title" class="content_heading default-heading heading-first">{{title}}</div>
 		<div class="select-box select-box--fheight">
 			<div @click="selectOptions.selectListShow = !selectOptions.selectListShow" :class="['select', selectOptions.selectListShow ? 'select--open' : '']">
-				<div class="card-addres-tags" ref="tagsList" :class="isOverflowed && selectOptions.selectListSels.length - 1 >= 1 ? 'card-addres-tags--overflowed':''">
+				<div class="card-addres-tags" ref="tagsList" :class="isOverflowed && selectOptions.selectListSels.length > 0 ? 'card-addres-tags--overflowed':''">
 					<p
 						v-for="(selectItem, index) in selectOptions.selectListSels"
 						:key="index"
