@@ -31,45 +31,28 @@
 								</label>
 							</div>
 							<div class="table-heder-filtr__dates table-heder-filtr__dates--time select-box">
-								<div @click="selectListShow = !selectListShow" :class="['select', selectListShow ? 'select--open' : '']">
-									{{selectListSel}}
-								</div>
-								<ul v-if="selectList.length && selectListShow" class="select__list select__list--narrow">
-									<div class="select__search">
-										<button class="select__search-icon" type="submit">
-											<svg class="icon icon--zoom">
-													<use xlink:href="@/assets/img/public/icons-pack.svg#zoom"></use>
-											</svg>
-										</button>
-										<input class="select__search-input" type="text" placeholder="Поиск..." name="search">
-									</div>
-									<li
-										v-for="(selectItem, index) in selectList"
-										:key="index"
-										@click="selSelectList(selectItem)"
-										class="select__item"
-									>
-										{{selectItem}}
-									</li>
-								</ul>
+								<tooltip
+									:show="selectListShow"
+									:list="selectList"
+									:selItem.sync="selectListSel"
+									@toggleSelectList="selectListShow = !selectListShow"
+								/>
 							</div>
-							<!-- <div class=" ">
-								<select class="select">
-									<option value="" selected>Все адреса</option>
-									<option>Адрес1</option>
-									<option>Адрес2</option>
-								</select>
-							</div> -->
 						</div>
 
 						<div class="table-heder-filtr-search table-heder-filtr-search--table">
-							<form class="table-heder-filtr-search__search" action="">
+							<form @submit="submitSearch" class="table-heder-filtr-search__search" action="">
 								<div class="table-heder-filtr-search__search--button" type="submit">
 									<svg class="icon icon--zoom">
 											<use xlink:href="@/assets/img/public/icons-pack.svg#zoom"></use>
 									</svg>
 								</div>
-								<input class="table-heder-filtr-search__input" type="text" placeholder="Поиск..." name="search">
+								<input v-model="search" class="table-heder-filtr-search__input" type="text" placeholder="Поиск..." name="search">
+								<button @click="removeSearchInput" class="search__remove">
+									<svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+										<path d="M10 1.00714L8.99286 0L5 3.99286L1.00714 0L0 1.00714L3.99286 5L0 8.99286L1.00714 10L5 6.00714L8.99286 10L10 8.99286L6.00714 5L10 1.00714Z" fill="#9B9B9B"/>
+									</svg>
+								</button>
 								<a class="table-heder-filtr-search__download" href="#">Выгрузить в XSL</a>
 							</form>
 						</div>
@@ -104,18 +87,18 @@
 												@toggle="checkOpen" -->
 								<date-range-picker
 									class="dateRange"
-									:opens="opens"
-									:locale-data="localeData"
-									:ranges="rangesData"
-									:minDate="minDate" :maxDate="maxDate"
-									:singleDatePicker="singleDatePicker"
-									:timePicker="timePicker"
-									:timePicker24Hour="timePicker24Hour"
-									:showWeekNumbers="showWeekNumbers"
-									:showDropdowns="showDropdowns"
-									:autoApply="autoApply"
-									v-model="dateRange"
-									:linkedCalendars="linkedCalendars"
+									:opens="dataRangeConfig.opens"
+									:locale-data="dataRangeConfig.localeData"
+									:ranges="dataRangeConfig.rangesData"
+									:minDate="dataRangeConfig.minDate" :maxDate="dataRangeConfig.maxDate"
+									:singleDatePicker="dataRangeConfig.singleDatePicker"
+									:timePicker="dataRangeConfig.timePicker"
+									:timePicker24Hour="dataRangeConfig.timePicker24Hour"
+									:showWeekNumbers="dataRangeConfig.showWeekNumbers"
+									:showDropdowns="dataRangeConfig.showDropdowns"
+									:autoApply="dataRangeConfig.autoApply"
+									v-model="dataRangeConfig.dateRange"
+									:linkedCalendars="dataRangeConfig.linkedCalendars"
 								>
 									<template v-slot:input="picker">
 										<svg class="dateRange__pic" width="12" height="14" viewBox="0 0 12 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -138,15 +121,20 @@
 						</div>
 
 						<!--Filter and Search block-->
-						<div class="table-heder-filtr-search table-heder-filtr-search--table-hide">
+						<div @submit="submitSearch" class="table-heder-filtr-search table-heder-filtr-search--table-hide">
 							<form class="table-heder-filtr-search__search" action="">
 								<div class="table-heder-filtr-search__search--button" type="submit">
 									<svg class="icon icon--zoom">
 											<use xlink:href="@/assets/img/public/icons-pack.svg#zoom"></use>
 									</svg>
 								</div>
-								<input class="table-heder-filtr-search__input" type="text" placeholder="Поиск..." name="search">
+								<input v-model="search" class="table-heder-filtr-search__input" type="text" placeholder="Поиск..." name="search">
 							</form>
+							<button @click="removeSearchInput" class="search__remove">
+								<svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path d="M10 1.00714L8.99286 0L5 3.99286L1.00714 0L0 1.00714L3.99286 5L0 8.99286L1.00714 10L5 6.00714L8.99286 10L10 8.99286L6.00714 5L10 1.00714Z" fill="#9B9B9B"/>
+								</svg>
+							</button>
 							<a class="table-heder-filtr-search__download" href="#">Выгрузить в XSL</a>
 						</div>
 					</div>
@@ -193,7 +181,7 @@
 					<!--Product Table row-->        
 					<div
 						class="table-products__list table-products__list--orders"
-						v-for="(item, index) in Array(7)"
+						v-for="(item, index) in selectedPaginationCount"
 						:class="index == 1 ? 'table-products__list--new' : ''"
 						:key="item"
 					>        
@@ -438,9 +426,10 @@
 				</div>
 				<!--Product Table block end-->
 				
-				<pagination />
+				<pagination :paginationCountList="paginationCountList" />
 			
 			</div>
+			<div @click="closeTooltips" class="tooltip-mask" ref="tooltipMask"></div>
 		</section>
 
 		<popup type="orders" :show="orderPopup" @closePopup="closePopup">
@@ -453,7 +442,7 @@
 						<path d="M10.3074 11.0332H5.6865C5.39206 11.0332 5.15332 11.2903 5.15332 11.6074C5.15332 11.9245 5.39203 12.1816 5.6865 12.1816H10.3073C10.6018 12.1816 10.8405 11.9245 10.8405 11.6074C10.8405 11.2903 10.6018 11.0332 10.3074 11.0332Z" fill="#D5D5D5"/>
 						<path d="M14.7511 3.89735H13.0546V0.574196C13.0546 0.257105 12.8159 0 12.5215 0H3.4737C3.17925 0 2.94051 0.257071 2.94051 0.574196V3.89735H1.24406C0.558081 3.89735 0 4.49839 0 5.23714V11.0138C0 11.7526 0.558081 12.3536 1.24406 12.3536H2.94061V15.4358C2.94061 15.7529 3.17932 16.01 3.47379 16.01H12.5214C12.8158 16.01 13.0545 15.7529 13.0545 15.4358V12.3536H14.7511C15.4371 12.3536 15.9951 11.7526 15.9951 11.0138V5.23714C15.9951 4.49842 15.4371 3.89735 14.7511 3.89735ZM4.00685 1.14839H11.9883V3.89735H4.00685V1.14839ZM11.9882 14.8616H4.00697C4.00697 14.7494 4.00697 10.3028 4.00697 10.164H11.9882C11.9882 10.3063 11.9882 14.7537 11.9882 14.8616ZM12.5215 7.26894H11.1643C10.8698 7.26894 10.6311 7.01187 10.6311 6.69475C10.6311 6.37762 10.8698 6.12055 11.1643 6.12055H12.5215C12.8159 6.12055 13.0546 6.37762 13.0546 6.69475C13.0546 7.01187 12.8159 7.26894 12.5215 7.26894Z" fill="#9B9B9B"/>
 					</svg>
-					Печать
+					<span>Печать</span>
 				</div>
 			</template>
 
@@ -558,8 +547,6 @@
 			</template>
 		</popup>
 
-		<div @click="closeTooltips" class="tooltip-mask" ref="tooltipMask"></div>
-
 	</default-page>
 
 	<!--Default page end-->
@@ -573,6 +560,7 @@ import DefaultPage from '@/components/DefaultPage'
 import DateRangePicker from 'vue2-daterange-picker'
 import Popup from '@/components/Popup'
 import Pagination from '@/components/parts/Pagination'
+import Tooltip from "@/components/parts/Tooltip"
 //you need to import the CSS manually
 import 'vue2-daterange-picker/dist/vue2-daterange-picker.css'
 
@@ -591,6 +579,7 @@ export default {
 		DefaultPage,
 		DateRangePicker,
 		Popup,
+		Tooltip,
 		Pagination
 	},
 
@@ -616,55 +605,27 @@ export default {
 
 	data() {
 		return {
+			search: '',
+
+			paginationCountList: [
+				{name: 10, selected: true},
+				{name: 20, selected: false},
+				{name: 30, selected: false},
+			],
+
 			selectList: [
-				"Профсоюзная 1, корп. 2",
-				"Профсоюзная 1, корп. 2",
-				"Профсоюзная 1, корп. 2",
-				"Профсоюзная 1, корп. 2",
-				"г. Москва, Московская 1, корп. 2",
-				"ул. Кирова, д. 5"
+				{title: "Все адреса"},
+				{title: "Профсоюзная 1, корп. 2"},
+				{title: "Профсоюзная 1, корп. 2"},
+				{title: "Профсоюзная 1, корп. 2"},
+				{title: "Профсоюзная 1, корп. 2"},
+				{title: "г. Москва, Московская 1, корп. 2"},
+				{title: "ул. Кирова, д. 5"},
 			],
 			selectListShow: false,
-			selectListSel: "Все адреса",
+			selectListSel: {title: "Все адреса", data: {}},
 
 			orderPopup: false,
-
-			dateRange: {
-				startDate: '2020-12-10',
-				endDate: '2020-12-20',
-			},
-			single_range_picker: true,
-			show_ranges: false,
-			singleDatePicker: false,
-			timePicker: false,
-			timePicker24Hour: false,
-			showDropdowns: false,
-			autoApply: false,
-			showWeekNumbers: false,
-			linkedCalendars: true,
-			alwaysShowCalendars: true,
-			appendToBody: false,
-			closeOnEsc: true,
-			opens: 'center',
-			minDate: '2019-05-02 04:00:00',
-			maxDate: '2021-12-26 14:00:00',
-			rangesData: {
-				'Сегодня': [today, today],
-				'Вчера': [yesterday, yesterday],
-				'Этот месяц': [new Date( today.getFullYear(), today.getMonth(), 1), new Date( today.getFullYear(), today.getMonth(), 30)],
-				'Этот год': [new Date(today.getFullYear(), 0, 1), new Date(today.getFullYear(), 11, 31)],
-				'Последний месяц': [new Date(today.getFullYear(), today.getMonth() - 1, 1), new Date(today.getFullYear(), today.getMonth(), 0)],
-			},
-			localeData: {
-				firstDay: 1,
-				format: 'dd-mm-yyyy',
-				separator: ' - ',
-				applyLabel: 'Принять',
-				cancelLabel: 'Отменить',
-				weekLabel: 'Н',
-				daysOfWeek: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
-				monthNames: ['Янв', 'Фев', 'Мар', 'Апр', 'Мая', 'Июня', 'Июля', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'],
-			},
 
 			pageOptions: {
 				name:"orders",
@@ -678,10 +639,59 @@ export default {
 		}
 	},
 
+	computed: {
+		selectedPaginationCount() {
+			return this.paginationCountList.filter(item => item.selected)[0].name
+		},
+		dataRangeConfig() {
+			return {
+				dateRange: {
+					startDate: '2020-12-10',
+					endDate: '2020-12-20',
+				},
+				single_range_picker: true,
+				show_ranges: false,
+				singleDatePicker: false,
+				timePicker: false,
+				timePicker24Hour: false,
+				showDropdowns: false,
+				autoApply: false,
+				showWeekNumbers: false,
+				linkedCalendars: true,
+				alwaysShowCalendars: true,
+				appendToBody: false,
+				closeOnEsc: true,
+				opens: 'center',
+				minDate: '2019-05-02 04:00:00',
+				maxDate: '2026-12-31 14:00:00',
+				rangesData: {
+					'Сегодня': [today, today],
+					'Вчера': [yesterday, yesterday],
+					'Этот месяц': [new Date( today.getFullYear(), today.getMonth(), 1), new Date( today.getFullYear(), today.getMonth(), 30)],
+					'Этот год': [new Date(today.getFullYear(), 0, 1), new Date(today.getFullYear(), 11, 31)],
+					'Последний месяц': [new Date(today.getFullYear(), today.getMonth() - 1, 1), new Date(today.getFullYear(), today.getMonth(), 0)],
+				},
+				localeData: {
+					firstDay: 1,
+					format: 'dd-mm-yyyy',
+					separator: ' - ',
+					applyLabel: 'Принять',
+					cancelLabel: 'Отменить',
+					weekLabel: 'Н',
+					daysOfWeek: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
+					monthNames: ['Янв', 'Фев', 'Мар', 'Апр', 'Мая', 'Июня', 'Июля', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'],
+				},
+			}
+		}
+	},
+
 	methods: {
-		selSelectList(item) {
-			this.selectListShow = false
-			this.selectListSel = item
+		removeSearchInput() {
+			this.search = ''
+		},
+		submitSearch(event) {
+			event.preventDefault()
+			event.target.blur()
 		},
 
 		filterSelect(event) {
@@ -725,14 +735,18 @@ export default {
 			event.currentTarget.nextElementSibling.classList.toggle("show")
 		},
 
-		closeTooltips() {
-			const openTooltips = document.querySelectorAll(".tooltip-orders.show")
-			const selectedRow = document.querySelector(".table-products__list--selected")
+		closeTooltips(event) {
+			if (
+				!event.target.closest(".tooltip-orders")
+			) {
+				const openTooltips = document.querySelectorAll(".tooltip-orders.show")
+				const selectedRow = document.querySelector(".table-products__list--selected")
 
-			this.$refs.tooltipMask.classList.remove("show")
-			openTooltips.forEach(openTooltip => openTooltip.classList.remove("show"))
-			
-			selectedRow?.classList.remove("table-products__list--selected")
+				this.$refs.tooltipMask.classList.remove("show")
+				openTooltips.forEach(openTooltip => openTooltip.classList.remove("show"))
+				
+				selectedRow?.classList.remove("table-products__list--selected")
+			}
 		},
 
 		sortBy(event) {

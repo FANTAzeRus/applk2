@@ -1,0 +1,148 @@
+.main-params,
+.address,
+.map,
+.contact,
+.how-to-get,
+.working-time,
+.delivery-zone
+	&-row
+		display: flex
+
+		> *:not(:last-child)
+			margin-right: 19px
+
+		> div
+			flex: 1 1 50%
+
+		.input-text
+			height: 46px
+	&-column
+		display: flex
+		flex-direction: column
+
+		.input-text
+			height: 46px
+
+.main-params
+	&-row
+		max-width: 653px
+
+.address
+	&-row
+		max-width: 716px
+		&--narrow
+			max-width: 503px
+
+	&__index
+		max-width: 136px
+	&__house
+		max-width: 208px
+	&__floor, &__office
+		max-width: 127px
+	&__pavilion
+		max-width: 131px
+	&__trade-business
+		max-width: 349px
+
+.map
+	&__map
+		flex: 1 1 649px !important
+		height: 307px
+		margin-top: 25px
+		background-color: $gray
+		border-radius: 5px
+	&-column
+		flex: none !important
+
+.contact
+	&-column
+		> *:not(:nth-child(1))
+			margin-top: 8px
+
+	&__item
+		display: flex
+		align-items: center
+		> *:not(:last-child)
+			margin-right: 10px
+
+		.input-text
+			&--data
+				max-width: 250px
+				&--phone::placeholder
+					color: $black
+			&--title
+				max-width: 400px
+
+		.icon--remove
+			min-width: 16px
+			height: 16px
+			margin-left: 7px
+
+		&--add
+			padding-left: 26px
+			margin-top: 8px
+			&--empty
+				padding-left: 0
+
+.how-to-get
+	&-row
+		.icon--remove
+			padding-top: 45px
+			flex-basis: 18px !important
+			align-items: center
+
+	&__metro
+		max-width: 321px
+	&__time, &__color
+		max-width: 164px
+		position: relative
+	&__color .input-text
+		padding-left: 43px
+	&__demo
+		display: flex
+		width: 17px
+		height: 17px
+		position: absolute
+		left: 16px
+		bottom: 15px
+		background-color: green
+		border-radius: 2px
+
+.input-text--soc
+	&--data
+		flex: 1 1 523px
+	&--title
+		width: 400px !important
+		.select
+			height: 42px
+
+.input-text--email
+	&--data
+		flex: 0 1 325px
+	&--title
+		width: 400px !important
+		.select
+			height: 42px
+
+.working-time
+	&-row--center
+		display: flex
+		align-items: center
+		height: 57px
+		padding-left: 170px
+		border-bottom: 1px solid $gray-border
+
+		> *:not(:last-child)
+			margin-right: 100px
+
+.delivery-zone
+	&-row
+		> *:not(:last-child)
+			margin-right: 32px
+	&__map
+		flex: 1 1 345px !important
+		max-width: 345px
+		height: 345px
+		margin-top: 25px
+		background-color: $gray
+		border-radius: 5px

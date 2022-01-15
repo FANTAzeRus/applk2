@@ -17,14 +17,13 @@ body, html
 		align-items: center
 		justify-content: center
 		width: calc(100vw - 570px)
-		padding-left: 5%
-		padding-right: 45px
 		background: radial-gradient(246.12% 246.12% at -78.07% 273.59%, #E6442F 0%, #D4F1FA 100%)
+		.login-slider
+			padding-left: 5%
 
 @include media(1220px)
-	.login-page__slider-wrapper
+	.login-page__slider-wrapper .login-slider
 		padding-left: 20px
-		padding-right: 10px
 
 .login-contacts
 	display: flex
@@ -46,12 +45,14 @@ body, html
 .login-alert
 	display: none
 	align-items: center
-	gap: 0 10px
 	padding: 12px 15px
 
 	background-color: rgba($red, .1)
 	border: 1px solid $red
 	border-radius: 5px
+
+	> *:not(:last-child)
+		margin-right: 10px
 
 	&.show
 		display: flex

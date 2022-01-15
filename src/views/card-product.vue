@@ -1,13 +1,19 @@
 <template>
 
 	<default-page class="left-act" :pageOptions="pageOptions">
-		<section class="content">
+		<section class="content" :class="!isCreatePage ? 'content--masked' : ''">
 			<div class="content_block content_block-card">
 				<!--Card Product Heder-->
 				<div class="flex_block">
 					
 					<router-link v-if="isCreatePage" class="add_positionk" :to="{name:'catalog'}">Добавление новой позиции</router-link>
-					<span v-else class="add_positionk" @click="$router.go(-1)">Редактирование {{$route.params.name}}</span>
+					<span
+						class="add_positionk"
+						v-else
+						@click="hasChanges ? $router.push({name:'card-product'}) : $router.go(-1)"
+					>
+						Редактирование {{editItem.title || ''}}
+					</span>
 
 					<div class="language_razdel">
 						<div class="language_razdel-txt">Язык раздела</div>
@@ -26,28 +32,22 @@
 						<!--Categories and Addresses--> 
 						<div class="categories_fddresses-block">
 
-							<multi-select :selectOptions="selectLists[0]" title="Категории"/>
-							<multi-select :selectOptions="selectLists[1]" title="Адреса"/>
+							<multi-select :selectOptions="selectLists[0]" noRoot selAll categories title="Категории"/>
+							<multi-select :selectOptions="selectLists[1]" noRoot selAll title="Адреса"/>
 
 						</div>
 						<!--Categories and Addresses end-->
 						
 						<!--Additional Categories-->
 						<div class="other-categories">
-							<div v-if="selectLists[0].selectListSels.length">
+
+							<div :class="selectLists[0].selectListSels.length ? 'other-categories--show' : ''">
 								<div class="content_heading default-heading">Выбранные категории</div>
-								<div class="other-categories__list">
-									<div
-										v-for="(item, index) in selectLists[0].selectListSels"
-										:key="index"
-										class="text-label--with-arrow"
-									>
-										{{item.data}}
-									</div>
-								</div>
+
+								<multi-select :selectOptions="selectLists[0]" preview categories title="Категории"/>
 							</div>
 
-							<div v-if="selectLists[1].selectListSels.length">
+							<div :class="selectLists[1].selectListSels.length ? 'other-categories--show' : ''">
 								<div class="content_heading default-heading">Выбранные адреса</div>
 								<div class="other-categories__list">
 									<div
@@ -55,7 +55,7 @@
 										:key="index"
 										class="text-label--with-arrow"
 									>
-										{{item}}
+										{{item.title || ''}}
 									</div>
 								</div>
 							</div>
@@ -69,7 +69,7 @@
 						<div class="marker-block">
 							<div>
 								<label class="checkbox checkbox--filled checkbox--super--small">
-									<input class="checkbox__input" type="checkbox" checked="">
+									<input class="checkbox__input" type="checkbox">
 									<span class="checkbox__span"></span>
 									<span class="checkbox__text">Доставка по адресу</span>
 								</label>
@@ -84,7 +84,7 @@
 							</div>
 							<div>
 								<label class="checkbox checkbox--filled checkbox--super--small">
-									<input class="checkbox__input" type="checkbox" checked="">
+									<input class="checkbox__input" type="checkbox">
 									<span class="checkbox__span"></span>
 									<span class="checkbox__text">Самовывоз</span>
 								</label>
@@ -105,17 +105,20 @@
 										<span class="checkbox__text">Отображать артикул</span>
 									</label>							
 								</div>
-								<input type="text" id="vendor-code" class="input-text" placeholder="АА123345">
+								<input v-if="editItem" v-model="editItem.article" type="text" id="vendor-code" class="input-text">
+								<input v-else type="text" id="vendor-code" class="input-text">
 								<label for="name" class="content_heading default-heading">Название</label>
-								<input type="text" id="name" class="input-text" placeholder="Пицца">
+								<input v-if="editItem" v-model="editItem.title" type="text" id="name" class="input-text">
+								<input v-else type="text" id="name" class="input-text">
 								<div class="vendor-code-and-date-block__price">
 									<div>
 										<label for="price" class="content_heading default-heading">Цена</label>
-										<input type="text" id="price" class="input-text" placeholder="500 руб.">
+										<input v-if="editItem" v-model="editItem.price" type="text" id="price" class="input-text">
+										<input v-else type="text" id="price" class="input-text">
 									</div>
 									<div>
 										<label for="old-price" class="content_heading default-heading">Старая цена</label>
-										<input type="text" id="old-price" class="input-text" placeholder="700 руб.">
+										<input type="text" id="old-price" class="input-text">
 									</div>
 								</div>
 							</div>
@@ -125,14 +128,14 @@
 							<div class="promo-date-block">
 								<div class="promo-date-heading">
 									<label class="checkbox checkbox--filled checkbox--super--small">
-										<input class="checkbox__input" type="checkbox" checked="">
+										<input class="checkbox__input" type="checkbox" >
 										<span class="checkbox__span"></span>
 										<span class="checkbox__text">Акция</span>
 									</label>
 									
 									<div class="promo-date-heading__date">
 										<date-range-picker
-											class="dateRange"
+											class="dateRange dateRange--card-product"
 											:opens="opens"
 											:locale-data="localeData"
 											:ranges="rangesData"
@@ -155,7 +158,14 @@
 													Дата и время акции
 												</span>
 												
-												<a class="promo-date-heading__date-icon" href="" ><img src="@/assets/img/public/calendar-icon.svg" alt="" /></a>
+												<a class="promo-date-heading__date-icon" ><img src="@/assets/img/public/calendar-icon.svg" alt="" /></a>
+											</template>
+											<template v-slot:footer="actions">
+												<div class="drp-buttons">
+													<button @click="clearDateRange" type="button" class="cancelBtn btn btn-sm btn-secondary">Очистить</button>
+
+													<button @click="actions.clickApply" type="button" class="applyBtn btn btn-sm btn-success">Принять</button>
+												</div>
 											</template>
 										</date-range-picker>
 									</div>
@@ -172,36 +182,49 @@
 						<div class="list_properties_position">
 							<div>
 								<label for="list_properties-weight" class="content_heading default-heading">Вес</label>
-								<input type="text" id="list_properties-weight" class="input-text" placeholder="100 гр.">
+								<input v-if="editItem" v-model="editItem.weight" type="text" id="list_properties-weight" class="input-text">
+								<input v-else type="text" id="list_properties-weight" class="input-text">
 							</div>
 							<div>
 								<label for="list_properties-step" class="content_heading default-heading">Шаг</label>
-								<input type="text" id="list_properties-step" class="input-text" placeholder="100 гр.">
+								<input type="text" id="list_properties-step" class="input-text" >
 							</div>
 							<div>
 								<label for="list_properties-min-koll" class="content_heading default-heading">Мин. кол-во покупки</label>
-								<input type="text" id="list_properties-min-koll" class="input-text" placeholder="2">
+								<input type="text" id="list_properties-min-koll" class="input-text" >
 							</div>
 							<div>
 								<label for="list_properties-price" class="content_heading default-heading">Цена за кол-во</label>
-								<input type="text" id="list_properties-price" class="input-text" placeholder="1">
+								<input type="text" id="list_properties-price" class="input-text" >
 							</div>
 							<div>
 								<label for="list_properties-unit" class="content_heading default-heading">Ед. измерения</label>
-								<input type="text" id="list_properties-unit" class="input-text" placeholder="штука">
+								<input type="text" id="list_properties-unit" class="input-text" >
 							</div>
 						</div>
 						<!--Inputs block secend end-->
 						
 						<label for="description-textarea" class="content_heading default-heading">Описание</label>
-						<textarea id="description-textarea" class="textarea-text" placeholder="Пицца"></textarea>
+						<textarea v-if="editItem" v-model="editItem.description" id="description-textarea" class="textarea-text"></textarea>
+						<textarea v-else id="description-textarea" class="textarea-text"></textarea>
 						
 						<div class="heading-grey">Фото</div>
 						<div class="separator_all_grey"></div>
 						
 						<!--Photo position block-->
 						<div class="position_photo">
-							<cards-photo-preview />
+							<cards-photo-preview
+								@removePhoto="removePhoto"
+								:lists="photoList"
+							/>
+							<cards-photo-preview
+								@removePhoto="removePhoto"
+								:lists="basketList"
+								title="Фото в корзине 1:1"
+								type="basket"
+								onePhoto
+								class="photo--square"
+							/>
 						</div>
 						<!--Photo position block end-->
 						
@@ -216,25 +239,44 @@
 									<input v-model="mark.model" class="checkbox__input" type="checkbox" checked="">
 									<span class="checkbox__span"></span>
 									<span class="checkbox__text">{{mark.name}}</span>
-									<img class="card_product-marker-icon" :src="mark.icon" alt="">
+									<img v-if="mark.icon" class="card_product-marker-icon" :src="mark.icon.previewImage" alt="">
+									<div v-if="mark.edited" class="icon-box">
+										<svg @click.prevent="editMarker(index)" class="icon--edit" xmlns="http://www.w3.org/2000/svg"><path d="M.974 9.062v2.188h2.188l6.451-6.452-2.187-2.187L.974 9.062zm10.331-5.955a.58.58 0 000-.823L9.94.92a.58.58 0 00-.823 0L8.05 1.987l2.188 2.187 1.067-1.067z"></path></svg>
+										<svg @click.prevent="removeMarker(index)" class="icon icon--trash">
+											<use xlink:href="@/assets/img/public/icons-pack.svg#trash"></use>
+										</svg>
+									</div>
 								</label>
 							</div>
 							<div class="clear"></div>
 						</div>
 							
 						<div class="clear"></div>
-						<a class="button__add" @click="openAddMarkPopup = true">Добавить маркер</a>
+						<a class="button__add" @click="openAddMarkPopupShow">Добавить маркер</a>
 						<!--Properties markers end-->
 						
 						<!--Properties promo-->
 						<div class="content_heading default-heading">Акция</div>
 						<div class="promo-block">
+							<div>
+								<label class="radio radio--filled">
+									<input name="promo-name" class="radio__input" type="radio" checked="">
+									<span class="radio__span"></span>
+									<span class="radio__text radio__text--bold radio__text--accent">Нет акции</span>
+								</label>
+							</div>
 							<div v-for="(promo, index) in promoList" :key="index">
 								<label class="radio radio--filled">
 									<input v-model="promo.model" name="promo-name" class="radio__input" type="radio" checked="">
 									<span class="radio__span"></span>
 									<span class="radio__text">{{promo.name}}</span>
 								</label>
+								<div v-if="promo.edited" class="icon-box">
+									<svg @click.prevent="editPromo(index)" class="icon--edit" xmlns="http://www.w3.org/2000/svg"><path d="M.974 9.062v2.188h2.188l6.451-6.452-2.187-2.187L.974 9.062zm10.331-5.955a.58.58 0 000-.823L9.94.92a.58.58 0 00-.823 0L8.05 1.987l2.188 2.187 1.067-1.067z"></path></svg>
+									<svg @click.prevent="removePromo(index)" class="icon icon--trash">
+										<use xlink:href="@/assets/img/public/icons-pack.svg#trash"></use>
+									</svg>
+								</div>
 							</div>
 						</div>
 						<a class="button__add" @click="openAddPromPopup = true">Добавить акцию</a>
@@ -247,19 +289,19 @@
 						<div class="bju_block">
 							<div>
 								<label for="bju-protein" class="content_heading default-heading">Белки, гр.</label>
-								<input id="bju-protein" type="text" class="input-text" placeholder="100">
+								<input id="bju-protein" type="text" class="input-text" >
 							</div>
 							<div>
 								<label for="bju-fats" class="content_heading default-heading">Жиры, гр.</label>
-								<input id="bju-fats" type="text" class="input-text" placeholder="20">
+								<input id="bju-fats" type="text" class="input-text" >
 							</div>
 							<div>
 								<label for="bju-carbohydrates" class="content_heading default-heading">Углеводы, гр.</label>
-								<input id="bju-carbohydrates" type="text" class="input-text" placeholder="100">
+								<input id="bju-carbohydrates" type="text" class="input-text" >
 							</div>
 							<div>
 								<label for="bju-calories" class="content_heading default-heading">Калории, ккал</label>
-								<input id="bju-calories" type="text" class="input-text" placeholder="100">
+								<input id="bju-calories" type="text" class="input-text" >
 							</div>
 						</div>
 						<!--BJU block inputs end-->
@@ -294,13 +336,13 @@
 						>
 							<div
 								v-for="(modificator, indexList) in modificatorList"
-								:key="indexList"
+								:key="modificator.id"
 								class="tag__list"
 							>
 								<svg class="handle-table-outside icon icon--menu">
 									<use xlink:href="@/assets/img/public/icons-pack.svg#menu"></use>
 								</svg>
-								<span class="tag__title">{{modificator.name}}</span>
+								<span @click="changeModifParent(indexList)" class="tag__title">{{modificator.name}}</span>
 								<draggable
 									tag="div"
 									:group="{name: 'child' + indexList}"
@@ -318,7 +360,6 @@
 									</div>
 								</draggable>
 								
-
 								<a @click="addChild(indexList)" class="tag__add"></a>
 							</div>
 
@@ -345,7 +386,7 @@
 											
 							<div class="card-table-new-position">
 								<label class="checkbox checkbox--filled checkbox--super--small">
-									<input class="checkbox__input" type="checkbox" checked="">
+									<input class="checkbox__input" type="checkbox">
 									<span class="checkbox__span"></span>
 									<span class="checkbox__text">Скрыть неактивные</span>
 								</label>
@@ -366,7 +407,7 @@
 								</div>
 								<div  class="card-table-products__item card-table-products__item--photo">Фото</div>
 								<div class="card-table-products__item card-table-products__item--art">Артикул</div>
-								<div @click="sortBy" class="card-table-products__item card-table-products__item--name table-products__item--sortable">
+								<div @click="sortBy($event, 'params')" class="card-table-products__item card-table-products__item--name table-products__item--sortable">
 									Параметры
 									<svg width="9" height="7" viewBox="0 0 9 7" fill="none" xmlns="http://www.w3.org/2000/svg">
 										<path d="M0.804546 0.925603L5.38628e-08 1.73316L4.5 6.25L9 1.73316L8.19545 0.925603L4.5 4.63489L0.804546 0.925603Z" fill="#9B9B9B"/>
@@ -374,7 +415,7 @@
 								</div>
 								<div class="card-table-products__item card-table-products__item--bju">БЖУ</div>
 								<div class="card-table-products__item card-table-products__item--weigh">Вес</div>
-								<div @click="sortBy" class="card-table-products__item card-table-products__item--price table-products__item--sortable">
+								<div @click="sortBy($event, 'price')" class="card-table-products__item card-table-products__item--price table-products__item--sortable">
 									Цена
 									<svg width="9" height="7" viewBox="0 0 9 7" fill="none" xmlns="http://www.w3.org/2000/svg">
 										<path d="M0.804546 0.925603L5.38628e-08 1.73316L4.5 6.25L9 1.73316L8.19545 0.925603L4.5 4.63489L0.804546 0.925603Z" fill="#9B9B9B"/>
@@ -388,19 +429,22 @@
 							<draggable
 								v-if="isCreatePage"
 								tag="div"
-								v-model="catalogItems"
+								:group="{name: 'card-table-products'}"
 								v-bind="dragOptions"
 								handle=".handle-table"
 								class="card-table-products"
 							>	
 								<!--Product Table row-->				
 								<div
-									v-for="(item, idx) in catalogItems"
+									v-for="(item, idx) in catalogPositions"
 									:key="item.name"
-									class="card-table-products__list card-table-products__list"
+									class="card-table-products__list"
 								>				
-									<a class="handle-table card-table-products__item card-table-products__item--menudrop">
-									</a>
+									<div class="handle-table card-table-products__item card-table-products__item--menudrop">
+										<svg class="icon icon--menu">
+											<use xlink:href="@/assets/img/public/icons-pack.svg#menu"></use>
+										</svg>
+									</div>
 									<div class="card-table-products__item card-table-products__item--check">
 										<label class="checkbox checkbox--filled checkbox--super--small">
 											<input v-model="item.selected" class="checkbox__input" type="checkbox">
@@ -408,12 +452,12 @@
 										</label>
 									</div>
 									<div class="card-table-products__item card-table-products__item--photo">
-										<img :class="item.blocked ? 'grayFilter' : ''" src="@/assets/img/public/pic/table-products-photo1.svg" alt="" />
+										<img :class="item.blocked ? 'grayFilter' : ''" :src="item.image" alt="" />
 										<svg :class="item.blocked ? 'show' : ''" class="icon icon--stop icon--stop--card">
 											<use xlink:href="@/assets/img/public/icons-pack.svg#stop"></use>
 										</svg>
 									</div>
-									<div class="card-table-products__item card-table-products__item--art">{{item.name}}</div>
+									<div class="card-table-products__item card-table-products__item--art">{{item.article}}</div>
 									<div class="card-table-products__item card-table-products__item--name">
 										Размер пиццы 30см, тесто тонкое, мука классическая
 									</div>
@@ -425,14 +469,14 @@
 										<input v-model="item.weight" type="text">
 									</div>
 									<div class="card-table-products__item card-table-products__item--price">
-										<span @click="openEdit(false, $event)">{{item.price}}</span>
+										<span @click="openEdit(false, $event)">{{item.price}} ₴</span>
 										<input v-model="item.price" type="text">
 									</div>
 									<div class="card-table-products__item card-table-products__item--icons">
 										<svg @click="blockItem(idx)" :class="item.blocked ? 'icon--attention--hover' : ''" class="icon icon--attention">
 											<use xlink:href="@/assets/img/public/icons-pack.svg#attention"></use>
 										</svg>
-										<svg @click="$router.push({name:'card-product-name', params:{name: item.name}})" class="icon--edit" xmlns="http://www.w3.org/2000/svg"><path d="M.974 9.062v2.188h2.188l6.451-6.452-2.187-2.187L.974 9.062zm10.331-5.955a.58.58 0 000-.823L9.94.92a.58.58 0 00-.823 0L8.05 1.987l2.188 2.187 1.067-1.067z"/></svg>
+										<svg @click="$router.push({name:'card-product-id', params:{id: item.id}})" class="icon--edit" xmlns="http://www.w3.org/2000/svg"><path d="M.974 9.062v2.188h2.188l6.451-6.452-2.187-2.187L.974 9.062zm10.331-5.955a.58.58 0 000-.823L9.94.92a.58.58 0 00-.823 0L8.05 1.987l2.188 2.187 1.067-1.067z"/></svg>
 									</div>
 								</div>
 								<!--Product Table row end-->
@@ -444,7 +488,7 @@
 						<div class="separator_all_grey"></div>
 						
 						<!--Additional goods header block-->
-						<div class="card-table-heder additional-goods-heder">
+						<div v-if="additionalItems.length" class="card-table-heder additional-goods-heder">
 							<div>
 								<div class="card-table-heder__label">{{selectedCountAdd}}</div>
 								<div class="card-table-heder__label-text">{{selectedCountAdd}} выделен</div>
@@ -457,9 +501,9 @@
 						</div>
 						<!--Cadr Product Table header block end-->
 
-						<div class="separator_all_grey separator_all_grey--full"></div>
+						<div v-if="additionalItems.length" class="separator_all_grey separator_all_grey--full"></div>
 						<!--Additional goods Table block-->
-						<div class="card-table-products--scroll card-table-products--scroll-add">	
+						<div v-if="additionalItems.length" class="card-table-products--scroll card-table-products--scroll-add">	
 
 							<!--Additional goods headlines-->
 							<div class="additional-goods__list additional-goods__list--grey">
@@ -483,49 +527,56 @@
 								tag="div"
 								v-model="additionalItems"
 								v-bind="dragOptions"
-								handle=".ggggg"
+								:group="{name: 'additional-goods'}"
+								handle=".handle-table"
 								class="additional-goods"
 							>
-								
 								<!--Additional goods row-->
 								<div
 									v-for="(item, idx) in additionalItems"
-									:key="item.id"
+									:key="item.idx"
 									class="additional-goods__list"
+									:class="item.blocked ? 'additional-goods__list--blocked' : ''"
 								>
+									<div class="handle-table card-table-products__item card-table-products__item--menudrop">
+										<svg class="icon icon--menu">
+											<use xlink:href="@/assets/img/public/icons-pack.svg#menu"></use>
+										</svg>
+									</div>
 									<div class="additional-goods__item additional-goods__item--check">
 										<label class="checkbox checkbox--filled checkbox--super--small">
-											<input v-model="item.selected" class="checkbox__input" type="checkbox">
+											<input @input="hasChanges = true" v-model="item.selected" class="checkbox__input" type="checkbox">
 											<span class="checkbox__span"></span>
 										</label>
 									</div>
-									<div class="additional-goods__item additional-goods__item--category">
-										<select class="select">
-											<option value="" selected="">Соусы</option>
-											<option>Соус1</option>
-											<option>Соус2</option>
-										</select></div>
+
+									<multi-select
+										class="oneSelect additional-goods__item additional-goods__item--category"
+										@openSelectList="toggleSelectListEmit"
+										:selectOptions="item"
+										categories
+									/>
+
 									<div class="additional-goods__item additional-goods__item--name">
-										<input type="text" class="input-text" placeholder="Соусы к пицце">
+										<input v-model="item.inputs.name" @input="hasChangesToggle" type="text" class="input-text input-text--specific" placeholder="Соусы к пицце">
 									</div>
 									<div class="additional-goods__item additional-goods__item--min-number">
-										<input type="text" class="input-text" placeholder="1">
+										<input v-model="item.inputs.minCount" @input="hasChangesToggle" type="number" class="input-text input-text--specific">
 									</div>
 									<div class="additional-goods__item additional-goods__item--max-number">
-										<input type="text" class="input-text" placeholder="2">
+										<input v-model="item.inputs.maxCount" @input="hasChangesToggle" type="number" class="input-text input-text--specific">
 									</div>
 									<div class="additional-goods__item additional-goods__item--max-quantity">
-										<input type="text" class="input-text" placeholder="4">
+										<input v-model="item.inputs.maxMinCount" @input="hasChangesToggle" type="number" class="input-text input-text--specific">
 									</div>
 									<div class="additional-goods__item additional-goods__item--quantity-free">
-										<input type="text" class="input-text" placeholder="1">
+										<input v-model="item.inputs.freeCount" @input="hasChangesToggle" type="number" class="input-text input-text--specific">
 									</div>
 									<div class="additional-goods__item additional-goods__item--icons">
-										<svg class="icon icon--attention">
+										<svg @click="blockAdditionalItem(idx)" class="icon icon--attention" :class="item.blocked ? 'icon--attention--hover' : ''">
 											<use xlink:href="@/assets/img/public/icons-pack.svg#attention"></use>
 										</svg>
-										<svg class="icon--edit" xmlns="http://www.w3.org/2000/svg"><path d="M.974 9.062v2.188h2.188l6.451-6.452-2.187-2.187L.974 9.062zm10.331-5.955a.58.58 0 000-.823L9.94.92a.58.58 0 00-.823 0L8.05 1.987l2.188 2.187 1.067-1.067z"></path></svg>
-										<svg @click="removeAtAdd(idx)" class="icon icon--trash">
+										<svg @click="removeAdditional(removeAtAdd, idx)" class="icon icon--trash">
 											<use xlink:href="@/assets/img/public/icons-pack.svg#trash"></use>
 										</svg>
 									</div>
@@ -535,25 +586,33 @@
 						</div>
 
 						<!--Additional goods add category-->
-						<a class="button__add add_category_button">Добавить категорию</a>	
-						<div class="content_heading default-heading">По умолчанию позиция добавляется в конец списка</div>
-						<label class="checkbox checkbox--filled checkbox--super--small">
-							<input class="checkbox__input" type="checkbox" checked>
+						<a @click="addAdditional" class="button__add add_category_button">Добавить доп. товар</a>
+
+						
+						<div v-if="isCreatePage" class="content_heading default-heading">По умолчанию позиция добавляется в конец списка</div>
+						<label v-if="isCreatePage" class="checkbox checkbox--filled checkbox--super--small">
+							<input class="checkbox__input" type="checkbox">
 							<span class="checkbox__span"></span>
 							<span class="checkbox__text">Добавить в начало списка</span>
 						</label>
 						<!--Additional goods add category end-->
 						<br />
 						
-						
-						<router-link :to="{name: 'catalog'}" class="button card_product_add_position">Добавить позицию</router-link>
-						<router-link :to="{name: 'catalog'}" class="button button--bordered-grey card_product_button_back"><span class="button--arrow-back"></span>Назад в каталог</router-link>
+						<div v-if="isCreatePage">
+							<router-link :to="{name: 'catalog'}" class="button card_product_add_position">Добавить позицию</router-link>
+							<router-link :to="{name: 'catalog'}" class="button button--bordered-grey card_product_button_back"><span class="button--arrow-back"></span>Назад в каталог</router-link>
+						</div>
+						<div v-else>
+							<router-link :to="{name: 'card-product'}" class="button card_product_add_position">Изменить позицию</router-link>
+							<router-link :to="{name: 'card-product'}" class="button button--bordered-grey card_product_button_back"><span class="button--arrow-back"></span>Назад</router-link>
+						</div>
 					</div>
 				</div>
 			</div>
 
 			<popup :show="openAddMarkPopup" type="addCat" @closePopup="closeAddPopup">
-				<h3>Создание маркера</h3>
+				<h3 v-if="!edited">Создание маркера</h3>
+				<h3 v-else>Изменение маркера</h3>
 
 				<div class="popup__row">
 					<h4>Название маркера</h4>
@@ -561,32 +620,56 @@
 				</div>
 
 				<div class="popup__row popup__row--photo">
-					<cards-photo-preview type="popup" title="Загрузите иконку"/>
+					<cards-photo-preview
+						:lists="newIconData"
+						@removePhoto="removePhoto"
+						onePhoto
+						type="popup"
+						title="Загрузите иконку"
+					/>
 				</div>
 
-				<button @click="addMarkPopup" class="button button--addMod">Создать маркер</button>
+				<button v-if="!edited" @click="addMarkPopup" class="button button--addMod">Создать маркер</button>
+				<button v-else @click="changeMarker" class="button button--addMod">Изменить маркер</button>
 			</popup>
 
 			<popup :show="openAddPromPopup" type="addCat" @closePopup="closeAddPopup">
-				<h3>Создание акции</h3>
+				<h3 v-if="!edited">Создание акции</h3>
+				<h3 v-else>Редактирование акции</h3>
 
 				<div class="popup__row">
 					<h4>Название акции</h4>
 					<input v-model="newPromName" type="text" placeholder="Введите название...">
 				</div>
 
-				<button @click="addPromPopup" class="button button--addCat">Создать акцию</button>
+				<button v-if="!edited" @click="addPromPopup" class="button button--addCat">Создать акцию</button>
+				<button v-else @click="changePromo" class="button button--addCat">Изменить акцию</button>
 			</popup>
 
 			<popup :show="openAddModifiPopup" type="addCat" @closePopup="closeAddPopup">
-				<h3>Создание модификатора</h3>
+				<h3 class="popup__title--small">Создание строки модификаторов</h3>
 
 				<div class="popup__row">
-					<h4>Название модификатора</h4>
+					<h4>Название строки модификаторов</h4>
 					<input v-model="newModifiName" type="text" placeholder="Введите название...">
 				</div>
 
-				<button @click="addModifiPopup" class="button button--addCat">Создать модификатора</button>
+				<button @click="addModifiPopup" class="button button--addMod">Создать строку модификаторов</button>
+			</popup>
+
+			<popup :show="openChangeParentModPopup" type="addCat" @closePopup="closeAddPopup">
+				<h3>Редактирование строки модификаторов</h3>
+
+				<div class="popup__row">
+					<h4>Название строки модификаторов</h4>
+					<input v-if="modificatorList.length" v-model="newModificatorParentName" type="text" placeholder="Введите название...">
+				</div>
+
+				<div class="btn-box">
+					<button @click="removeParentMod(parentModId)" class="button button--grey button--addCat">Удалить</button>
+
+					<button @click="changeModifParentPopup()" class="button button--max-width">Изменить</button>
+				</div>
 			</popup>
 
 			<popup :show="openAddChangeModifiPopup.opened" type="addCat" @closePopup="closeAddPopup">
@@ -598,11 +681,29 @@
 				</div>
 
 				<div class="btn-box">
-					<button @click="removeChildAt(openAddChangeModifiPopup.data[0], openAddChangeModifiPopup.data[1])" class="button button--grey button--addCat">Удалить</button>
-					<button @click="changeChildAt(openAddChangeModifiPopup.data[0], openAddChangeModifiPopup.data[1])" class="button button--addCat">Сохранить</button>
+					<button @click="removeModificator(openAddChangeModifiPopup.data[0], openAddChangeModifiPopup.data[1])" class="button button--grey button--addCat">Удалить</button>
+					<button @click="changeChildAt(openAddChangeModifiPopup.data[0], openAddChangeModifiPopup.data[1])" class="button">Сохранить</button>
 				</div>
 			</popup>
+
+			<popup :show="openDelPopup" @closePopup="closeDelPopup">
+				<h3>Вы действительно хотите <br>удалить {{delText}}?</h3>
+				<div class="btn-box btn-box--popup">
+					<button @click="removeSelectedMod" class="button">Да, удалить</button>
+					<button @click="closeDelPopup(false)" class="button button--grey">Нет, отменить</button>
+				</div>
+			</popup>
+
+			<popup :show="openWarningPopupShow && hasChanges" @closePopup="closeDelPopup">
+				<h3>На странице производились<br> изменения данных</h3>
+				<div class="btn-box btn-box--popup">
+					<button ref="dialogButton" class="button">Сохранить</button>
+					<button ref="cancelButton" class="button button--grey">Отменить</button>
+				</div>
+			</popup>
+			<div @click="closeSelects" class="tooltip-mask" ref="tooltipMask"></div>
 		</section>
+		<div :class="!isCreatePage ? 'show' : 'hidden'" class="globalMask"></div>
 	</default-page>
 
 </template>
@@ -615,6 +716,7 @@ import CardsPhotoPreview from "@/components/parts/CardsPhotoPreview"
 import MultiSelect from "@/components/parts/MultiSelect"
 import draggable from "vuedraggable";
 import Popup from "@/components/Popup"
+import {mapGetters} from 'vuex'
 
 //you need to import the CSS manually
 import 'vue2-daterange-picker/dist/vue2-daterange-picker.css'
@@ -622,12 +724,31 @@ import 'vue2-daterange-picker/dist/vue2-daterange-picker.css'
 let today = new Date()
 today.setHours(0, 0, 0, 0)
 
-let yesterday = new Date()
-yesterday.setDate(today.getDate() - 1)
-yesterday.setHours(0, 0, 0, 0);
-
 export default {
 	name: 'card_product',
+
+	beforeRouteLeave(to, from, next) {
+		if (this.hasChanges && !this.isCreatePage) {
+
+			this.openWarningPopupShow = true
+			next(from)
+			// eventListeners
+			this.$refs.dialogButton.addEventListener('click', () => {
+				this.openWarningPopupShow = false
+				this.hasChanges = false
+				next(to)
+			}, {once: true})
+
+			this.$refs.cancelButton.addEventListener('click', () => {
+				this.openWarningPopupShow = false
+				this.hasChanges = false
+				next(to)
+			}, {once: true})
+		} else {
+			this.openWarningPopupShow = false
+			next()
+		}
+	},
 
 	components: {
 		DefaultPage,
@@ -636,7 +757,7 @@ export default {
 		CardsPhotoPreview,
 		MultiSelect,
 		draggable,
-		Popup
+		Popup,
 	},
 
 	filters: {
@@ -648,34 +769,51 @@ export default {
 		}
 	},
 
+	mounted() {
+		this.$store.dispatch('fetchApplications')
+			.then(() => {
+				const lastSelCategoryId = localStorage.getItem('lastSelCategoryId'),
+							findItem = this.categoriesList.find(item => item.id == lastSelCategoryId)
+				if (lastSelCategoryId && findItem) {
+					this.selCategory(findItem)
+				} else {
+					this.selCategory(this.categoriesList[0])
+				}
+			})
+	},
+
 	data() {
 		return {
-			modificatorList: [
-				{
-					name: "Размер пиццы",
-					child: [
-						"30см",
-						"50см",
-						"70см"
-					]
-				},
-				{
-					name: "Тесто",
-					child: [
-						"ультратонкое",
-						"тонкое",
-						"классическое"
-					]
-				},
-				{
-					name: "Мука",
-					child: [
-						"пшеничная",
-						"рисовая",
-						"ржаная"
-					]
-				}
-			],
+			hasChanges: false,
+			openWarningPopupShow: false,
+
+			openDelPopup: false,
+			selCat: [],
+			delText: '',
+
+			edited: false,
+
+			editPromoIndex: null,
+			editMarkerIndex: null,
+			newIconData: {
+				imagesList: []
+			},
+
+			openChangeParentModPopup: false,
+			newModificatorParentName: "",
+			parentModId: 0,
+
+			photoList: {
+				imagesList: []
+			},
+
+			basketList: {
+				imagesList: []
+			},
+
+			additionalItems: [],
+
+			modificatorList: [],
 
 			selectAllInput: false,
 			selectAllInputAdd: false,
@@ -697,153 +835,94 @@ export default {
 				{
 					name: "Острое",
 					model: false,
-					icon: "/applk2/img/marker-moon.jpg"
+					edited: false,
+					icon: {
+						previewImage: "/applk2/img/marker-moon.jpg",
+						name: "Острое.jpg",
+						size: "2 кБайт"
+					}
 				},
 				{
 					name: "Халяль",
 					model: false,
-					icon: "/applk2/img/marker-moon.jpg"
+					edited: false,
+					icon: {
+						previewImage: "/applk2/img/marker-halal.png",
+						name: "Халяль.png",
+						size: "2 кБайт"
+					}
 				},
 				{
 					name: "Вегетарианское",
 					model: false,
-					icon: "/applk2/img/marker-moon.jpg"
+					edited: false,
+					icon: {
+						previewImage: "/applk2/img/marker-vegan.png",
+						name: "Вегетарианское.png",
+						size: "2 кБайт"
+					}
 				},
 			],
 
 			promoList: [
 				{
-					name: "хит",
-					model: false
+					name: "ХИТ",
+					model: false,
+					edited: false,
 				},
 				{
-					name: "акция",
-					model: false
+					name: "АКЦИЯ",
+					model: false,
+					edited: false,
 				},
 				{
-					name: "Новое",
-					model: false
+					name: "НОВОЕ",
+					model: false,
+					edited: false,
 				},
 			],
 
 			selectLists: [
 				{
-					selectList: [
-						{
-							data: "Профсоюзная 1, корп. 2",
-							model: false
-						},
-						{
-							data: "Профсоюзная 1, корп. 2",
-							model: false
-						},
-						{
-							data: "Профсоюзная 1, корп. 2",
-							model: false
-						},
-						{
-							data: "Профсоюзная 1, корп. 2",
-							model: false
-						},
-						{
-							data: "г. Москва, Московская 1, корп. 2",
-							model: false
-						},
-						{
-							data: "ул. Кирова, д. 5",
-							model: false
-						},
-					],
+					selectList: this.$store.getters.getCategories,
 					selectListShow: false,
 					selectListSels: [],
 				},
 				{
 					selectList: [
-						"Профсоюзная 1, корп. 2",
-						"Профсоюзная 1, корп. 2",
-						"Профсоюзная 1, корп. 2",
-						"Профсоюзная 1, корп. 2",
-						"г. Москва, Московская 1, корп. 2",
-						"ул. Кирова, д. 5"
+						{
+							title: "Профсоюзная 1, корп. 2",
+							model: false,
+							// disabled: true
+						},
+						{
+							title: "Профсоюзная 1, корп. 2",
+							model: false,
+							// disabled: true
+						},
+						{
+							title: "Профсоюзная 1, корп. 2",
+							model: false,
+							// disabled: true
+						},
+						{
+							title: "Профсоюзная 1, корп. 2",
+							model: false,
+							// disabled: true
+						},
+						{
+							title: "г. Москва, Московская 1, корп. 2",
+							model: false,
+							// disabled: true
+						},
+						{
+							title: "ул. Кирова, д. 5",
+							model: false,
+							// disabled: true
+						},
 					],
 					selectListShow: false,
 					selectListSels: [],
-				}
-			],
-
-			catalogItems: [
-				{
-					id:1,
-					price: "500 ₴",
-					weight: "100 гр.",
-					blocked: false,
-					name:"AA3456",
-					selected: false
-				},
-				{
-					id:2,
-					price: "500 ₴",
-					weight: "100 гр.",
-					blocked: false,
-					name:"AA3756",
-					selected: false
-				},
-				{
-					id:3,
-					price: "500 ₴",
-					weight: "100 гр.",
-					blocked: false,
-					name:"AA3453",
-					selected: false
-				},
-				{
-					id:4,
-					price: "500 ₴",
-					weight: "100 гр.",
-					outer: true,
-					childs: [5, 6],
-					blocked: false,
-					name:"AB3456",
-					selected: false
-				},
-				{
-					id:5,
-					price: "500 ₴",
-					weight: "100 гр.",
-					inner: true,
-					blocked: false,
-					name:"BA3456",
-					selected: false
-				},
-				{
-					id:6,
-					price: "500 ₴",
-					weight: "100 гр.",
-					inner: true,
-					blocked: false,
-					name:"AC3456",
-					selected: false
-				},
-				{
-					id:7,
-					price: "500 ₴",
-					weight: "100 гр.",
-					blocked: false,
-					name:"YA3456",
-					selected: false
-				},
-			],
-
-			additionalItems: [
-				{
-					id:1,
-					blocked: false,
-					selected: false
-				},
-				{
-					id:2,
-					blocked: false,
-					selected: false
 				}
 			],
 
@@ -863,12 +942,11 @@ export default {
 			alwaysShowCalendars: true,
 			appendToBody: false,
 			closeOnEsc: true,
-			opens: 'center',
+			opens: 'left',
 			minDate: '2019-05-02 04:00:00',
-			maxDate: '2021-12-26 14:00:00',
+			maxDate: '2026-12-31 14:00:00',
 			rangesData: {
 				'Сегодня': [today, today],
-				'Вчера': [yesterday, yesterday],
 				'Этот месяц': [new Date( today.getFullYear(), today.getMonth(), 1), new Date( today.getFullYear(), today.getMonth(), 30)],
 				'Этот год': [new Date(today.getFullYear(), 0, 1), new Date(today.getFullYear(), 11, 31)],
 				'Последний месяц': [new Date(today.getFullYear(), today.getMonth() - 1, 1), new Date(today.getFullYear(), today.getMonth(), 0)],
@@ -896,15 +974,32 @@ export default {
 	},
 
 	computed: {
+		...mapGetters({
+				categoriesList: 'getCategories',
+				catalogPositions: "catalogPositions",
+			}),
+
 		selectedCount() {
-			return this.catalogItems.filter(item => item?.selected).length
+			if (this.catalogPositions) {
+				return this.catalogPositions.filter(item => item?.selected).length
+			} else {
+				return 0
+			}
 		},
 		selectedCountAdd() {
 			return this.additionalItems.filter(item => item?.selected).length
 		},
 
 		isCreatePage() {
-			return !(this.$route.params.name)
+			return !(this.$route.params.id)
+		},
+
+		editItem() {
+			if (this.catalogPositions?.length) {
+				return this.catalogPositions.filter(item => item.id == this.$route.params.id)[0]
+			} else {
+				return {}
+			}
 		},
 
 		dragOptions() {
@@ -918,10 +1013,215 @@ export default {
 	},
 
 	methods: {
+		selCategory(data) {
+			if (this.$store.state.applicationModule.categories.length) {
+				const recursionUnCurrent = (item) => {
+					item.map(select => {
+						select.currentCategory = false
+						if (select.children) recursionUnCurrent(select.children)
+					})
+				}
+				recursionUnCurrent(this.$store.state.applicationModule.categories)
+
+				data.currentCategory = true
+				localStorage.setItem('lastSelCategoryId', data.id)
+				this.$store.state.applicationModule.selCategory = data
+			} else {
+				return false
+			}
+		},
+
+		openWarningPopup() {
+			this.openWarningPopupShow = true
+		},
+		hasChangesToggle() {
+			this.hasChanges = true
+		},
+
+		clearDateRange() {
+			this.dateRange.startDate = null
+			this.dateRange.endDate = null
+		},
+		removePhoto({lists, id}) {
+			this.delText = "картинку"
+
+			this.openDelDialog( (id, lists) => {
+				lists.imagesList.splice(id, 1)[0]
+			}, id, lists )
+		},
+
+		toggleSelectListEmit(selectList) {
+			if (!selectList.selectListShow) {
+				this.selectLists.map(select => {
+					select.selectListShow = false
+				})
+			}
+		},
+
+		addAdditional() {
+			this.additionalItems.push({
+					selectList: [{
+												name: "Корневая",
+												model: false,
+												selected: false,
+												isRoot: true
+											}].concat(this.$store.getters.getCategories),
+					selectListShow: false,
+					selectListSel: {name: "Корневая", data: {}},
+					inputs: {
+						name: '',
+						minCount: 0,
+						maxCount: 0,
+						maxMinCount: 0,
+						freeCount: 0,
+					}
+				})
+		},
+
+		removeAdditional(method, index) {
+			this.delText = "дополнительный товар"
+			this.openDelDialog(method, index)
+		},
+		changeModifParentPopup() {
+			this.modificatorList[this.parentModId].name = this.newModificatorParentName
+			
+			this.openChangeParentModPopup = false
+			this.parentModId = 0
+			this.newModificatorParentName = ''
+		},
+		changeModifParent(index) {
+			this.parentModId = index
+			this.openChangeParentModPopup = true
+			this.newModificatorParentName = this.modificatorList[index].name
+		},
+
+		removeParentMod(index) {
+			this.delText = "строку модификаторов"
+			this.openDelDialog((indexEl)=> {
+				this.modificatorList.splice(indexEl, 1)
+
+				while (this.modificatorList.child?.length){
+					this.modificatorList.children.splice(0, 1)
+				}
+
+				this.openChangeParentModPopup = false
+
+			}, index)
+		},
+
+
+		// logic Marker
+		openAddMarkPopupShow() {
+			this.openAddMarkPopup = true
+			this.newIconData.imagesList = []
+			this.newMarkName = ""
+		},
+
+		editMarker(index) {
+			this.openAddMarkPopup = true
+			this.edited = true
+			let {name, icon} = this.markList[index]
+
+			this.editMarkerIndex = index
+
+			this.newMarkName = name
+			this.newIconData.imagesList = [icon]
+		},
+
+		changeMarker() {
+			if (this.markList[this.editMarkerIndex].name != this.newMarkName) {
+				this.markList[this.editMarkerIndex].name = this.newMarkName || "Не назван"
+			}
+			if (this.markList[this.editMarkerIndex].icon != this.newIconData.imagesList[0]) {
+				this.markList[this.editMarkerIndex].icon = this.newIconData.imagesList[0]
+			}
+
+			this.newMarkName = ""
+			this.newIconData.imagesList = []
+			this.editMarkerIndex = null
+			this.closeAddPopup(false)
+		},
+
+		removeMarker(index) {
+			this.delText = "маркер"
+			this.openDelDialog((indexEl)=> {
+				this.markList.splice(indexEl, 1)
+			}, index)
+		},
+
+		// logic Promo
+		editPromo(index) {
+			this.openAddPromPopup = true
+			this.edited = true
+			let {name} = this.promoList[index]
+
+			this.editPromoIndex = index
+
+			this.newPromName = name
+		},
+
+		changePromo() {
+			if (this.promoList[this.editPromoIndex].name != this.newPromName) {
+				this.promoList[this.editPromoIndex].name = this.newPromName || "Не назван"
+			}
+
+			this.newPromName = ""
+			this.editPromoIndex = null
+			this.closeAddPopup(false)
+		},
+
+		removePromo(index) {
+			this.delText = "акцию"
+			this.openDelDialog((indexEl)=> {
+				this.promoList.splice(indexEl, 1)
+			}, index)
+		},
+	
+		// logic Modificator
 		changeModifChild(parentId, childId) {
 			this.openAddChangeModifiPopup.opened = true
 			this.openAddChangeModifiPopup.data[0] = parentId
 			this.openAddChangeModifiPopup.data[1] = childId
+			if (this.modificatorList[parentId].child[childId].trim().toLowerCase() != 'название') {
+				this.newChangeModifiName = this.modificatorList[parentId].child[childId]
+			}
+		},
+
+		removeModificator(item, list){
+			this.newModificatorParentName = ''
+			this.delText = "модификатор"
+			this.openDelDialog(this.removeChildAt, item, list)
+		},
+
+		closeDelPopup(state) {
+			this.openDelPopup = state
+			this.openWarningPopupShow = state
+			this.selCat = []
+		},
+
+		openDelDialog(method, data, list) {
+			this.openDelPopup = true
+			this.selCat = [method, data, list]
+		},
+
+		removeSelectedMod() {
+			this.openDelPopup = false
+			if (this.selCat[2] !== undefined) {
+				this.selCat[0](this.selCat[1], this.selCat[2])
+			} else if(this.selCat[1] !== undefined) {
+				this.selCat[0](this.selCat[1])
+			} else {
+				this.selCat[0]()
+			}
+		},
+
+		closeSelects() {
+			if (
+				!event.target.closest(".select__list")
+			) {
+				this.selectLists.forEach(el => el.selectListShow = false)
+				this.$refs.tooltipMask.classList.remove("show")
+			}
 		},
 
 		removeChildAt(parentId, childId) {
@@ -938,7 +1238,7 @@ export default {
 			const children = this.modificatorList[parentId].child,
 						index = children.indexOf(children[childId])
 
-			this.modificatorList[parentId].child[index] = this.newChangeModifiName
+			this.modificatorList[parentId].child[index] = this.newChangeModifiName || "Название"
 
 			this.newChangeModifiName = ""
 			this.openAddChangeModifiPopup.data = []
@@ -973,18 +1273,26 @@ export default {
 
 		addMarkPopup() {
 			this.markList.push({
-				name: this.newMarkName,
-				icon: "/applk2/img/marker-moon.jpg",
-				model: false
+				name: this.newMarkName || "Не назван",
+				icon: this.newIconData.imagesList[0] || {
+					previewImage: "/applk2/img/marker-moon.jpg",
+					name: "Не выбран",
+					size: "2 кБайт"
+				},
+				model: false,
+				edited: true
 			})
 			this.newMarkName = ""
+			this.newIconData.imagesList = []
+			this.edited = false
 			this.closeAddPopup(false)
 		},
 
 		addPromPopup() {
 			this.promoList.push({
 				name: this.newPromName,
-				model: false
+				model: false,
+				edited: true,
 			})
 			this.newPromName = ""
 			this.closeAddPopup(false)
@@ -1001,14 +1309,34 @@ export default {
 		},
 
 		closeAddPopup(state) {
+			this.newChangeModifiName = ''
+			this.edited = false
 			this.openAddMarkPopup = state
 			this.openAddPromPopup = state
 			this.openAddModifiPopup = state
 			this.openAddChangeModifiPopup.opened = state
+			this.openChangeParentModPopup = state
 		},
 
-		sortBy(event) {
+		sortBy(event, key) {
 			const selectedSortable = document.querySelector('.card-table-products__item.selected')
+
+			switch (key.toLowerCase()) {
+				case 'name':
+					if (selectedSortable && !selectedSortable.classList.contains('unselected')) {
+						this.catalogPositions.sort((a, b) => (a.title > b.title) ? 1 : -1)
+					} else {
+						this.catalogPositions.sort((a, b) => (a.title < b.title) ? 1 : -1)
+					}
+					break
+				case 'price':
+					if (selectedSortable && !selectedSortable.classList.contains('unselected')) {
+						this.catalogPositions.sort((a, b) => (a.price > b.price) ? 1 : -1)
+					} else {
+						this.catalogPositions.sort((a, b) => (a.price < b.price) ? 1 : -1)
+					}
+					break
+			}
 
 			if (selectedSortable == event.currentTarget) {
 				event.currentTarget.classList.add("selected")
@@ -1020,26 +1348,33 @@ export default {
 		},
 
 		blockItem(idx) {
-			this.catalogItems[idx].blocked = !this.catalogItems[idx].blocked;
+			this.catalogPositions[idx].blocked = !this.catalogPositions[idx].blocked;
+		},
+
+		blockAdditionalItem(idx) {
+			this.additionalItems[idx].blocked = !this.additionalItems[idx].blocked;
 		},
 
 		blockAllSelected() {
-			this.catalogItems.filter(item => item.selected).forEach(row => {
-				this.blockItem(this.catalogItems.findIndex(item => item.id == row.id))
+			this.catalogPositions.filter(item => item.selected).forEach(row => {
+				this.blockItem(this.catalogPositions.findIndex(item => item.id == row.id))
 			})
 		},
 
 		selectAll() {
 			if (!this.selectAllInput) {
-				this.catalogItems.map(item => item.selected = true)
+				this.catalogPositions.map(item => item.selected = true)
 			} else {
-				this.catalogItems.map(item => item.selected = false)
+				this.catalogPositions.map(item => item.selected = false)
 			}
 		},
 
 		removeAllSelectedAdd() {
-			this.additionalItems.filter(item => item.selected).forEach(row => {
-				this.removeAtAdd(this.additionalItems.findIndex(item => item.id == row.id))
+			this.openDelDialog(() => {
+				this.additionalItems.filter(item => item.selected).forEach(row => {
+					this.removeAtAdd(this.additionalItems.findIndex(item => item.id == row.id))
+				})
+				this.selectAllInputAdd = false
 			})
 		},
 
@@ -1063,7 +1398,7 @@ export default {
 			} else {
 				this.additionalItems.map(item => item.selected = false)
 			}
-		}
+		},
 	},
 
 	watch: {

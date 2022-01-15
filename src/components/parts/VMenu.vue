@@ -8,11 +8,11 @@
 				v-for="({title, svgId}, index) in menuList"
 				:key="index"
 			>
-			<!-- :xlink:href="`img/icons-pack.6a51f700.svg#${svgId}`" -->
-				<a href="#" @click.prevent="$router.push({name: svgId})" class="menu__link">
-					<svg class="icon"><use :xlink:href="`img/icons-pack.d85fddc4.svg#${svgId}`" /></svg>
+			<!-- :xlink:href="`img/icons-pack.b740c51d.svg#${svgId}`" -->
+				<router-link :to="{name: svgId}" class="menu__link">
+					<svg class="icon"><use :xlink:href="`img/icons-pack.b740c51d.svg#${svgId}`" /></svg>
 					{{title}}
-				</a>
+				</router-link>
 			</li>
 
 		</ul>
@@ -34,7 +34,7 @@ export default {
 			menuList: [
 				{ title: 'Сводка', svgId: 'dashboard' },
 				{ title: 'Компании', svgId: 'company' },
-				{ title: 'Адреса', svgId: 'address' },
+				{ title: 'Адреса', svgId: 'addresses' },
 				{ title: 'Каталог', svgId: 'catalog' },
 				{ title: 'Заказы', svgId: 'orders' },
 				{ title: 'Акции', svgId: 'actions' },
@@ -48,7 +48,7 @@ export default {
 
 	methods: {
 		checkItem(id) {
-			return this.selectedItem == id
+			return this.selectedItem.toLowerCase() == id
 		}
 	}
 

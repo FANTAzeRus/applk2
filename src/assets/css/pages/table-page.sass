@@ -15,7 +15,8 @@
 		&--flex
 			display: flex
 			align-items: center
-			gap: 0 27px
+			> *:not(:last-child)
+				margin-right: 27px
 			.table-heder-filtr__address-box
 				flex: 0 1 598px
 				.table-heder-filtr__address
@@ -25,8 +26,9 @@
 		flex: 1 1 auto
 		align-items: center
 		justify-content: flex-start
-		gap: 0 26px
 		margin-top: 20px
+		> *:not(:last-child)
+			margin-right: 26px
 		.button
 			margin-left: auto
 	&__other
@@ -40,13 +42,15 @@
 	&__label
 		font-size: 10px
 		font-weight: 600
-		padding: 1px 7px
+		padding: 1px 5px
 		background: $red
 		color: $white
 		border-radius: 0.325rem
 		text-transform: uppercase
 		display: inline-flex
-		margin-left: 44px
+		margin-left: 49px
+		height: 16px
+		width: 16px
 		position: relative
 		top: -1px
 		margin-right: 14px
@@ -66,12 +70,23 @@
 
 .table-heder-filtr
 	&__address
+		position: relative
+		.select
+			max-height: 35px
+			padding-top: 7px
+			padding-bottom: 7px
+			margin-top: 12px
 		&-box
 			display: flex
-			gap: 0 16px
+			> *:not(:last-child)
+				margin-right: 16px
 		.dateRange
 			&__pic
 				margin-right: 4px
+				min-width: 12px
+				max-width: 12px
+				min-height: 12px
+				max-height: 12px
 			.reportrange-text
 				white-space: pre
 				width: 100%
@@ -105,6 +120,10 @@
 		margin-top: 14px
 		&--time
 			margin-top: 10px
+			> div
+				width: 100%
+			.select
+				margin-top: 0
 		.select
 			max-height: 35px
 			line-height: 1.1
@@ -118,6 +137,9 @@
 			justify-content: center
 			align-items: center
 			padding: 8px 13px 10px
+
+			max-height: 35px
+			margin-top: 0 !important
 
 			outline: none
 			background: none
@@ -230,6 +252,12 @@
 		border-radius: 5px
 		transition: background-color .3s ease
 
+		&--address
+			min-width: 153px !important
+			margin-left: 0 !important
+			margin-right: 7px !important
+			padding: 12px 18px !important
+
 		&:hover
 			background-color: $red
 			color: $white
@@ -244,6 +272,7 @@
 		width: 13px
 		height: 12px
 	&__filtr
+		cursor: pointer
 		display: inline-flex
 		align-self: center
 		color: $gray
@@ -252,6 +281,8 @@
 			color: $red
 			.icon
 				fill: $red
+	.search__remove
+		right: 25px
 	&__search
 		max-width: 234px
 		position: relative
@@ -262,6 +293,7 @@
 		border: 1px solid $gray-border
 		padding: 9px 0 7px 12px
 		max-height: 30px
+
 
 		.table-heder-filtr-search__search--button
 			top: 2px
@@ -287,10 +319,14 @@
 			.icon--zoom
 				width: 13px
 				height: 12px
+		&--address
+			margin-right: 35px !important
 	&--address
 		display: flex
 		justify-content: flex-end
 		align-items: center
+		.table-heder-filtr-search
+			margin-right: 0 !important
 		> *:not(:last-child)
 			margin-right: 43px
 		.table-heder-filtr-search__download
@@ -359,12 +395,19 @@
 					&:before
 						top: auto !important
 						bottom: -7px !important
+		&--address
+			grid-template-columns: 43px 1.3fr 1.3fr 1.3fr 3fr 60px 60px 60px 3fr 1.2fr 1.35fr 1fr
+			transition: background-color .1s ease
+			.table-products__item
+				white-space: pre
 		&--new
 				background-color: rgba($green, .1)
 		&--dark-grey	
 			background: $gray2
 		&--grey	
 			min-height: auto !important
+			&.table-products__list--address
+				border-bottom: none
 			.table-products__item
 				background: $gray2
 				align-self: initial
@@ -410,6 +453,20 @@
 				padding-top: 12px
 				padding-bottom: 10px
 				border-top: 1px solid $gray-border
+			&.table-products__list--address
+				min-height: 64px
+				.table-products__item
+					align-self: center
+					color: $gray
+					font-size: 13px
+					text-transform: initial
+					padding-top: 12px
+					padding-bottom: 10px
+					border-top: none
+					&--pay-list.no--pay
+						color: $red !important
+						&:hover
+							color: darken($red, 15%) !important
 		&--selected
 			background-color: $gray2
 	&__item
@@ -429,6 +486,9 @@
 				transition: transform .3s ease
 				path
 					transition: fill .3s ease
+			&--right-arrow svg
+				margin-right: 0
+				margin-left: 8px
 			&:hover
 				color: $black
 				path
@@ -443,6 +503,8 @@
 			&.unselected
 				svg
 					transform: rotate(0deg)
+		&--district
+			padding-left: 35px
 		&--price
 			white-space: pre
 		&--dates
@@ -507,10 +569,12 @@
 			text-decoration: underline
 			font-weight: 600
 			color: $green
+			cursor: pointer
 			&:hover
 				color: darken($green, 10%)
 			&.no--pay
 				color: $red
+				cursor: pointer
 				&:hover
 					color: darken($red, 15%)
 		&--open-list
@@ -558,6 +622,10 @@
 					height: 14px
 				&--edit
 					height: 14px
+		&--actions
+			.icon--copy
+				position: relative
+				bottom: -3px
 		&--marker
 			&--icon		
 				display: inline
@@ -626,12 +694,12 @@
 
 .tooltip-mask
 	display: none
-	position: absolute
+	position: fixed
 	bottom: 0
 	top: 0
 	left: 0
 	right: 0
-	z-index: 19
+	z-index: 51
 
 	&.show
 		display: block
@@ -650,7 +718,7 @@
 	position: absolute
 	top: 40px
 	left: -25px
-	z-index: 20
+	z-index: 52
 
 	box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.20)
 
@@ -1021,14 +1089,18 @@
 
 .condition-box
 	display: flex
-	gap: 10px 0
 	flex-direction: column
 	margin-top: 11px
 
+	> *:not(:last-child)
+		margin-bottom: 10px
+
 .condition
 	display: flex
-	gap: 0 10px
 	align-items: center
+
+	> *:not(:last-child)
+		margin-right: 10px
 
 	&__list
 		margin: 0
@@ -1036,7 +1108,8 @@
 		list-style: none
 		display: flex
 		flex-direction: column
-		gap: 10px 0
+		> *:not(:last-child)
+			margin-bottom: 10px
 
 	span
 		width: 40px
@@ -1075,7 +1148,6 @@
 .addFilter
 	display: flex
 	max-width: 150px
-	gap: 0 12px
 	align-items: center
 	margin-top: 14px
 
@@ -1084,6 +1156,9 @@
 	font-size: 13px
 	line-height: 1.1
 	font-weight: 400
+
+	> *:not(:last-child)
+		margin-right: 12px
 
 .icon--remove
 	width: 8px	

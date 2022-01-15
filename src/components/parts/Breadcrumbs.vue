@@ -11,12 +11,25 @@
 				>
 					<breadcrumb :category="selCategory" :level="index + 1"/>
 				</div>
-				
 			</div>
 
-
-			<div class="breadcrumbs__text">Позиции в категории
-				<a class="breadcrumbs__link">{{selCategory.name}}</a>
+			<div v-if="!menuActAddress" class="breadcrumbs__text">Позиции в категории
+				<a class="breadcrumbs__link">{{selCategory.title}}</a>
+			</div>
+			<div v-else class="breadcrumbs__item-list">
+				<div class="breadcrumbs__item">
+					<div class="breadcrumbs__item">
+						{{selCategory.title}}
+					</div>
+				</div>
+				<div class="breadcrumbs__item">
+					<a @click="$router.push({name:'addresses'})" class="breadcrumbs__text breadcrumbs__text--reg">Адреса</a>
+					<div class="breadcrumbs__separator"></div>
+				</div>
+				<div class="breadcrumbs__item">
+					<a @click="$router.push({name:'addresses'})" class="breadcrumbs__text breadcrumbs__text--reg">Главная</a>
+					<div class="breadcrumbs__separator"></div>
+				</div>
 			</div>
 		</div>
 		<div v-else>
@@ -37,15 +50,13 @@ export default {
 		Breadcrumb
 	},
 
-	data() {
-		return {
-			categorysList: this.$store.state.categorysList
-		}
+	props: {
+		menuActAddress: Boolean,
 	},
 
 	computed: {
 		selCategory () {
-			return this.$store.state.selCategory
+			return this.$store.state.applicationModule.selCategory
 		}
 	}
 

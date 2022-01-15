@@ -1,6 +1,6 @@
 <template>
 	<div class="breadcrumbs__item">
-		<a @click.prevent="changeCat" href="#" class="breadcrumbs__text">{{parent.name}}</a>
+		<a @click.prevent="changeCat" href="#" class="breadcrumbs__text">{{parent.title}}</a>
 		<div class="breadcrumbs__separator"></div>
 	</div>
 </template>
@@ -43,7 +43,18 @@ export default {
 
 	methods: {
 		changeCat() {
-			this.$store.state.selCategory = this.parent
+			const recursionUnCurrent = (item) => {
+				item.map(select => {
+					select.currentCategory = false
+					if (select.id == this.parent.id) select.currentCategory = true
+					if (select.children) recursionUnCurrent(select.children)
+				})
+			}
+			recursionUnCurrent(this.$store.state.applicationModule.categories)
+
+			this.parent.currentCategory = true
+			localStorage.setItem('lastSelCategoryId', this.parent.id)
+			this.$store.state.applicationModule.selCategory = this.parent
 		}
 	}
 }

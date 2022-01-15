@@ -49,7 +49,7 @@ export default {
 		closePopup() {
 			this.login = ""
 			this.name = ""
-			
+
 			this.$emit("closePopup", false)
 		},
 

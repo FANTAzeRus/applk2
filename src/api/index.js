@@ -1,7 +1,7 @@
 import instance from './instance'
 import authModule from './auth'
-import orderModule from './order'
-import payModule from './pay'
+import catalogModule from './catalog'
+import categoryModule from './category'
 import sessionModule from './session'
 
 const getCookie = (name) => {
@@ -12,7 +12,7 @@ const getCookie = (name) => {
 
 export default {
 	auth: authModule(instance, getCookie),
-	order: orderModule(instance, getCookie),
-	pay: payModule(instance, getCookie),
+	catalog: catalogModule(instance, getCookie),
+	category: categoryModule(instance, getCookie),
 	session: sessionModule(instance, getCookie)
 }

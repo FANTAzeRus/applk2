@@ -108,6 +108,8 @@
 		padding: 3px
 		transform: rotate(135deg)
 		-webkit-transform: rotate(135deg)
+	&--max-width
+		max-width: 100% !important
 	&:hover
 		.button--arrow-back
 			border: solid $white
@@ -144,10 +146,23 @@ input.input-text
 	box-sizing: border-box
 	border-radius: .375rem
 	height: 3rem
+	&--specific
+		// border-color: transparent
+		transition: color .3s ease
+		&:hover, &:focus
+			// border-color: $gray-border
+			color: $red
 	&:disabled
 		background: $gray2
 	&--error
 		border-color: #E6442F
+
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button 
+	-webkit-appearance: none
+	margin: 0
+
+input[type='number']
+	-moz-appearance: none
 // Inputs block end
 
 // Textarea block
@@ -195,6 +210,10 @@ textarea
 		font-size: 13px
 		margin-left: 8px
 		display: inline-block
+		&--accent
+			color: $red
+		&--bold
+			font-weight: 500
 	&--small
 		.checkbox__span
 			width: 1.25rem
@@ -269,6 +288,7 @@ textarea
 	width: 100%
 	border: 1px solid $gray-border 
 	padding: 12px 24px
+	padding-right: 30px
 	outline: 0
 	border-radius: 5px
 	background-color: $white
@@ -279,6 +299,10 @@ textarea
 		background-color: $gray2
 	&-box
 		position: relative
+		.select
+			white-space: pre
+			overflow: hidden
+			text-overflow: ellipsis
 		&--small
 			.select
 				width: 248px !important
@@ -297,14 +321,12 @@ textarea
 						visibility: visible
 
 		&--fheight
-		.select
-			height: 45px
-			overflow: hidden
-			padding-left: 14px
+			.select
+				padding-left: 14px
+				height: 45px	
 	&__search
 		display: flex
 		align-items: center
-		gap: 0 8px
 		width: calc(100% + 26px)
 		margin-left: -13px
 		margin-bottom: 11px
@@ -314,6 +336,9 @@ textarea
 		border-bottom: 1px solid $gray-border
 		
 		position: relative
+
+		> *:not(:last-child)
+			margin-right: 8px
 
 		&:hover
 			*
@@ -335,6 +360,28 @@ textarea
 			padding: 0
 			border: none
 			background-color: transparent
+	&__item
+		cursor: pointer
+		padding: 5px 14px 7px
+		display: flex
+		align-items: center
+		border-radius: 3px
+
+		font-size: 13px
+		line-height: 1.1
+		&:hover
+			background-color: $gray2
+		&--disabled
+			cursor: default !important
+			*
+				cursor: default !important
+
+			&:hover
+				background-color: initial
+		&--child .select__item
+			padding: 0 !important
+			padding-left: 10px !important
+			margin-top: 10px !important
 	&__list
 		width: 100%
 		padding: 17px 14px
@@ -350,20 +397,27 @@ textarea
 		top: 56px
 		left: 0
 		right: 0
-		z-index: 3
+		z-index: 52
 		&--narrow
 			top: 46px
-	&__item
-		cursor: pointer
-		padding: 5px 14px 7px
-		display: flex
-		align-items: center
-		border-radius: 3px
-
-		font-size: 13px
-		line-height: 1.1
-		&:hover
-			background-color: $gray2
+		&--cat
+			overflow: hidden
+			overflow-x: scroll
+			&::-webkit-scrollbar
+				width: 6px
+				height: 6px
+				-webkit-appearance: none
+			&::-webkit-scrollbar-thumb
+				border-radius: 20px
+				background-color: $icon-color
+			&::-webkit-scrollbar-track
+				background-color: $icon-color
+			&::-webkit-scrollbar-track-piece
+				background-color: $gray2
+			.select__item
+				flex-direction: column
+				justify-content: flex-start
+				align-items: flex-start
 	&--open
 		background-color: $white
 		background: url(assets/img/public/select-arrow-down-black-open.png) no-repeat calc(100% - 14px) center
@@ -372,6 +426,8 @@ textarea
 	&--grey
 		background-color: $gray2
 		border: 1px solid $gray-border
+	&--gray
+		color: $gray
 
 
 .dateRange .reportrange-text
@@ -572,6 +628,8 @@ textarea
 	&--trash
 		width: 10px
 		height: 12px
+		use
+			transition: fill .3s ease
 	&--stop
 		width: 40px
 		height: 40px
@@ -681,6 +739,11 @@ textarea
 // Pagination block
 .pagination 
 	text-align: center
+	position: relative
+	display: flex
+	justify-content: center
+	margin-bottom: 40px
+	height: 70px
 	&__list
 		list-style: none
 		margin: 0
@@ -692,6 +755,35 @@ textarea
 	&__item 
 		display: inline-block
 		margin-right: 7px
+	&__count
+		display: flex
+		position: absolute
+		left: 0
+		bottom: 5px
+		span
+			font-weight: 600
+			color: $black
+			font-size: 13px
+			line-height: 1.1
+			margin-right: 15px
+		&-list
+			list-style: none
+			margin: 0
+			padding: 0
+			display: flex
+			> *:not(:last-child)
+				margin-right: 15px
+		&-item
+			color: $gray
+			font-size: 13px
+			font-weight: 400
+			line-height: 1.1
+			text-decoration: underline
+			cursor: pointer
+			transition: color .3s ease
+			&:hover, &--selected
+				color: $red
+				font-weight: 600
 		 
 	&__link 
 		display: flex
@@ -705,6 +797,7 @@ textarea
 		font-size: 11px
 		line-height: 13px
 		transition: border .1s ease,
+		cursor: pointer
 		&--active 
 			border: 1px solid $red
 			font-weight: 600
@@ -718,15 +811,23 @@ textarea
 			width: 8px
 			margin-right:1px
 			transition: transform .3s ease
+			path
+				transition: fill .3s ease
 			&:hover
 				border: 0px
+				path
+					fill: $red
 		&__next
 			border: 0px
 			width: 8px
 			margin-left:1px
 			transition: transform .3s ease
+			path
+				transition: fill .3s ease
 			&:hover
 				border: 0px
+				path
+					fill: $red
 		&__ellipsis
 			border: 0px
 // Tooltips block end
@@ -761,8 +862,6 @@ textarea
 		width: 36px
 		height: 22px
 
-		gap: 0 8px
-
 		border: none
 		border-radius: 4px
 		background-color: var(--white)
@@ -772,6 +871,9 @@ textarea
 		left: 20px
 		
 		z-index: 2
+
+		> *:not(:last-child)
+			margin-right: 8px
 
 	option
 		font-size: 12.6px

@@ -7,6 +7,46 @@ body, html
 select
 	outline: none
 
+.cursor
+	cursor: pointer
+
+.tooltip-comp
+	position: relative
+
+.addresses-drag
+	overflow: hidden !important
+
+.cancelBtn
+	cursor: pointer
+	transition: background-color .3s ease
+	&:hover
+		background-color: darken(#6c757d, 10%) !important
+
+.applyBtn
+	cursor: pointer
+	transition: background-color .3s ease
+	&:hover
+		background-color: darken($red, 10%) !important
+
+.cracks
+	position: fixed
+	top: -400px
+	right: 0
+	left: 0
+	display: flex
+	justify-content: center
+	transition: top .3s ease
+	&__item
+		text-align: center
+		padding: 10px 15px
+		background-color: $red
+		border-radius: 0 0 8px 8px
+		color: $white
+		font-size: 14px
+		font-weight: 500
+	&--show
+		top: 0
+
 .logo
 	display: inline-flex
 	align-items: center
@@ -37,6 +77,10 @@ select
 	border-bottom: 1px solid $gray-border
 	grid-area: header
 
+.filter
+	&__input
+		width: 248px !important
+		max-height: 30px
 
 .header-user
 	display: flex
@@ -73,15 +117,17 @@ select
 	&__actions
 		display: flex
 		justify-content: center
-		gap: 0 16px
 		margin-left: 20px
+		> *:not(:last-child)
+			margin-right: 16px
 		img
 			cursor: pointer
 	&__news
 		display: flex
-		gap: 0 12px
 		margin-right: 0
 		cursor: pointer
+		> *:not(:last-child)
+			margin-right: 12px
 		select
 			appearance: none
 			font-size: 12px
@@ -230,6 +276,8 @@ select
 		cursor: pointer
 		&:hover
 			color: $red
+		&--reg
+			font-weight: 400 !important
 
 	&__separator
 		margin: 0 15px 0 20px
@@ -238,12 +286,15 @@ select
 		background: url("assets/img/public/breadcrumb-arrow.svg") no-repeat center center
 	&__link
 		color: $red
-		text-decoration: underline
-		text-decoration-skip-ink: none
 		
 .content
 	grid-area: content
-	background: $gray2
+	background-color: $gray2
+	z-index: 50
+	transition: background-color .3s ease
+	&--masked
+		background-color: transparent
+
 
 .copyrights
 	font-size: 12px
@@ -261,6 +312,21 @@ select
 	border: 1px solid $gray-border
 	border-radius: 4px
 
+.globalMask
+	position: fixed
+	top: 0
+	bottom: 0
+	left: 0
+	right: 0
+	z-index: 49
+	transition: background-color .3s ease
+	&.show
+		visibility: visible
+		background-color: rgba($black, .4)
+	&.hidden
+		visibility: hidden
+		background-color: rgba($black, .4)
+
 .content_block_grey 
 	background: $gray2
 	margin: 0px 33px 0px 29px
@@ -276,6 +342,11 @@ select
 	width: 100%
 	height: 0px
 	border-bottom: 1px solid $gray-border
+	&--bold
+		border-bottom: 2px solid $gray-border
+	&--full
+		width: calc(100% + 58px)
+		margin-left: -29px
 
 .left-act
 	grid-template-columns: 90px 260px 1fr
@@ -284,6 +355,7 @@ select
 		grid-template-columns: 90px 0 1fr
 		.menu-act
 			border-right: none
+			width: 0
 		.breadcrumbs
 			padding-left: 44px
 
@@ -395,18 +467,29 @@ select
 	max-height: 2px
 .cat-actions
 	display: flex
-	gap: 0 4px	
 	flex: 0 0 60px
 	align-items: center
+	> *:not(:last-child)
+		margin-right: 4px
+	&--address
+		flex-basis: 40px
 .cat-org-actions
 	display: flex
-	gap: 0 4px	
 	flex: 0 0 34px
 	align-items: center
+	> *:not(:last-child)
+		margin-right: 4px
+	&--address
+		flex-basis: 14px
+		margin-right: 5px !important
 .arrowOpen
 	cursor: pointer
 	width: 15px
 	padding: 0 3px
+	path
+		transition: fill .3s ease
+	&.hasChild path
+		fill: $red
 .hide-line
 	transition: stroke .3s ease
 .menu-categories
@@ -415,11 +498,13 @@ select
 	margin: 4px 17px 0px 14px
 	&__lev
 		display: flex
-		gap: 0 4px
 		align-items: center
 		padding: 9px 0px 9px 0px
 		max-width: 227px
 		cursor: pointer
+		> *:not(:last-child)
+			margin-right: 14px
+
 		.icon--hide
 			display: flex
 			align-items: center
@@ -429,10 +514,16 @@ select
 			cursor: pointer
 			transition: fill .3s ease
 			fill: #D5D5D5
-			
-			&:hover
+			stroke: #D5D5D5
+			line
+				stroke: transparent
+
+			&:hover, &.active
 				fill: $red !important
-				stroke: $red
+				stroke: $red !important
+				line
+					stroke: $red !important
+
 		.icon--add-child
 			display: flex
 			align-items: center
@@ -446,12 +537,18 @@ select
 				fill: $red !important
 		.text-name
 			margin-right: auto
+			padding-right: 12px
+			transition: color .2s ease
+			&--current
+				color: $red
 		svg.arrowOpen
 			transition: transform .3s ease
 		svg.arrowOpen.open
 			transform: rotate(-90deg)
 		&:not(:last-child)
 			border-bottom: 1px solid $gray-border
+		&--address
+			align-items: flex-start
 	&__lev2
 		list-style: none
 		padding: 0px
@@ -470,25 +567,45 @@ select
 	.icon
 		margin: 0px
 
+.dateRange
+	.reportrange-text
+		display: flex
+		width: 191px !important
+		justify-content: flex-end !important
+		align-items: center !important
+	&--card-product .reportrange-text
+		img
+			margin-top: -2px
+	&--card-address
+		.reportrange-text
+			display: flex
+			width: 200px !important
+			justify-content: flex-start !important
+			align-items: center !important
+			border-radius: 5px
+			padding-left: 15px
+			> *:not(:last-child)
+				margin-right: 11px
+
 .menu-categories-hover
 	display: grid
 	grid-template-columns: auto 1fr 20px 14px
-	padding: 13px 17px 13px 14px
+	padding: 13px 14px 13px 14px
 	background: $gray2
 	color: $dark_blue
 	margin-top: 22px
 	&__label
+		padding-top: 1px
+		text-align: center
 		font-size: 10px
 		font-weight: 600
-		padding: 1px 7px
 		background: $red
 		color: $white
 		border-radius: 0.325rem
 		text-transform: uppercase
 		height: 16px
+		min-width: 16px
 		align-self: center
-		display: flow-root
-		margin-left: 21px
 		margin-right: 9px
 	.icon--edit
 		display: inline-flex
@@ -519,7 +636,7 @@ select
 			width: 100%
 			left: 0
 			right: 0
-			bottom: -4px
+			bottom: 0
 			height: 4px
 
 			&::-webkit-progress-bar
@@ -559,6 +676,23 @@ select
 				path
 					fill: $red
 				
+.search__remove
+	width: 20px
+	height: 20px
+	display: flex
+	align-items: center
+	justify-content: center
+	background-color: transparent
+	position: relative
+	right: 20px
+	border-radius: 50%
+	cursor: pointer
+	transition: background-color .3s ease
+	&:hover
+		background-color: $gray-border
+		path
+			fill: $red
+
 
 .handle-table, .handle-table-outside
 	cursor: move
@@ -569,6 +703,10 @@ select
 .text-name
 	&.edit
 		display: none
+	&--gray
+		color: $gray
+	&--address
+		margin-top: -3px
 
 .text-input
 	display: none
@@ -583,6 +721,9 @@ select
 
 .language_razdel-cont .language__list
 	left: -100px
+
+.icon--edit *
+	transition: fill .2s ease
 
 .icon--stop
 	left: calc(50% - 30px) !important
@@ -613,15 +754,21 @@ img.grayFilter
 .btn-box
 	display: flex
 	align-items: center
-	gap: 0 10px
 	margin-top: 28px
+	> *:not(:last-child)
+		margin-right: 10px
 	&--popup
-		width: 310px
+		width: 100%
+		min-width: 310px
 	.button
 		width: 50%
-		margin: 0 !important
+		margin-left: 0 !important
+		margin-top: 0 !important
+		margin-bottom: 0 !important
 
 @include media(1160px)
+	.menu-act__close
+		top: 6px
 	.table-heder-filtr__address h3,
 	.table-heder-filtr__btns-row button
 		font-size: 12px !important
@@ -642,7 +789,8 @@ img.grayFilter
 
 		&__news
 			margin-right: 18px
-			gap: 0 6px
+			> *:not(:last-child)
+				margin-right: 6px
 
 			select
 				font-size: 10px
@@ -664,6 +812,11 @@ img.grayFilter
 		margin: 0
 		margin-right: 5px
 
+@include media(1230px)
+	.content
+		overflow: hidden
+		overflow-x: auto
+
 @include media(1060px)
 	.logo__text
 		display: none
@@ -673,9 +826,6 @@ img.grayFilter
 		&--catalog
 			width: 738px
 			padding-right: 15px
-	.content
-		overflow: hidden
-		overflow-x: auto
 
 @include media($tablet)
 	.logo
@@ -687,7 +837,8 @@ img.grayFilter
 
 		&__actions
 			margin-left: 10px
-			gap: 0 8px
+			> *:not(:last-child)
+				margin-right: 8px
 
 		&__news
 			margin-right: 0

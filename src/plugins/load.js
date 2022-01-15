@@ -1,6 +1,6 @@
 export default {
 	install: (app) => {
-		app.config.globalProperties.$load = async (action, errHandler) => {
+		app.prototype.$load = async (action, errHandler) => {
 			try {
 				await action()
 			} catch (error){

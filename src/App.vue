@@ -21,7 +21,8 @@
 
 @import '@/assets/css/pages/default-page'
 @import '@/assets/css/pages/table-page'
-@import '@/assets/css/pages/card_product'
+@import '@/assets/css/pages/card__product'
+@import '@/assets/css/pages/card__address'
 @import '@/assets/css/pages/login'
 
 </style>

@@ -11,7 +11,7 @@
 						<div class="table-heder-products__label">{{selectedCount}}</div>
 						<div class="table-heder-products__label-text">{{selectedCount}} выделен</div>
 						<div class="table-heder-products__battons">
-						<svg class="icon icon--copy">
+						<svg @click="allCopyItem" class="icon icon--copy">
 							<use xlink:href="@/assets/img/public/icons-pack.svg#copy"></use>
 						</svg>
 						<svg @click="blockAllSelected" class="icon icon--attention">
@@ -26,97 +26,7 @@
 					<div v-show="!selectedCount">
 					</div>
 					
-					<!--Filter and Search block-->
-					<div class="table-heder-filtr-search table-heder-filtr-search--catalog">
-						<a @click.prevent="openTooltip" class="table-heder-filtr-search__filtr" href="">
-							<svg class="icon icon--filter">
-								<use xlink:href="@/assets/img/public/icons-pack.svg#filter"></use>
-							</svg>
-							Фильтр
-						</a>
-						<div class="tooltip-orders tooltip-orders--filter">
-							<h3>Активный фильтр</h3>
-							<div class="condition-box">
-								<ul class="condition__list">
-									<li
-										v-for="(condition, idx) in conditionList"
-										:key="idx"
-										class="condition"
-									>
-										<div v-if="condition.biOperator.openAvailable" class="select-box">
-											<div @click="condition.biOperator.opened = !condition.biOperator.opened" :class="['select', 'select--xsmall', condition.biOperator.opened ? 'select--open' : '']">
-												{{condition.biOperator.data}}
-											</div>
-											<ul v-if="condition.biOperator.opened" class="select__list select__list--xsmall">
-												<li
-													v-for="(selectItem, index) in ['и', 'или']"
-													:key="index"
-													@click="selBiOperator(selectItem, idx)"
-													class="select__item"
-												>
-													{{selectItem}}
-												</li>
-											</ul>
-										</div>
-										<div class="select--xsmall" v-else>
-											<span>{{condition.biOperator.data}}</span>
-										</div>
-										<div class="select-box">
-											<div @click="condition.selectedCondition.opened = !condition.selectedCondition.opened" :class="['select', 'select--grey', condition.selectedCondition.opened ? 'select--open' : '']">
-												{{condition.selectedCondition.data}}
-											</div>
-											<ul v-if="selectList.length && condition.selectedCondition.opened" class="select__list">
-												<li
-													v-for="(selectItem, index) in selectList"
-													:key="index"
-													@click="selCondition(selectItem, idx)"
-													class="select__item"
-												>
-													{{selectItem}}
-												</li>
-											</ul>
-										</div>
-										<div class="select-box">
-											<div @click="condition.biCondition.opened = !condition.biCondition.opened" :class="['select', 'select--small', condition.biCondition.opened ? 'select--open' : '']">
-												{{condition.biCondition.data}}
-											</div>
-											<ul v-if="condition.biCondition.opened" class="select__list">
-												<li
-													v-for="(selectItem, index) in ['=', '<', '>']"
-													:key="index"
-													@click="selBiCondition(selectItem, idx)"
-													class="select__item"
-												>
-													{{selectItem}}
-												</li>
-											</ul>
-										</div>
-
-										<multi-select :selectOptions="condition.selectedMark" class="select-box--small"/>
-
-										<svg @click="removeCondition(idx)" class="icon icon--remove">
-											<use xlink:href="@/assets/img/public/icons-pack.svg#remove"></use>
-										</svg>	
-									</li>
-								</ul>
-							</div>
-							<div @click="addCondition" class="addFilter">
-								<svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-									<path d="M11.0871 6.5697V5.43024H6.5697V0.912842H5.43024V5.43024H0.912842V6.5697H5.43024V11.0871H6.5697V6.5697H11.0871Z" fill="#E6442F"/>
-								</svg>
-								Добавить фильтр
-							</div>
-						</div>
-						<form class="table-heder-filtr-search__search" action="">
-							<div class="table-heder-filtr-search__search--button" type="submit">
-								<svg class="icon icon--zoom">
-										<use xlink:href="@/assets/img/public/icons-pack.svg#zoom"></use>
-								</svg>
-							</div>
-							<input class="table-heder-filtr-search__input" type="text" placeholder="Поиск..." name="search">
-						</form>
-					</div>
-					<!--Filter and Search block end-->
+					<filter-search/>
 					
 					<div class="table-heder-new-position">
 						<router-link :to="{name:'card-product'}" class="button table-heder-new-position__button">Создать позицию</router-link>
@@ -137,7 +47,7 @@
 					</div>
 					<div class="table-products__item table-products__item--photo">Фото</div>
 					<div class="table-products__item">Артикул</div>
-					<div @click="sortBy" class="table-products__item table-products__item--name table-products__item--sortable">
+					<div @click="sortBy($event, 'name')" class="table-products__item table-products__item--name table-products__item--sortable">
 						Название
 						<svg width="9" height="7" viewBox="0 0 9 7" fill="none" xmlns="http://www.w3.org/2000/svg">
 							<path d="M0.804546 0.925603L5.38628e-08 1.73316L4.5 6.25L9 1.73316L8.19545 0.925603L4.5 4.63489L0.804546 0.925603Z" fill="#9B9B9B"/>
@@ -148,7 +58,7 @@
 					<div class="table-products__item table-products__item--marker">Маркеры</div>
 					<div class="table-products__item table-products__item--promo">Акции</div>
 					<div class="table-products__item table-products__item--weigh">Вес</div>
-					<div @click="sortBy" class="table-products__item table-products__item--price table-products__item--sortable">
+					<div @click="sortBy($event, 'price')" class="table-products__item table-products__item--price table-products__item--sortable">
 						Цена
 						<svg width="9" height="7" viewBox="0 0 9 7" fill="none" xmlns="http://www.w3.org/2000/svg">
 							<path d="M0.804546 0.925603L5.38628e-08 1.73316L4.5 6.25L9 1.73316L8.19545 0.925603L4.5 4.63489L0.804546 0.925603Z" fill="#9B9B9B"/>
@@ -161,19 +71,22 @@
 				<!--Product Table block-->
 				<draggable
 					tag="div"
-					v-model="catalogItems"
 					v-bind="dragOptions"
+					v-model="searchedCatalogPositions"
 					handle=".handle-table"
 					class="table-products"
 				>
 					<!--Product Table row-->        
 					<div
-						v-for="(item, idx) in catalogItems"
-						:key="item.name"
+						v-for="(item, idx) in searchedCatalogPositions"
+						:key="item.title"
 						class="table-products__list table-products__list--catalog"
-						:class="item.inner ? 'table-products__list--dark-grey' : ''"
-						v-show="item.show || !item.inner"
-					>        
+						v-show="
+						idx < selectedPaginationCount * paginationPage 
+						&& (idx >= selectedPaginationCount * (paginationPage - 1))"
+					>
+						<!-- :class="item.inner ? 'table-products__list--dark-grey' : ''" -->
+					<!-- item.show || !item.inner -->
 						<a class="handle-table table-products__item table-products__item--menudrop table-products">
 							<svg class="icon icon--menu">
 								<use xlink:href="@/assets/img/public/icons-pack.svg#menu"></use>
@@ -187,17 +100,18 @@
 						</div>
 
 						<div class="table-products__item table-products__item--photo">
-							<img v-if="idx == 3" src="@/assets/img/public/table-products-none.svg" alt="" />
-							<span v-if="idx == 3" class="table-products__item--photo--nophoto">Нет<br> фото</span>
-							<img v-if="idx != 3" :class="item.blocked ? 'grayFilter' : ''" src="@/assets/img/public/pic/table-products-photo1.svg" alt="" />
-							<svg v-if="idx != 3" :class="item.blocked ? 'show' : ''" class="icon icon--stop">
+							<!-- <img src="@/assets/img/public/table-products-none.svg" alt="" />
+							<span class="table-products__item--photo--nophoto">Нет<br> фото</span> -->
+							<img :class="item.blocked ? 'grayFilter' : ''" :src="item.image" alt="" />
+							<svg :class="item.blocked ? 'show' : ''" class="icon icon--stop">
 								<use xlink:href="@/assets/img/public/icons-pack.svg#stop"></use>
 							</svg>
 						</div>
 						<!-- AA3456 -->
-						<div v-if="!checkChild(item)" class="table-products__item table-products__item--vendor-code">{{item.name}}</div>
-						<div v-if="!checkChild(item) && !item.inner" class="table-products__item table-products__item--name">Кисло-сладкий цыпленок</div>
+						<div v-if="!checkChild(item)" class="table-products__item table-products__item--vendor-code">{{item.article}}</div>
+						<div v-if="!checkChild(item) && !item.inner" class="table-products__item table-products__item--name">{{item.title}}</div>
 						<div v-if="!checkChild(item) && !item.inner" class="table-products__item table-products__item--desciption">
+							<!-- {{item.description}} -->
 							<img class="icon--desc" src="@/assets/img/public/icons/rus.svg" alt="" />
 							<img class="icon--desc" src="@/assets/img/public/icons/ukr.svg" alt="" />
 						</div>
@@ -215,16 +129,15 @@
 							<div class="text-label">Акция</div>
 							</div>
 
-						<div v-if="item.inner" class="table-products__item table-products__item--name table-products-name-2-pos">Размер пиццы 30см, тесто тонкое, мука классическая</div>
-						<!--Product Table 3 cell-->
+						<!-- <div v-if="item.inner" class="table-products__item table-products__item--name table-products-name-2-pos">Размер пиццы 30см, тесто тонкое, мука классическая</div>
 						<div v-if="item.inner" class="table-products__item table-products__item--bju table-products-bju-3-pos">
 						Белки 200 гр, Жиры 100 гр, Углеводы 200 гр. Калории 1000 ккал
-						</div>
+						</div> -->
 
-						<div v-if="!checkChild(item)" class="table-products__item table-products__item--weight">1 пуч</div>
-						<div v-if="!checkChild(item)" class="table-products__item table-products__item--price">1000 ₴</div>
+						<div v-if="!checkChild(item)" class="table-products__item table-products__item--weight">{{item.weight}}</div>
+						<div v-if="!checkChild(item)" class="table-products__item table-products__item--price">{{item.price}} ₴</div>
 
-						<div v-if="checkChild(item)" class="table-products__item table-products__item--vendor-code act">{{item.name}}</div>
+						<!-- <div v-if="checkChild(item)" class="table-products__item table-products__item--vendor-code act">{{item.article}}</div>
 						<div v-if="checkChild(item)" class="table-products__item table-products__item--name table-products-name-2-pos">
 							<ul class="table-products__item--name--ul">    
 								<li @click="toggleMenuList(item.childs, $event)" class="table-products__item--name--li">
@@ -240,16 +153,16 @@
 						<div v-if="checkChild(item)" class="table-products__item table-products__item--marker"></div>
 						<div v-if="checkChild(item)" class="table-products__item table-products__item--promo"></div>
 						<div v-if="checkChild(item)" class="table-products__item table-products__item--weight"></div>
-						<div v-if="checkChild(item)" class="table-products__item table-products__item--price">500-1000 ₽</div>
+						<div v-if="checkChild(item)" class="table-products__item table-products__item--price">500-1000 ₽</div> -->
 
 						<div class="table-products__item table-products__item--icons">
-							<svg class="icon icon--copy">
+							<svg @click="copyItem(idx)" class="icon icon--copy">
 								<use xlink:href="@/assets/img/public/icons-pack.svg#copy"></use>
 							</svg>
 							<svg @click="blockItem(idx)" :class="item.blocked ? 'icon--attention--hover' : ''" class="icon icon--attention">
 								<use xlink:href="@/assets/img/public/icons-pack.svg#attention"></use>
 							</svg>
-							<svg @click="$router.push({name:'card-product-name', params:{name: item.name}})" class="icon--edit" xmlns="http://www.w3.org/2000/svg"><path d="M.974 9.062v2.188h2.188l6.451-6.452-2.187-2.187L.974 9.062zm10.331-5.955a.58.58 0 000-.823L9.94.92a.58.58 0 00-.823 0L8.05 1.987l2.188 2.187 1.067-1.067z"/></svg>
+							<svg @click="$router.push({name:'card-product-id', params:{id: item.id}})" class="icon--edit" xmlns="http://www.w3.org/2000/svg"><path d="M.974 9.062v2.188h2.188l6.451-6.452-2.187-2.187L.974 9.062zm10.331-5.955a.58.58 0 000-.823L9.94.92a.58.58 0 00-.823 0L8.05 1.987l2.188 2.187 1.067-1.067z"/></svg>
 							<svg @click="removeAt(idx, true)" class="icon icon--trash">
 								<use xlink:href="@/assets/img/public/icons-pack.svg#trash"></use>
 							</svg>
@@ -559,7 +472,11 @@
 				</draggable>
 				<!--Product Table block end-->
 				
-				<pagination />
+				<pagination
+					:listLength="searchedCatalogPositions ? searchedCatalogPositions.length : 0"
+					@changePage="changePage"
+					:page.sync="paginationPage"
+				/>
 			
 			</div>
 
@@ -578,14 +495,12 @@
 </template>
 
 <script>
-// document.querySelector('.js-select').select2({
-//   minimumResultsForSearch: Infinity
-// });
-import MultiSelect from "@/components/parts/MultiSelect"
 import Pagination from '@/components/parts/Pagination'
+import FilterSearch from '@/components/parts/FilterSearch'
 import DefaultPage from '@/components/DefaultPage'
 import Popup from "@/components/Popup"
 import draggable from "vuedraggable";
+import {mapGetters} from 'vuex'
 
 export default {
 
@@ -595,83 +510,53 @@ export default {
 		DefaultPage,
 		Pagination,
 		draggable,
-		MultiSelect,
+		FilterSearch,
 		Popup
+	},
+
+	mounted() {
+		this.$store.dispatch('fetchApplications')
+			.then(() => {
+				const lastSelCategoryId = localStorage.getItem('lastSelCategoryId'),
+							findItem = this.categoriesList.find(item => item.id == lastSelCategoryId)
+				if (lastSelCategoryId && findItem) {
+					this.selCategory(findItem)
+				} else {
+					this.selCategory(this.categoriesList[0])
+				}
+			})
 	},
 
 	data() {
 		return {
+			paginationPage: 1,
+			selectedPaginationCount: 10,
+			
 			selectList: [
-				"Маркеры",
-				"Цена",
-				"Название",
-				"Акции",
-				"Вес"
+				{
+					name: "Маркеры",
+				},
+				{
+					name: "Цена",
+					input: true,
+				},
+				{
+					name: "Название",
+					input: true,
+				},
+				{
+					name: "Акции",
+				},
+				{
+					name: "Вес",
+					input: true,
+				},
 			],
 
 			openDelPopup: false,
 			delName: 'позицию',
 
 			selectAllInput: false,
-
-			catalogItems: [
-				{
-					id:1,
-					blocked: false,
-					inner: false,
-					show: true,
-					name:"AA3456",
-					selected: false
-				},
-				{
-					id:2,
-					blocked: false,
-					inner: false,
-					show: true,
-					name:"AA3756",
-					selected: false
-				},
-				{
-					id:3,
-					blocked: false,
-					inner: false,
-					show: true,
-					name:"AA3453",
-					selected: false
-				},
-				{
-					id:4,
-					inner: false,
-					childs: [5, 6, 7],
-					blocked: false,
-					name:"AB3456",
-					selected: false
-				},
-				{
-					id:5,
-					inner: true,
-					show: true,
-					blocked: false,
-					name:"BA3456",
-					selected: false
-				},
-				{
-					id:6,
-					inner: true,
-					show: true,
-					blocked: false,
-					name:"AC3456",
-					selected: false
-				},
-				{
-					id:7,
-					inner: true,
-					show: true,
-					blocked: false,
-					name:"YA3456",
-					selected: false
-				},
-			],
 
 			conditionList: [
 				{
@@ -691,23 +576,31 @@ export default {
 					selectedMark: {
 						selectList: [
 							{
-								data: "Маркеры",
+								title: "Маркеры",
 								model: false
 							},
 							{
-								data: "Цена",
+								title: "Цена",
+								input: true,
 								model: false
 							},
 							{
-								data: "Название",
+								title: "Название",
+								input: true,
 								model: false
 							},
 							{
-								data: "Акции",
+								title: "Акции",
 								model: false
 							},
 							{
-								data: "Вес",
+								title: "Вес",
+								input: true,
+								model: false
+							},
+							{
+								title: "Вес2",
+								input: true,
 								model: false
 							},
 						],
@@ -716,6 +609,8 @@ export default {
 					}
 				},
 			],
+
+			search: '',
 
 			pageOptions: {
 				name: "catalog",
@@ -729,8 +624,32 @@ export default {
 	},
 
 	computed: {
+		...mapGetters({
+					categoriesList: 'getCategories',
+					catalogPositions: 'catalogPositions'
+			}),
+
+		searchedCatalogPositions: {
+			get() {
+				return this.search.length >= 3
+					? this.catalogPositions.filter(item => {
+						return [item.title, item.description].some(vocular => {
+							return vocular.toLowerCase().includes(this.search.toLowerCase())
+						})
+					})
+					: this.catalogPositions
+			},
+			set(value) {
+				this.$store.state.applicationModule.selCategory.positions = value
+			}
+		},
+
 		selectedCount() {
-			return this.catalogItems.filter(item => item?.selected).length
+			if (this.catalogPositions) {
+				return this.catalogPositions.filter(item => item?.selected).length
+			} else {
+				return 0
+			}
 		},
 
 		dragOptions() {
@@ -744,6 +663,28 @@ export default {
 	},
 
 	methods: {
+
+		changePage(count) {
+			this.selectedPaginationCount = count
+		},
+
+		selCategory(data) {
+			if (this.$store.state.applicationModule.categories.length) {
+				const recursionUnCurrent = (item) => {
+					item.map(select => {
+						select.currentCategory = false
+						if (select.children) recursionUnCurrent(select.children)
+					})
+				}
+				recursionUnCurrent(this.$store.state.applicationModule.categories)
+
+				data.currentCategory = true
+				localStorage.setItem('lastSelCategoryId', data.id)
+				this.$store.state.applicationModule.selCategory = data
+			} else {
+				return false
+			}
+		},
 		checkChild(item) {
 			return Boolean(item.childs?.length)
 		},
@@ -751,40 +692,11 @@ export default {
 		toggleMenuList(childs, event) {
 			event.currentTarget.classList.toggle('open')
 			childs.forEach(childId => {
-				this.catalogItems[childId - 1].show = !this.catalogItems[childId - 1].show
+				this.catalogPositions[childId - 1].show = !this.catalogPositions[childId - 1].show
 			})
 		},
 
-		openTooltip(event) {
-			const selectedRow = document.querySelector(".table-products__list--selected")
-			const openTooltip = document.querySelector(".tooltip-orders.show")
-
-			const allClasses = Array.from(event.currentTarget.nextElementSibling.classList)
-			if (
-					allClasses.some(elClass => elClass == "tooltip-orders")
-					&& !allClasses.some(elClass => elClass == "show")
-				) {
-				// close all tooltip
-				openTooltip?.classList.remove("show", "show--top")
-				this.$refs.tooltipMask.classList.remove("show")
-				selectedRow?.classList.remove("table-products__list--selected")
-				// open need tooltip
-				if (document.querySelector(".page").clientHeight - event.pageY > event.currentTarget.nextElementSibling.clientHeight) {
-					event.currentTarget.nextElementSibling.classList.add("show")
-				} else {
-					event.currentTarget.nextElementSibling.classList.add("show", "show--top")
-				}
-				this.$refs.tooltipMask.classList.add("show")
-				event.currentTarget.parentElement.parentElement.classList.add("table-products__list--selected")
-			} else {
-				// close all tooltip
-				this.$refs.tooltipMask.classList.remove("show")
-				openTooltip?.classList.remove("show", "show--top")
-				selectedRow?.classList.remove("table-products__list--selected")
-			}
-		},
-
-		closeTooltips() {
+		closeFilterTooltips() {
 			const openTooltips = document.querySelectorAll(".tooltip-orders.show")
 			const selectedRow = document.querySelector(".table-products__list--selected")
 
@@ -794,8 +706,25 @@ export default {
 			selectedRow?.classList.remove("table-products__list--selected")
 		},
 
-		sortBy(event) {
-			const selectedSortable = document.querySelector('.table-products__item--sortable.selected')
+		sortBy(event, key) {
+			const selectedSortable = document.querySelector('.table-products__item--sortable.selected');
+			
+			switch (key.toLowerCase()) {
+				case 'name':
+					if (selectedSortable && !selectedSortable.classList.contains('unselected')) {
+						this.catalogPositions.sort((a, b) => (a.title > b.title) ? 1 : -1)
+					} else {
+						this.catalogPositions.sort((a, b) => (a.title < b.title) ? 1 : -1)
+					}
+					break
+				case 'price':
+					if (selectedSortable && !selectedSortable.classList.contains('unselected')) {
+						this.catalogPositions.sort((a, b) => (a.price > b.price) ? 1 : -1)
+					} else {
+						this.catalogPositions.sort((a, b) => (a.price < b.price) ? 1 : -1)
+					}
+					break
+			}
 
 			if (selectedSortable == event.currentTarget) {
 				event.currentTarget.classList.add("selected")
@@ -807,122 +736,32 @@ export default {
 		},
 
 		blockItem(idx) {
-			this.catalogItems[idx].blocked = !this.catalogItems[idx].blocked;
+			this.catalogPositions[idx].blocked = !this.catalogPositions[idx].blocked;
 		},
 
-		removeCondition(idx) {
-			this.conditionList.splice(idx, 1);
-		},
+		copyItem(idx) {
+			const newItem = Object.assign({}, this.catalogPositions[idx])
+			newItem.id += 100
 
-		addCondition() {
-			if (this.conditionList.length) {
-				this.conditionList.push(
-					{
-						biOperator: {
-							data: "и",
-							opened: false,
-							openAvailable: true
-						},
-						biCondition: {
-							data: ">",
-							opened: false
-						},
-						selectedCondition: {
-							data: "",
-							opened: false
-						},
-						selectedMark: {
-							selectList: [
-							{
-								data: "Маркеры",
-								model: false
-							},
-							{
-								data: "Цена",
-								model: false
-							},
-							{
-								data: "Название",
-								model: false
-							},
-							{
-								data: "Акции",
-								model: false
-							},
-							{
-								data: "Вес",
-								model: false
-							},
-						],
-							selectListSels: [],
-							selectListShow: false
-						}
-					}
-				);
+			let preventNumber = newItem.title.split(" ").pop()
+
+			if (+preventNumber) {
+				newItem.title = `${newItem.title.slice(0, newItem.title.length - preventNumber.length)}${+preventNumber + 1}`
 			} else {
-				this.conditionList.push(
-					{
-						biOperator: {
-							data: "где",
-							opened: false,
-							openAvailable: false
-						},
-						biCondition: {
-							data: ">",
-							opened: false
-						},
-						selectedCondition: {
-							data: "",
-							opened: false
-						},
-						selectedMark: {
-							selectList: [
-							{
-								data: "Маркеры",
-								model: false
-							},
-							{
-								data: "Цена",
-								model: false
-							},
-							{
-								data: "Название",
-								model: false
-							},
-							{
-								data: "Акции",
-								model: false
-							},
-							{
-								data: "Вес",
-								model: false
-							},
-						],
-							selectListSels: [],
-							selectListShow: false
-						}
-					}
-				);
+				newItem.title += ' 1'
 			}
-				
+
+			this.catalogPositions.splice(idx, 0, newItem)
 		},
 
-		selBiOperator(item, index) {
-			this.conditionList[index].biOperator.data = item
-			this.conditionList[index].biOperator.opened = false
-		},
-		selBiCondition(item, index) {
-			this.conditionList[index].biCondition.data = item
-			this.conditionList[index].biCondition.opened = false
-		},
-		selCondition(item, index) {
-			this.conditionList[index].selectedCondition.data = item
-			this.conditionList[index].selectedCondition.opened = false
-		},
+		closeTooltips() {
+			const openTooltips = document.querySelectorAll(".tooltip-orders.show")
+			const selectedRow = document.querySelector(".table-products__list--selected")
 
-		selSelectList(item, index) {
-			this.conditionList[index].selectedMark.data[0] = item
-			this.conditionList[index].selectedMark.opened = false
+			this.$refs.tooltipMask.classList.remove("show")
+			openTooltips.forEach(openTooltip => openTooltip.classList.remove("show"))
+			
+			selectedRow?.classList.remove("table-products__list--selected")
 		},
 
 		openDelDialog(delName) {
@@ -942,11 +781,11 @@ export default {
 			if (promise) {
 				this.openDelDialog("позицию")
 					.then(() => {
-						this.catalogItems.splice(idx, 1);
+						this.catalogPositions.splice(idx, 1);
 						this.openDelPopup = false
 					})
 			} else {
-				this.catalogItems.splice(idx, 1);
+				this.catalogPositions.splice(idx, 1);
 				this.openDelPopup = false
 			}
 			
@@ -955,24 +794,30 @@ export default {
 		removeAllSelected() {
 			this.openDelDialog("позици")
 					.then(() => {
-						this.catalogItems.filter(item => item.selected).forEach(row => {
-							this.removeAt(this.catalogItems.findIndex(item => item.id == row.id))
+						this.catalogPositions.filter(item => item.selected).forEach(row => {
+							this.removeAt(this.catalogPositions.findIndex(item => item.id == row.id))
 						})
 					})
 			
 		},
 
 		blockAllSelected() {
-			this.catalogItems.filter(item => item.selected).forEach(row => {
-				this.blockItem(this.catalogItems.findIndex(item => item.id == row.id))
+			this.catalogPositions.filter(item => item.selected).forEach(row => {
+				this.blockItem(this.catalogPositions.findIndex(item => item.id == row.id))
+			})
+		},
+
+		allCopyItem() {
+			this.catalogPositions.filter(item => item.selected).forEach(row => {
+				this.copyItem(this.catalogPositions.findIndex(item => item.id == row.id))
 			})
 		},
 
 		selectAll() {
 			if (!this.selectAllInput) {
-				this.catalogItems.map(item => item.selected = true)
+				this.catalogPositions.map(item => item.selected = true)
 			} else {
-				this.catalogItems.map(item => item.selected = false)
+				this.catalogPositions.map(item => item.selected = false)
 			}
 		}
 	},

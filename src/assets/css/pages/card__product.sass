@@ -16,6 +16,11 @@
 	transition: color .3s ease
 	cursor: pointer
 
+	&--no-action
+		background: none
+		cursor: default
+		padding-left: 0
+
 	&:hover
 		color: $red
 	
@@ -27,20 +32,24 @@
 .language_razdel-cont
 	margin-right: 37px
 	margin-left: 0vw
+
+	&--address
+		margin-right: 25px
 	
 .language_razdel
 	display: flex
 	align-items: center
-	
-.separator_all_grey
-	width: 100%
-	height: 0px
-	border-bottom: 1px solid $gray-border
 
-	&--full
-		width: calc(100% + 58px)
-		margin-left: -29px
+	.icon--copy
+		margin-right: 30px
+		position: relative
+		bottom: -1px
 	
+.content_section
+	&--bottom
+		position: relative
+		bottom: -15px
+
 .content_section__block
 	padding:0px 29px
 	
@@ -67,7 +76,6 @@
 	grid-column-gap: 24px
 	div
 		position: relative
-		max-height: 97px
 .vendor-code-and-date-block 
 	display: flex
 	gap: 36px
@@ -96,13 +104,30 @@
 	
 .other-categories
 	display: flex
-	gap: 0 24px
+	> *:not(:last-child)
+		margin-right: 24px
 	.default-heading
 		margin-bottom: 15px !important
 	> div
-		display: flex
+		visibility: hidden
+		height: 0
 		flex-direction: column
-		flex: 1 1 50%
+		flex: 0 0 50%
+		&.other-categories--show
+			visibility: visible
+			height: auto
+			position: relative
+
+			.select__list
+				position: relative
+				width: 100%
+				height: 100%
+				box-shadow: none
+				top: 0
+				padding: 0
+				z-index: 1
+				&--cat
+					margin-left: -14px
 	&__list
 		display: flex
 		gap: 8px 7px
@@ -122,6 +147,11 @@
 
 	.default-heading
 		margin-bottom: 5px
+	&__list--cat
+		flex-direction: column
+		margin: 0
+		padding: 0
+		padding-left: 5px
 
 .vendor-code-heading
 	display: flex
@@ -166,38 +196,87 @@
 				border: none
 				&:hover
 					color: $red !important
+					path
+						fill: $white
 			&--text
 				margin-right: 8px
 				position: relative
 				bottom: 1px
 		&__date-icon
 			display: inline-flex
-			
+
+.promo-date-heading__date-icon--working-time
+	position: relative
+	bottom: -2px
+
 .content_caption
 	color: $gray
 	line-height: 1.1
-	
+
+.photo
+	&--square
+		.position_photo__block__pic
+			width: 70px
+			height: 70px
+	&--rect
+		.position_photo__block__pic
+			width: 70px
+			height: 60px
+
+.photo-action-box
+	display: flex
+	cursor: pointer
+	max-height: 14px
+
+	&:not(:last-child)
+		margin-right: 30px
+	.icon--trash
+		margin-right: 7.5px
+	span
+		color: $gray
+		text-decoration: underline
+		transition: color .3s ease
+	&:hover
+		span
+			color: $red
+		svg path, svg use
+			fill: $red !important
+
 .position_photo 
 	.content_heading 
 		margin-bottom: 2px
 	&__block
 		margin-top: 14px
-		margin-right: 42px
 		display: inline-block
+		display: flex
+		&:not(:last-child)
+			margin-right: 42px
 		&__pic 
 			float: left
 			margin-right:12px
 			border-radius: 5px
 			width: 70px
-			height: 60px
+			margin-top: 4px
+			height: 52px
+			object-fit: cover
+			&--rect
+				width: 70px
+				height: 70px
 		&__txt
 			float: left
 			margin-right: 18px
 			padding-top: 11px
 			cursor: pointer
+			&--rect
+				padding-top: 20px
 		&--name
 			font-weight: 600
 			color: $black
+			&--fixedw
+				max-width: 120px
+				overflow: hidden
+				text-overflow: circle
+				max-height: 70px
 		&--namelink
 			text-decoration: underline
 			display: block
@@ -205,11 +284,17 @@
 			color: $gray
 			text-decoration: underline
 		&__icon
+			display: flex
 			float: left
 			margin-top: 11px
+			&--rect
+				margin-top: 20px
+			.icon--edit
+				margin-right: 7px
 			.icon--trash
 				margin-left: 0px
 				margin-bottom: 3px
+				align-self: flex-start
 		&__new-photo
 			width:60px
 			height:60px
@@ -222,6 +307,13 @@
 			&--icon
 				width: 18px
 				margin: 0 auto
+	&--row
+		display: flex
+		> *:not(:last-child)
+			margin-right: 21px
+	&--hfix
+		.content_heading
+			margin-bottom: 2px
 
 .marker-block 
 	.checkbox--filled
@@ -229,12 +321,35 @@
 	&__column
 		float: left
 		margin-right: 160px
+	.icon-box
+		height: 12px
+		margin-left: 10px
+		display: flex
+		align-items: center
+		svg
+			margin-top: -1px
+
+.icon-box
+	&--mod
+		margin-left: 13px
 		
 .card_product-marker-icon
-	margin-left: 5px
+	max-width: 19px
+	height: 18px
+	margin-left: 10px
 	display: inline
+	border-radius: 2px
 	
-.promo-block 
+.promo-block
+	> div
+		display: flex
+		> *:not(:last-child)
+			margin-right: 6px
+	.icon-box
+		display: flex
+		align-items: center
+		position: relative
+		top: -5px
 	.radio 
 		margin-bottom: 10px
 		&__span
@@ -265,8 +380,11 @@
 			align-items: center
 			flex-wrap: wrap
 			gap: 10px 5px
-		.tag__item
+		.tag__item, .tag__title
 			cursor: pointer
+			transition: color .2s ease
+			&:hover
+				color: $red
 		.tag__item:not(:last-child)
 			margin-left: 0
 		
@@ -276,9 +394,11 @@
 	display: grid
 	grid-template-columns: 1fr 203px
 	&__label
+		width: 16px
+		height: 16px
 		font-size: 10px
 		font-weight: 600
-		padding: 1px 7px
+		padding: 1px 5px
 		background: $red
 		color: $white
 		border-radius: 0.325rem
@@ -288,6 +408,9 @@
 		position: relative
 		top: -1px
 		margin-right: 14px
+		text-align: center
+		&--nml
+			margin-left: 15px
 	&__label-text
 		display: inline-flex
 		align-self: center
@@ -298,7 +421,9 @@
 		display: inline-flex
 		align-self: center
 		position: relative
-		top: 3px
+		top: 1px
+	&--delivery-zone
+		margin-top: 26px
 		
 .card-table-new-position
 	margin-top: 3px
@@ -310,6 +435,14 @@
 		min-height: 64px
 		background: $white
 		border-bottom: 1px solid $gray-border
+		&--working-time
+			grid-template-columns: auto 140px 225px 225px 100% !important
+		&--delivery-zone
+			grid-template-columns: auto 1.6fr 1fr 1fr .7fr !important
+			.card-table-products__item
+				&:nth-child(1), &:nth-child(2)
+					padding-left: 15px
+
 	&__list--grey
 		min-height: auto
 		border-bottom: none
@@ -365,6 +498,13 @@
 					top: 0
 					left: 0
 					z-index: 1
+		&.card-table-products__list--working-time, &.card-table-products__list--delivery-zone
+			overflow: hidden
+			.card-table-products__item
+				padding-top: 11px
+				padding-bottom: 11px
+		&.card-table-products__list--delivery-zone .card-table-products__item
+				border-top: 1px solid $gray-border
 	&__item
 		padding: 7px 0px
 		align-self: center
@@ -378,17 +518,29 @@
 				display: none
 			input
 				display: flex
+				border-color: #D4D4D4
+				padding: 3px
+				margin-left: -6px
 		&--bju
 			padding-right: 20px
+		&--price span, &--weight span
+			cursor: pointer
+			letter-spacing: -0.5px
+			transition: color .3s ease
+			&:hover
+				color: $red
 		&--name
 			padding-right: 20px
 		&--menudrop
 			padding-left: 16px
 			padding-right: 28px
+			padding-top: 13px
 			width: 24px
 			text-align: center
 		&--check
 			width: 30px
+			display: flex
+			align-items: center
 			.checkbox__span
 				border: 1px solid $icon-color
 				margin-top: -1px
@@ -434,15 +586,30 @@
 					color: $black		
 		&--art	
 			font-weight: 600
+		&--color
+			display: inline-block
+			padding: 1px 15px 3px 11px
+			border-radius: 4px
+			color: $white
+			margin-right: auto
+		&--delivery-zone
+			&--icons
+				display: flex
+				align-items: center
+				> *:not(:last-child)
+					margin-right: 5px
+				&:last-child
+					margin-left: 5px
 			
 .card-table-products--scroll
 	position: relative
 	width: calc(100% + 58px)
 	margin-left: -29px
-	height: 420px
+	max-height: 420px
 	overflow-y: scroll
 	&::-webkit-scrollbar 
 		width: 6px
+		height: 6px
 		-webkit-appearance: none
 	&::-webkit-scrollbar-thumb
 		border-radius: 20px
@@ -452,9 +619,9 @@
 	&::-webkit-scrollbar-track-piece
 		background-color: $gray2
 	&-add
-		height: auto
+		height: 100%
 		margin-bottom: 10px
-		overflow: auto
+		overflow: visible
 		padding-top: 10px
 		&::-webkit-scrollbar 
 			height: 6px
@@ -468,15 +635,18 @@
 .additional-goods
 	&__list
 		display: grid
-		grid-template-columns: 60px 1fr 1fr .5fr .5fr .5fr .5fr 78px
+		grid-template-columns: 20px 60px 1fr 1fr .5fr .5fr .5fr .5fr 48px
 		min-height: 75px
 		background: $white
 		border-bottom: 1px solid  $gray-border
-		margin-bottom: 15px
-		overflow: hidden
-		&--grey	
+		overflow-y: visible
+		transition: background .3s ease
+		&--grey
+			grid-template-columns: 60px 1fr 1fr .5fr .5fr .5fr .5fr 48px
 			min-height: auto
 			border-bottom: 1px solid  $gray-border
+			padding-bottom: 10px
+			padding-left: 20px
 			.additional-goods__item
 				color: $gray
 				text-transform: uppercase
@@ -484,7 +654,9 @@
 				padding-top: 4px
 				padding-bottom: 2px
 				&--category	
-					padding-left: 6px				
+					padding-left: 6px
+		&--blocked
+			background: $gray2
 	&__item
 		padding: 7px 0px
 		align-self: center
@@ -496,7 +668,9 @@
 				border: 1px solid $icon-color
 				margin-top: -1px
 		&--category
-			margin-right: 10px
+			width: calc(100% - 10px)
+			.select__item
+				padding: 5px 4px 7px
 		.input-text
 			height: 45px
 		&--min-number
@@ -549,12 +723,13 @@
 
 .card-addres-tags
 	display: flex
-	gap: 0 7px
 	position: absolute
 	bottom: 3px
 	left: 0
 	z-index: 1
 	overflow: hidden
+	> *:not(:last-child)
+		margin-right: 7px
 
 	p
 		display: flex
@@ -592,7 +767,21 @@
 					font-weight: 400
 			&:nth-child(1)
 				visibility: visible
+		&.card-addres-tags--cat p
+			&:nth-child(2)
+					visibility: visible
 
+@include media(1555px, min)
+	.card-addres-tags--overflowed p
+		&:nth-child(2)
+			visibility: visible
+
+@include media(1555px, min)
+	.card-addres-tags--cat p
+		&:nth-child(3)
+				visibility: visible
+		&:nth-child(4)
+				visibility: visible
 
 @include media(1221px)
 	.vendor-code-and-date-block
@@ -607,7 +796,8 @@
 		display: flex
 		flex-wrap: wrap
 		padding-left: 10px
-		gap: 10px 0
+		> *:not(:last-child)
+			margin-bottom: 10px
 	.card-table-heder__label
 		margin-left: 0
 		margin-right: 7px
@@ -639,6 +829,8 @@
 	.card-table-products--scroll
 		width: calc(100% + 20px)
 		margin-left: -10px
+		&-add
+			overflow: auto
 	.separator_all_grey
 		&--full
 			width: calc(100% + 20px)
