@@ -1,8 +1,19 @@
 <template>
-  <router-view/>
+	<div :class="[`${themeMode}_theme_wrapper`]">
+		<router-view/>
+	</div>
 </template>
 
 <script>
+import {mapGetters} from "vuex";
+
+export default {
+	name: "App",
+
+	computed: {
+		...mapGetters(['themeMode']),
+	}
+}
 </script>
 
 <style lang="sass">
@@ -24,5 +35,6 @@
 @import '@/assets/css/pages/card__product'
 @import '@/assets/css/pages/card__address'
 @import '@/assets/css/pages/login'
+@import '@/assets/css/base/theme'
 
 </style>

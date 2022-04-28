@@ -4,7 +4,7 @@
 	<default-page :pageOptions="pageOptions">
 		<section class="content">
 			<div class="content_block_grey content_block_grey--catalog">
-				
+
 				<!--Product Table header block-->
 				<div class="table-heder-products table-heder-products--catalog">
 					<div v-show="selectedCount" class="table-heder-products__block">
@@ -25,15 +25,15 @@
 
 					<div v-show="!selectedCount">
 					</div>
-					
+
 					<filter-search/>
-					
+
 					<div class="table-heder-new-position">
 						<router-link :to="{name:'card-product'}" class="button table-heder-new-position__button">Создать позицию</router-link>
 					</div>
 				</div>
 				<!--Product Table header block end-->
-				
+
 				<div class="separator_all_grey"></div>
 
 				<!--Product Table row-->
@@ -66,8 +66,8 @@
 					</div>
 					<div class="table-products__item table-products__item--icon"></div>
 				</div>
-				<!--Product Table row end-->  
-				
+				<!--Product Table row end-->
+
 				<!--Product Table block-->
 				<draggable
 					tag="div"
@@ -76,13 +76,13 @@
 					handle=".handle-table"
 					class="table-products"
 				>
-					<!--Product Table row-->        
+					<!--Product Table row-->
 					<div
 						v-for="(item, idx) in searchedCatalogPositions"
 						:key="item.title"
 						class="table-products__list table-products__list--catalog"
 						v-show="
-						idx < selectedPaginationCount * paginationPage 
+						idx < selectedPaginationCount * paginationPage
 						&& (idx >= selectedPaginationCount * (paginationPage - 1))"
 					>
 						<!-- :class="item.inner ? 'table-products__list--dark-grey' : ''" -->
@@ -139,7 +139,7 @@
 
 						<!-- <div v-if="checkChild(item)" class="table-products__item table-products__item--vendor-code act">{{item.article}}</div>
 						<div v-if="checkChild(item)" class="table-products__item table-products__item--name table-products-name-2-pos">
-							<ul class="table-products__item--name--ul">    
+							<ul class="table-products__item--name--ul">
 								<li @click="toggleMenuList(item.childs, $event)" class="table-products__item--name--li">
 									<svg width="11" height="6" viewBox="0 0 11 6" fill="none" xmlns="http://www.w3.org/2000/svg">
 										<path d="M5.09995 5.88897L-4.86374e-05 -4.45856e-07L10.2 4.45856e-07L5.09995 5.88897Z" fill="#E6442F"/>
@@ -170,8 +170,8 @@
 					</div>
 					<!--Product Table row end-->
 
-					<!--Product Table row-->        
-					<div v-if="false" class="table-products__list">  
+					<!--Product Table row-->
+					<div v-if="false" class="table-products__list">
 						<a class="table-products__item table-products__item--menudrop">
 						<svg class="icon icon--menu">
 							<use xlink:href="@/assets/img/public/icons-pack.svg#menu"></use>
@@ -224,9 +224,9 @@
 						</div>
 					</div>
 					<!--Product Table row end-->
-					
+
 					<!--Product Table row-->
-					<div v-if="false" class="table-products__list">  
+					<div v-if="false" class="table-products__list">
 						<a class="table-products__item table-products__item--menudrop">
 						<svg class="icon icon--menu">
 							<use xlink:href="@/assets/img/public/icons-pack.svg#menu"></use>
@@ -278,9 +278,9 @@
 						</div>
 					</div>
 					<!--Product Table row end-->
-					
+
 					<!--Product Table row-->
-					<div v-if="false" class="table-products__list">  
+					<div v-if="false" class="table-products__list">
 						<a class="table-products__item table-products__item--menudrop">
 						<svg class="icon icon--menu">
 							<use xlink:href="@/assets/img/public/icons-pack.svg#menu"></use>
@@ -297,7 +297,7 @@
 						</div>
 						<div class="table-products__item table-products__item--vendor-code act">AA3456</div>
 						<div class="table-products__item table-products__item--name table-products-name-2-pos">
-						<ul class="table-products__item--name--ul">    
+						<ul class="table-products__item--name--ul">
 							<li class="table-products__item--name--li">
 							<div class="table-products__item--name--li--zag">Пирог</div>
 							2 варианта
@@ -330,9 +330,9 @@
 						</div>
 					</div>
 					<!--Product Table row end-->
-					
+
 					<!--Product Table row-->
-					<div v-if="false" class="table-products__list table-products__list--dark-grey">  
+					<div v-if="false" class="table-products__list table-products__list--dark-grey">
 						<a class="table-products__item table-products__item--menudrop">
 						<svg class="icon icon--menu">
 							<use xlink:href="@/assets/img/public/icons-pack.svg#menu"></use>
@@ -373,9 +373,9 @@
 						</div>
 					</div>
 					<!--Product Table row end-->
-					
+
 					<!--Product Table row-->
-					<div v-if="false" class="table-products__list table-products__list--dark-grey">  
+					<div v-if="false" class="table-products__list table-products__list--dark-grey">
 						<a class="table-products__item table-products__item--menudrop">
 						<svg class="icon icon--menu">
 							<use xlink:href="@/assets/img/public/icons-pack.svg#menu"></use>
@@ -416,9 +416,9 @@
 						</div>
 					</div>
 					<!--Product Table row end-->
-					
+
 					<!--Product Table row-->
-					<div v-if="false" class="table-products__list">  
+					<div v-if="false" class="table-products__list">
 						<a class="table-products__item table-products__item--menudrop">
 						<svg class="icon icon--menu">
 							<use xlink:href="@/assets/img/public/icons-pack.svg#menu"></use>
@@ -468,16 +468,16 @@
 						</div>
 					</div>
 					<!--Product Table row end-->
-					
+
 				</draggable>
 				<!--Product Table block end-->
-				
+
 				<pagination
 					:listLength="searchedCatalogPositions ? searchedCatalogPositions.length : 0"
 					@changePage="changePage"
 					:page.sync="paginationPage"
 				/>
-			
+
 			</div>
 
 			<popup :show="openDelPopup" @closePopup="closeDelPopup">

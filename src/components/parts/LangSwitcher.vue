@@ -1,13 +1,13 @@
 <template>
 	<div class="language">
-
 		<div @click="$event.currentTarget.classList.toggle('open')" ref="languageCurrent" class="language__current">
 			<div class="language__flag">
 				<svg v-if="$i18n.locale == 'ru'" class="icon"><use xlink:href="@/assets/img/public/icon-lang.svg#ru" /></svg>
 				<svg v-else-if="$i18n.locale == 'en'" class="icon"><use xlink:href="@/assets/img/public/icon-lang.svg#en" /></svg>
 				<svg v-else-if="$i18n.locale == 'ua'" class="icon"><use xlink:href="@/assets/img/public/icon-lang.svg#ua" /></svg>
 			</div>
-			<div class="language__arrow"></div>
+			<arrow-down :theme="themeMode" />
+
 		</div>
 		<div class="language__list">
 			<div
@@ -25,16 +25,20 @@
 </template>
 
 <script>
+import ArrowDown from "@/assets/icons/arrow-down";
+import {mapGetters} from "vuex";
 export default {
 
 	name: 'LangSwitcher',
-
+	components: {ArrowDown},
 	data () {
 		return {
 
 		}
 	},
-
+	computed: {
+		...mapGetters(['themeMode']),
+	},
 	methods: {
 		selLang(locale) {
 			setTimeout(() => {
