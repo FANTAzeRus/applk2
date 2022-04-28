@@ -40,6 +40,10 @@ const setCategories = (state, payload) => {
 
 export default {
 	state: {
+		theme: {
+			mode: null,
+		},
+
 		applications: [],
 
 		currentApplication: {
@@ -93,6 +97,18 @@ export default {
 		getAddresses(state) {
 			return state.addresses
 		},
+		themeMode: (state) => {
+			if (state.theme.mode) {
+				return state.theme.mode;
+			}
+
+			const ls = localStorage.getItem("app_theme");
+			if (!ls) {
+				localStorage.setItem("app_theme", "white");
+			}
+
+			return ls;
+		},
 	},
 	actions: {
 		fetchApplications({state, getters}) {
@@ -118,5 +134,12 @@ export default {
 					state.categoriesTypes = res.data
 				})
 		}
-	}
+	},
+
+	mutations: {
+		setTheme(state, mode) {
+			state.theme.mode = mode;
+			localStorage.setItem("app_theme", mode);
+		}
+	},
 }

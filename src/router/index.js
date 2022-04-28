@@ -6,9 +6,11 @@ import Orders from '../views/orders'
 import CardProduct from '../views/card-product'
 import Addresses from '../views/addresses'
 import CardAddress from '../views/card-address'
+import Settings from "../views/settings"
 
 import Library from '../views/library'
 import test from '../views/test'
+
 
 Vue.use(VueRouter)
 
@@ -70,6 +72,7 @@ const routes = [
   {
     path: '/settings',
     name: 'settings',
+    component: Settings,
   },
   {
     path: '/card-product',

@@ -2,7 +2,7 @@
 	<!--Site header block-->
 	<header class="header">
 		<a href="/" class="logo">
-			<img src="@/assets/img/public/logo.svg" alt="Логотип Apps4B" class="logo__img">
+			<logo :theme="themeMode" />
 			<span class="logo__text">Мобильные приложения<br>для бизнеса</span>
 		</a>
 		<lang-switcher />
@@ -35,12 +35,16 @@
 			<div class="header-user__text">
 				<div class="header-user__name">Иванов Александр</div>
 				<div class="header-user__role">Администратор</div>
-				<img src="@/assets/img/public/icons/drop-arrow.svg" class="header-user__icon" alt="">
+				<span class="header-user__icon"><arrow-down :theme="themeMode" /></span>
 			</div>
 
 			<div class="header-user__actions">
 				<img src="@/assets/img/public/icons/notification.svg" alt="">
 				<img src="@/assets/img/public/icons/quest.svg" alt="">
+				<div @click="toggleTheme">
+					<img v-if="themeMode === 'dark'" src="@/assets/img/public/icons/light-mode.svg" alt="" class="header-user__actions--theme">
+					<img v-else src="@/assets/img/public/icons/dark-mode.svg" alt="" class="header-user__actions--theme">
+				</div>
 			</div>
 		</div>
 	</header>
@@ -49,12 +53,27 @@
 
 <script>
 import LangSwitcher from "@/components/parts/LangSwitcher"
+import {mapGetters} from "vuex";
+import Logo from "@/assets/icons/logo";
+import ArrowDown from "@/assets/icons/arrow-down";
 export default {
 
 	name: 'VHeader',
 
 	components: {
+		ArrowDown,
+		Logo,
 		LangSwitcher
+	},
+
+	computed: {
+		...mapGetters(['theme', 'themeMode']),
+	},
+
+	methods: {
+		toggleTheme() {
+			this.$store.commit("setTheme", this.themeMode === "dark" ? "light":"dark");
+		}
 	}
 }
 </script>

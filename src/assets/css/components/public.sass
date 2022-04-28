@@ -55,7 +55,6 @@ select
 		margin-left: 14px
 		font-weight: 500
 		font-size: 9px
-		color: $gray
 		line-height: 125%
 		text-transform: uppercase
 
@@ -74,7 +73,6 @@ select
 	display: flex
 	align-items: center
 	justify-content: space-between
-	border-bottom: 1px solid $gray-border
 	grid-area: header
 
 .filter
@@ -94,7 +92,6 @@ select
 		cursor: pointer
 	&__role
 		font-size: 12px
-		color: $gray
 		&-text
 			font-size: 12px
 			color: $gray
@@ -121,6 +118,10 @@ select
 		> *:not(:last-child)
 			margin-right: 16px
 		img
+			cursor: pointer
+		&--theme
+			width: 20px
+			height: 20px
 			cursor: pointer
 	&__news
 		display: flex
@@ -179,7 +180,6 @@ select
 		width: 10px
 		height: 6px
 		margin-left: 8px
-		background: url("assets/img/public/arrow-down-black.svg")
 	&__list
 		box-shadow: 0 0 10px rgba(0, 0, 0, 0.07)
 		opacity: 0
@@ -212,8 +212,6 @@ select
 
 .menu
 	grid-area: menu
-	background: $white
-	border-right: 1px solid $gray-border
 	&__list
 		margin: 0
 		padding: 0
@@ -225,13 +223,10 @@ select
 				font-weight: 600
 				use
 					fill: $red
-		&:not(:last-child)
-			border-bottom: 1px solid $gray-border
 	&__link
 		transition: .3s border-color
 		border-left: 3px solid transparent
 		border-right: 3px solid transparent
-		color: $black
 		padding: 20px 5px
 		display: flex
 		align-items: center
@@ -260,7 +255,6 @@ select
 		display: flex
 		align-items: center
 		& > *:last-child
-			color: $black
 			font-weight: 600
 	&__item
 		display: flex
@@ -270,7 +264,6 @@ select
 			align-items: center
 			flex-direction: row-reverse
 	&__text
-		color: $gray
 		transition: color .3s ease
 		white-space: pre
 		cursor: pointer
@@ -284,12 +277,12 @@ select
 		width: 7px
 		height: 10px
 		background: url("assets/img/public/breadcrumb-arrow.svg") no-repeat center center
+
 	&__link
-		color: $red
-		
+		text-decoration: underline
+
 .content
 	grid-area: content
-	background-color: $gray2
 	z-index: 50
 	transition: background-color .3s ease
 	&--masked
@@ -328,7 +321,6 @@ select
 		background-color: rgba($black, .4)
 
 .content_block_grey 
-	background: $gray2
 	margin: 0px 33px 0px 29px
 
 .flex_block 
@@ -363,7 +355,7 @@ select
 	min-height: 100vh
 	flex-direction: column
 	flex-grow: 1
-	border-right: 1px solid $gray-border
+
 	&__close
 		position: absolute
 		width: 23.6px
@@ -398,7 +390,6 @@ select
 		padding: 12px 0px
 		text-align: center
 		cursor: pointer
-		color: $black
 		position: relative
 		border: 0px
 		border-bottom: 1px solid $gray-border
@@ -411,9 +402,7 @@ select
 	&__active 
 		font-weight: 600
 		border-bottom: 1px solid $red
-	&__link
-		color: $black 
-		
+
 .all_adres 
 	margin: 18px 17px 0px 14px
 	.select2-container

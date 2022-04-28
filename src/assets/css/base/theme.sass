@@ -1,0 +1,143 @@
+@import "colors"
+.light_theme_wrapper, .dark_theme_wrapper
+  transition: .3s
+
+.light_theme_wrapper
+  background-color: $white
+  color: $black
+
+  a
+    color: $black
+
+  .header
+    border-bottom: 1px solid $gray-border
+
+  .header-user
+    select
+      color: $black
+
+  .breadcrumbs
+    &__link
+      color: $red
+
+  .menu__link
+    color: $black
+
+  .logo
+    &__text
+      color: $gray
+
+  .tabs-control-menu
+    &__link
+      color: $black
+
+  .menu-categories-hover
+    background: $gray2
+    color: $dark_blue
+
+  .menu
+    border-right: 1px solid $gray-border
+
+    &__item
+      &:not(:last-child)
+        border-bottom: 1px solid $gray-border
+
+  .menu-act
+    border-right: 1px solid $gray-border
+
+  .content
+    background-color: $gray2
+
+  .content_block_grey
+    background: $gray2
+
+  .table-products
+    &__list
+      background-color: $white
+      &--grey
+        .table-products__item
+          background: $gray2
+
+  .table-heder-filtr-search
+    &__search
+      background-color: $white
+      border: 1px solid $gray-border
+
+  .select
+    background-color: $white
+    border: 1px solid $gray-border
+    &__list
+      background-color: $white
+    &__item
+      &:hover
+        background-color: $gray2
+
+
+.dark_theme_wrapper
+  background-color: $dark1
+  color: $white
+
+  a
+    color: $white
+
+  .header
+    border-bottom: 1px solid $gray5
+
+  .header-user
+    select
+      color: $white
+
+  .breadcrumbs
+    &__link
+      color: $red
+
+  .menu__link
+    color: $white
+
+  .logo
+    &__text
+      color: $gray4
+
+  .tabs-control-menu
+    &__link
+      color: $white
+
+  .menu-categories-hover
+    background: $gray5
+    color: $white
+
+  .menu
+    border-right: 1px solid $gray5
+
+    &__item
+      &:not(:last-child)
+        border-bottom: 1px solid $gray5
+
+  .menu-act
+    border-right: 1px solid $gray5
+
+  .content
+    background-color: $gray6
+  .content_block_grey
+    background: $gray6
+
+  .table-products
+    &__list
+      background-color: $dark1
+      &--grey
+        .table-products__item
+        background: $gray6
+
+  .table-heder-filtr-search
+    &__search
+      background-color: $dark1
+      border: 1px solid $gray5
+
+  .select
+    background-color: $dark1
+    border: 1px solid $gray5
+    &__list
+      background-color: $gray6
+    &__item
+      &:hover
+        background-color: $gray5

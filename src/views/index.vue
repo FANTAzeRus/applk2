@@ -3,10 +3,9 @@
 		<div class="login-page__form-wrapper">
 			<div class="login-page__header">
 				<a href="/" class="logo">
-					<img src="@/assets/img/public/logo.svg" alt="Логотип Apps4B" class="logo__img">
+					<logo :theme="themeMode" />
 					<span class="logo__text">Мобильные приложения<br>для бизнеса</span>
 				</a>
-
 				<lang-switcher class="language--login"/>
 			</div>
 
@@ -193,19 +192,19 @@
 <script>
 import LangSwitcher from "@/components/parts/LangSwitcher"
 import Popup from "@/components/Popup"
-
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
 import 'swiper/css/swiper.css'
-
 import allCountries from "@/assets/countries/all-countries"
-
 import { maska } from 'maska'
+import {mapGetters} from "vuex";
+import Logo from "@/assets/icons/logo";
 
 export default {
 
 	name: 'index',
 
 	components: {
+		Logo,
 		LangSwitcher,
 		Popup,
 		Swiper,
@@ -274,6 +273,7 @@ export default {
 	},
 
 	computed: {
+		...mapGetters(['themeMode']),
 		cooldownTimer() {
 			return (this.timer / 1000).toFixed(0);
 		},

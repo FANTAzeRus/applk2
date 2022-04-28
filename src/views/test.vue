@@ -5,7 +5,7 @@
 		<!--Site header block-->
 		<header class="header">
 			<a href="#" class="logo">
-				<img src="@/assets/img/public/logo.svg" alt="Логотип Apps4B" class="logo__img">
+				<img src="@/assets/img/public/logo_white.svg" alt="Логотип Apps4B" class="logo__img">
 				<span class="logo__text">Мобильные приложения<br>для бизнеса</span>
 			</a>
 			<div class="language">
