@@ -121,8 +121,8 @@
 							</svg>
 						</div>
 						<div v-if="!checkChild(item) && !item.inner" class="table-products__item table-products__item--marker">
-							<img class="table-products__item--marker--icon" src="@/assets/img/public/icons/marker-moon.jpg" alt="" />
-							<img class="table-products__item--marker--icon" src="@/assets/img/public/icons/marker-tree.jpg" alt="" />
+							<img class="table-products__item--marker--icon" src="@/assets/img/public/icons/spicy.svg" alt="" />
+							<img class="table-products__item--marker--icon" src="@/assets/img/public/icons/vegan.svg" alt="" />
 							<img class="table-products__item--marker--icon" src="@/assets/img/public/icons/marker-star.jpg" alt="" />
 						</div>
 						<div v-if="!checkChild(item) && !item.inner" class="table-products__item table-products__item--promo">
