@@ -41,10 +41,8 @@
 			<div class="header-user__actions">
 				<img src="@/assets/img/public/icons/notification.svg" alt="">
 				<img src="@/assets/img/public/icons/quest.svg" alt="">
-				<div @click="toggleTheme">
-					<img v-if="themeMode === 'dark'" src="@/assets/img/public/icons/light-mode.svg" alt="" class="header-user__actions--theme">
-					<img v-else src="@/assets/img/public/icons/dark-mode.svg" alt="" class="header-user__actions--theme">
-				</div>
+				<img @click="toggleTheme" v-if="themeMode === 'dark'" src="@/assets/img/public/icons/light-mode.svg" alt="" class="header-user__actions--theme">
+				<img @click="toggleTheme" v-else src="@/assets/img/public/icons/dark-mode.svg" alt="" class="header-user__actions--theme">
 			</div>
 		</div>
 	</header>
