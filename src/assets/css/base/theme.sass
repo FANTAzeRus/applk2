@@ -5,6 +5,7 @@
 .light_theme_wrapper
   background-color: $white
   color: $black
+  height: 100%
 
   a
     color: $black
@@ -76,9 +77,26 @@
       &:hover
         background-color: $gray2
 
+  .radio,
+  .checkbox
+    &__span
+      background-color: $white
+      border: 1px solid $gray-border
+
+  .popup
+    &__wrap
+      background-color: $white
+    &__content
+      h3
+        color: $black
+    &__text
+      color: $black
+
+
 .dark_theme_wrapper
   background-color: $dark1
   color: $white
+  height: 100%
 
   a
     color: $white
@@ -148,3 +166,18 @@
     &__item
       &:hover
         background-color: $gray5
+
+  .radio,
+  .checkbox
+    &__span
+      background-color: transparent
+      border: 1px solid $icon-color
+
+  .popup
+    &__wrap
+      background-color: $dark1
+    &__content
+      h3
+        color: $white
+    &__text
+      color: $white
