@@ -102,12 +102,13 @@ export default {
 				return state.theme.mode;
 			}
 
-			const ls = localStorage.getItem("app_theme");
-			if (!ls) {
-				localStorage.setItem("app_theme", "white");
+			let theme = localStorage.getItem("app_theme");
+			if (!theme) {
+				theme = "light";
+				localStorage.setItem("app_theme", theme);
 			}
 
-			return ls;
+			return theme;
 		},
 	},
 	actions: {
