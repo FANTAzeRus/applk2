@@ -1,10 +1,6 @@
 <template>
 	<!--Left menu Activ block-->
 	<section class="menu-act">
-		<svg @click="toggleMenu" v-show="!this.$store.getters.getCategoryMenuShow" viewBox="0 0 12 11" xmlns="http://www.w3.org/2000/svg" class="menu-act__close menu-act__close--open">
-			<path d="M6.375 10.0167L5.42706 11L0.125 5.5L5.42706 1.46355e-06L6.375 0.983335L2.02089 5.5L6.375 10.0167Z" fill="#D5D5D5"/>
-			<path d="M11.75 10.0167L10.8021 11L5.5 5.5L10.8021 1.46355e-06L11.75 0.983335L7.39589 5.5L11.75 10.0167Z" fill="#D5D5D5"/>
-		</svg>
 		<div v-show="this.$store.getters.getCategoryMenuShow">
 			<ul class="tabs-control-menu">
 				<li @click='changeCategory' class="tabs-control-menu__list tabs-control-menu__active"><a class="tabs-control-menu__link" href="#">Активные</a></li>

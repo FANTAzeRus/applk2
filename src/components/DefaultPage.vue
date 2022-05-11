@@ -9,19 +9,23 @@
 	>
 		<v-header />
 
-		<v-menu :selectedItem="pageOptions.name" />
+		<div class="base">
+			<v-menu :selectedItem="pageOptions.name" />
 
-		<slot v-if="pageOptions.components.menuAct" name="menuAct">
-			<v-menu-act :menuActAddress="pageOptions.components.menuActAddress"/>
-		</slot>
+			<slot v-if="this.$store.getters.getCategoryMenuShow && pageOptions.components.menuAct" name="menuAct">
+				<v-menu-act :menuActAddress="pageOptions.components.menuActAddress"/>
+			</slot>
 
-		<slot v-if="pageOptions.components.breadcrumbs" name="top-content">
-			<breadcrumbs :menuActAddress="pageOptions.components.menuActAddress"/>
-		</slot>
-		
-		<!--Content block-->
-		<slot></slot>
-		<!--Content block end-->
+			<div class="base-content">
+				<slot v-if="pageOptions.components.breadcrumbs" name="top-content">
+					<breadcrumbs :menuActAddress="pageOptions.components.menuActAddress"/>
+				</slot>
+
+				<!--Content block-->
+				<slot></slot>
+				<!--Content block end-->
+			</div>
+		</div>
 	</div>
 	<!--Default page end-->
 </template>
