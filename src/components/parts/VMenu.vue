@@ -23,7 +23,7 @@
 <script>
 export default {
 
-	name: 'Menu'
+	name: 'Menu',
 
 	props: {
 		selectedItem: String
