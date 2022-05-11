@@ -10,7 +10,8 @@
 			>
 			<!-- :xlink:href="`img/icons-pack.b740c51d.svg#${svgId}`" -->
 				<router-link :to="{name: svgId}" class="menu__link">
-					<svg class="icon"><use :xlink:href="`/img/icons-pack.svg#${svgId}`" /></svg>
+					<navigation class-name="icon" :name="svgId" />
+<!--					<svg class="icon"><use :xlink:href="`/img/icons-pack.svg#${svgId}`" /></svg>-->
 					{{title}}
 				</router-link>
 			</li>
@@ -21,10 +22,11 @@
 </template>
 
 <script>
+import Navigation from "@/assets/icons/navigation";
 export default {
 
 	name: 'Menu',
-
+	components: {Navigation},
 	props: {
 		selectedItem: String
 	},
