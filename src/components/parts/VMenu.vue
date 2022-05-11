@@ -10,7 +10,7 @@
 			>
 			<!-- :xlink:href="`img/icons-pack.b740c51d.svg#${svgId}`" -->
 				<router-link :to="{name: svgId}" class="menu__link">
-					<svg class="icon"><use :xlink:href="`img/icons-pack.b740c51d.svg#${svgId}`" /></svg>
+					<svg class="icon"><use :xlink:href="`/img/icons-pack.svg#${svgId}`" /></svg>
 					{{title}}
 				</router-link>
 			</li>
@@ -23,7 +23,7 @@
 <script>
 export default {
 
-	name: 'Menu',
+	name: 'Menu'
 
 	props: {
 		selectedItem: String
