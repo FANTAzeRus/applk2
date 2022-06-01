@@ -10,6 +10,7 @@
 	</div>
 </template>
 
+
 <script>
 import Radio from "@/components/settings/radio";
 export default {
