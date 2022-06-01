@@ -1,6 +1,6 @@
 <template>
 	<div class="preview-wrapper">
-		<div class="phone"><img src="/img/phone_bg.png" alt=""></div>
+		<div class="phone"><img src="img/phone_bg.png" alt=""></div>
 		<div class="phone-body">
 			<div class="header-all-wrapper" :style="allWrapperStyle">
 				<phone-header />
@@ -44,7 +44,7 @@ export default {
 		allWrapperStyle() {
 			const preview = this.$store.state.settings.preview_img;
 			const ret = {
-				backgroundImage: `url('${preview ? preview : "/img/texture.png"}')`
+				backgroundImage: `url('${preview ? preview : "img/texture.png"}')`
 			};
 			console.log(ret);
 
