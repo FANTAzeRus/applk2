@@ -1,6 +1,6 @@
 <template>
 	<div class="preview-wrapper">
-		<div class="phone"><img src="img/phone_bg.png" alt=""></div>
+		<div class="phone"><img src="../../../../public/phone_bg.png" alt=""></div>
 		<div class="phone-body">
 			<div class="header-all-wrapper" :style="allWrapperStyle">
 				<phone-header />
@@ -59,7 +59,6 @@ export default {
 		margin: 44px 100px 0 50px
 		width: 278px
 		height: 561px
-		background: url("/img/phone_bg.png")
 		background-repeat: no-repeat
 		position: relative
 
@@ -70,7 +69,7 @@ export default {
 
 		.phone-top
 			position: absolute
-			background: url("/img/phone_top_bg.png")
+			background-image: url("../../../../public/phone_top_bg.png")
 			left: 0
 			right: 0
 			top: 0
