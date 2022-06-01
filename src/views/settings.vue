@@ -1,16 +1,17 @@
 <template>
 	<default-page :pageOptions="pageOptions">
-		Settings...
+		<Settings />
 	</default-page>
 </template>
 
 <script>
 import DefaultPage from "@/components/DefaultPage";
+import Settings from "@/components/settings";
 
 export default {
-	name: "settings",
+	name: "settings-base",
 
-	components: {DefaultPage},
+	components: {DefaultPage, Settings},
 
 	data() {
 		return {

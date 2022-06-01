@@ -1,0 +1,71 @@
+<template>
+	<div class="prop-group-wrapper">
+		<div class="header-wrapper">
+			<div class="group-header">
+				{{meta.group}}
+				<info />
+			</div>
+			<div class="reset">Сбросить настройки</div>
+		</div>
+
+		<div class="params-wrapper">
+			<prop-line v-for="item in meta.items" :key="`props_line_${item.name}`" :item="item" />
+		</div>
+	</div>
+</template>
+
+<script>
+import Info from "@/assets/icons/info";
+import PropLine from "./prop-line"
+export default {
+	name: "prop-group",
+
+	components: {Info, PropLine},
+
+	computed: {
+		params_meta() {
+			return this.$store.state.settings.params_meta;
+		},
+
+		meta() {
+			return this.params_meta[this.meta_key];
+		}
+	},
+
+	props: ['meta_key'],
+}
+</script>
+
+<style lang="sass" scoped>
+	.prop-group-wrapper
+		margin: 0 30px
+		.header-wrapper
+			display: flex
+			align-items: center
+			padding: 25px 0 14px 0
+			&:first-child
+				padding-top: 10px
+
+			.group-header
+				font-size: 13px
+				line-height: 14.3px
+				font-weight: 400
+				text-transform: uppercase
+				display: flex
+				align-items: center
+				gap: 12px
+
+			.reset
+				flex: 1
+				text-align: right
+				font-size: 13px
+				line-height: 14.3px
+				font-weight: 400
+				text-decoration: underline
+
+		.params-wrapper
+			margin: 20px 0
+			display: flex
+			flex-direction: column
+
+</style>

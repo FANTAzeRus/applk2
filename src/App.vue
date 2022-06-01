@@ -1,17 +1,23 @@
 <template>
 	<div :class="[`${themeMode}_theme_wrapper`]">
 		<router-view/>
+
+		<ColorPicker v-if="showColorPicker" />
 	</div>
 </template>
 
 <script>
 import {mapGetters} from "vuex";
+import ColorPicker from "@/components/settings/color-picker";
 
 export default {
 	name: "App",
-
+	components: {ColorPicker},
 	computed: {
 		...mapGetters(['themeMode']),
+		showColorPicker() {
+			return this.$store.state.settings.showColorPicker;
+		},
 	}
 }
 </script>
@@ -35,6 +41,7 @@ export default {
 @import '@/assets/css/pages/card__product'
 @import '@/assets/css/pages/card__address'
 @import '@/assets/css/pages/login'
+@import '@/assets/css/pages/settings'
 @import '@/assets/css/base/theme'
 
 </style>
