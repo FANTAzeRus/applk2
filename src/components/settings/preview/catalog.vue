@@ -1,5 +1,5 @@
 <template>
-	<div class="catalog-wrapper">
+	<div class="catalog-wrapper" :style="catalogBackgroundColor">
 		<Category :item="category" v-for="(category,idx) in categories" :key="`cat_${idx}`" />
 	</div>
 </template>
@@ -15,6 +15,12 @@ export default {
 		params_model() {
 			return this.$store.state.settings.params_model;
 		},
+
+		catalogBackgroundColor() {
+			return {
+				backgroundColor: this.params_model['catalog_background_color']
+			}
+		}
 	},
 
 	data() {
