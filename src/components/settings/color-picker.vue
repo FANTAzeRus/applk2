@@ -1,24 +1,22 @@
 <template>
 	<div class="color-picker-wrapper">
 		<div class="color-picker">
-			<chrome v-model="colors" @input="updateColor" />
-			<div class="preview" :style="{backgroundColor: colors}"></div>
-			<div class="buttons">
-				<button class="button" @click="saveAndClosePicker">Сохранить</button>
-				<button class="button" @click="closePicker">Отмена</button>
+			<div class="close" @click="saveAndClosePicker">
+				<close />
 			</div>
-
+			<chrome v-model="colors" @input="updateColor" />
 		</div>
 	</div>
 </template>
 
 <script>
 import { Chrome } from "vue-color";
+import Close from "@/assets/icons/close";
 
 export default {
 	name: "color-picker",
 
-	components: {Chrome},
+	components: {Close, Chrome},
 
 	data() {
 		return {
@@ -51,7 +49,8 @@ export default {
 <style lang="sass" scoped>
 	.color-picker-wrapper
 		position: absolute
-		background: #000000dd
+		//background: #000000dd
+
 		left: 0
 		right: 0
 		top: 0
@@ -71,17 +70,9 @@ export default {
 			gap: 10px
 			padding: 7px
 
-			.preview
+			.close
+				cursor: pointer
 				width: 100%
-				height: 80px
-				border-radius: 5px
-				margin: 10px
-				border: 1px solid #0000007f
-				box-shadow: 0 0 2px rgb(0 0 0 / 30%), 0 4px 8px rgb(0 0 0 / 30%)
-
-			.buttons
-				display: flex
-				justify-content: center
-				align-items: center
-				gap: 10px
+				text-align: right
+				margin-right: 7px
 </style>
