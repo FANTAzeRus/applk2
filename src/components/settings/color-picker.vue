@@ -1,5 +1,5 @@
 <template>
-	<div class="color-picker-wrapper" @keyup˚.stop="saveAndClosePicker">
+	<div class="color-picker-wrapper" @mouseup.self="saveAndClosePicker">
 		<div class="color-picker">
 			<div class="close" @click="saveAndClosePicker">
 				<close />
