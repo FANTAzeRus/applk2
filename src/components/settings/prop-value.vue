@@ -135,6 +135,7 @@ export default {
 <style lang="sass" scoped>
 .prop-color-wrapper
 	padding: 14px 16px
+	border: 1px solid #eaeaea
 	border-radius: 5px
 	display: inline-flex
 	align-items: center
@@ -145,6 +146,7 @@ export default {
 		width: 17px
 		height: 17px
 		cursor: pointer
+		border: 1px solid #33333350
 
 	.value-input-color
 		font-size: 13px
