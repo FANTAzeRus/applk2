@@ -3,7 +3,6 @@
 		<div class="header-wrapper">
 			<div class="group-header">
 				{{meta.group}}
-				<info />
 			</div>
 			<div class="reset">Сбросить настройки</div>
 		</div>
@@ -19,12 +18,11 @@
 </template>
 
 <script>
-import Info from "@/assets/icons/info";
 import PropLine from "./prop-line"
 export default {
 	name: "prop-group",
 
-	components: {Info, PropLine},
+	components: {PropLine},
 
 	computed: {
 		params_meta() {

@@ -92,7 +92,7 @@ export default {
 			.phone-content
 				flex: 1
 				background: #ededee
-				overflow: scroll
+				overflow: hidden
 				&::-webkit-scrollbar
 					width: 0 !important
 					height: 0

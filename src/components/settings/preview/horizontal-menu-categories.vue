@@ -87,7 +87,7 @@ export default {
 		display: flex
 		gap: 0 13px
 		position: relative
-		overflow: scroll
+		overflow: hidden
 		width: 100%
 		margin: 0
 		padding: 5px

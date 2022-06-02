@@ -74,7 +74,7 @@ export default {
 
 		.horizontal
 			.item-list
-				overflow: scroll
+				overflow: hidden
 				display: flex
 				align-items: center
 				gap: 10px
@@ -111,7 +111,7 @@ export default {
 
 		.vertical
 			.item-list
-				overflow: scroll
+				overflow: hidden
 				display: flex
 				gap: 10px
 
