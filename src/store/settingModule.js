@@ -151,6 +151,15 @@ export default {
 
 			commit("fillModel", model);
 		},
+
+		resetToDefault({state}, group) {
+			const items = state.params_meta[group].items;
+			if (items.length) {
+				items.forEach(item => {
+					state.params_model[item.name] = state.default_model[item.name];
+				});
+			}
+		},
 	},
 	mutations: {
 		fillModel(state, model) {

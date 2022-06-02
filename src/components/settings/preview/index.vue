@@ -46,7 +46,6 @@ export default {
 			const ret = {
 				backgroundImage: `url('${preview ? preview : "img/texture.png"}')`
 			};
-			console.log(ret);
 
 			return ret;
 		}
