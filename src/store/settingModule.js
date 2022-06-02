@@ -5,6 +5,7 @@ export default {
 		preview_img: null,
 		model_ready: false,
 		params_model: {},
+		color_picker_position: {},
 		params_meta: {
 			header: {
 				group: "Настройка параметров Хедера",
@@ -123,10 +124,13 @@ export default {
 			dispatch("fillModel");
 		},
 
-		openColorPicker({state},name) {
+		openColorPicker({state}, {name, x, y}) {
 			state.currentColor = name;
 			state.currentColorValue = state.params_model[state.currentColor];
 			state.showColorPicker = true;
+			state.color_picker_position.x = x;
+			state.color_picker_position.y = y;
+
 		},
 
 		closeColorPicker({state}) {

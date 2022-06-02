@@ -6,7 +6,7 @@
 					{{ tab.title }}
 				</div>
 			</div>
-			<div class="setting-main-wrapper">
+			<div class="setting-main-wrapper" :style="calcStyle">
 				<div class="params-wrapper">
 					<step title="Шаг 1" info="Выбор интерфейса главной страницы приложения"/>
 					<interfaces :items="interfaces" v-model="activeInterface"/>
@@ -67,6 +67,11 @@ export default {
 		},
 		sliderDirection() {
 			return this.selectedInterface.direction;
+		},
+		calcStyle() {
+			return {
+				height: `${window.innerHeight - 160}px`,
+			}
 		}
 	},
 
@@ -74,7 +79,7 @@ export default {
 		return {
 			firstRun: true,
 			tabs: [
-				{name: "main", title: "Главная стрница"},
+				{name: "main", title: "Главная страница"},
 				{name: "dashboard", title: "Дашборд"},
 				{name: "settings", title: "Настройки"},
 			],

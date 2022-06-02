@@ -1,11 +1,7 @@
 <template>
 	<div class="interfaces-wrapper">
-		<div class="interface" v-for="(item, idx) in items" :key="`interface_${idx}`">
-			<img :src="`/img/interfaces/${item.name}.png`" alt=""/>
-			<div class="check">
-				<radio :name="item.name" v-model="selectedInterface" selectName="selectedInterface" :current="selectedInterface" />
-			</div>
-			<div class="title">{{item.title}}</div>
+		<div class="interface" v-for="(item, idx) in items" :key="`theme_${idx}`">
+			<radio :name="item.name" :label="item.title" v-model="selectedInterface" selectName="selectedInterface" />
 		</div>
 	</div>
 </template>
@@ -20,9 +16,6 @@ export default {
 		items: {
 			type: Array,
 			default: () => [],
-		},
-		value: {
-			type: String
 		}
 	},
 
@@ -30,10 +23,6 @@ export default {
 		return {
 			selectedInterface: null,
 		}
-	},
-
-	mounted() {
-		this.selectedInterface = this.value;
 	},
 
 	watch: {
@@ -48,18 +37,10 @@ export default {
 .interfaces-wrapper
 	margin: 0 30px
 	display: flex
-	gap: 30px
+	flex-direction: column
+	gap: 27px
 
 	.interface
-		width: 173px
 		display: flex
-		flex-direction: column
 		align-items: center
-
-		.check
-			margin-top: 14px
-
-		.title
-			padding-top: 10px
-			text-align: center
 </style>

@@ -55,6 +55,7 @@ export default {
 				padding-top: 10px
 
 			.group-header
+				color: #000000
 				font-size: 13px
 				line-height: 14.3px
 				font-weight: 400

@@ -2,7 +2,7 @@
 	<div>
 		<template v-if="type === 'color'">
 			<div class="prop-color-wrapper">
-				<div class="value-preview-color" :style="calcPreview" @click="showPickerHandler"></div>
+				<div class="value-preview-color color-preview" :style="calcPreview" @click="showPickerHandler"></div>
 				<input type="text" class="value-input-color" v-model="currentValue" @input="inputHandler">
 			</div>
 		</template>
@@ -105,8 +105,15 @@ export default {
 				value: this.currentValue,
 			});
 		},
-		showPickerHandler() {
-			this.$store.dispatch("settings/openColorPicker", this.model_key);
+		showPickerHandler(e) {
+			const pickerHeight = 240;
+			const wh = window.innerHeight;
+			const dir = (wh - e.clientY) > pickerHeight ? 1 : -1;
+			console.log(dir)
+			const x = (e.pageX - e.offsetX) - 17;
+			const y = (e.pageY - e.offsetY) + (dir > 0 ? (e.target.clientHeight + 20): -(pickerHeight+20));
+
+			this.$store.dispatch("settings/openColorPicker", {name: this.model_key, x, y});
 		},
 		onUploadClick() {
 			this.$refs.file_for_upload.click();
@@ -146,7 +153,6 @@ export default {
 		width: 17px
 		height: 17px
 		cursor: pointer
-		border: 1px solid #33333350
 
 	.value-input-color
 		font-size: 13px
