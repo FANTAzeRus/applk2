@@ -104,6 +104,9 @@ export default {
 			gap: 10px
 			flex-wrap: wrap
 
+			img
+				border-radius: 10px
+
 			.item1
 				flex: 1
 				display: flex

@@ -1,5 +1,5 @@
 <template>
-	<div class="color-picker-wrapper">
+	<div class="color-picker-wrapper" @click="saveAndClosePicker">
 		<div class="color-picker">
 			<div class="close" @click="saveAndClosePicker">
 				<close />
