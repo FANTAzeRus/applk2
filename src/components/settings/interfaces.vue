@@ -1,7 +1,7 @@
 <template>
 	<div class="interfaces-wrapper">
 		<div class="interface" v-for="(item, idx) in items" :key="`interface_${idx}`">
-			<img :src="`../img/interfaces/${item.name}.png`" alt=""/>
+			<img :src="`/img/interfaces/${item.name}.png`" alt=""/>
 			<div class="check">
 				<radio :name="item.name" v-model="selectedInterface" selectName="selectedInterface" :current="selectedInterface" />
 			</div>
