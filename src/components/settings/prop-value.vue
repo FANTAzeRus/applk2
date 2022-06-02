@@ -209,8 +209,6 @@ export default {
 			border-radius: 5px
 			object-fit: cover
 
-		.preview-wrapper
-
 		.preview-name
 			color: #000000
 
