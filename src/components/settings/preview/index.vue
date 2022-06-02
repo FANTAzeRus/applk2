@@ -17,6 +17,7 @@
 			</div>
 
 			<navigation-panel />
+
 		</div>
 		<div class="phone-top"></div>
 	</div>
