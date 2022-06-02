@@ -8,6 +8,10 @@
 			<div class="reset">Сбросить настройки</div>
 		</div>
 
+		<div class="group-description">
+			{{meta.description}}
+		</div>
+
 		<div class="params-wrapper">
 			<prop-line v-for="item in meta.items" :key="`props_line_${item.name}`" :item="item" />
 		</div>
@@ -62,6 +66,14 @@ export default {
 				line-height: 14.3px
 				font-weight: 400
 				text-decoration: underline
+
+		.group-description
+			font-size: 13px
+			line-height: 14.3px
+			font-weight: 400
+			margin-top: 19px
+			padding-bottom: 15px
+			color: #9b9b9b
 
 		.params-wrapper
 			margin: 20px 0

@@ -18,7 +18,7 @@ export default {
 
 			slider: {
 				group: "Настройка параметров Слайдера",
-				description: "При выборе Интерфейс - 3, появляется «слайдер»",
+				description: "При выборе Интерфейс - 2 или 3, появляется «слайдер»",
 				items: [
 					{type: "img", name: "slider_background_image", title: "Фото для фона слайдера"},
 					{type: "color", name: "slider_background_color", title: "Цвет фона"},
