@@ -4,7 +4,7 @@
 			<div class="group-header">
 				{{meta.group}}
 			</div>
-			<div class="reset" @click="setGroupDefaultValues(meta_key)">Сбросить настройки</div>
+			<div class="reset" @click="showClearPopup(meta_key)">Сбросить настройки</div>
 		</div>
 
 		<div class="group-description">
@@ -37,6 +37,12 @@ export default {
 	props: ['meta_key'],
 
 	methods: {
+		showClearPopup(group) {
+			this.$store.commit("settings/showClearPopup", {
+				callback: this.setGroupDefaultValues,
+				group: group,
+			});
+		},
 		setGroupDefaultValues(group) {
 			this.$store.dispatch('settings/resetToDefault', group);
 		}
@@ -72,6 +78,9 @@ export default {
 				font-weight: 400
 				text-decoration: underline
 				cursor: pointer
+
+				&:hover
+					color: #E6442F
 
 		.group-description
 			font-size: 13px

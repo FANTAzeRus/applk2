@@ -7,6 +7,8 @@ export default {
 		params_model: {},
 		color_picker_position: {},
 		clear_popup: false,
+		clear_callback: null,
+		clear_group: null,
 		params_meta: {
 			header: {
 				group: "Настройка параметров Хедера",
@@ -180,11 +182,17 @@ export default {
 		setPreviewImg(state, img) {
 			state.preview_img = img;
 		},
-		showClearPopup(state) {
+		showClearPopup(state, payload) {
 			state.clear_popup = true;
+			if (payload && typeof payload.callback === 'function') {
+				state.clear_callback = payload.callback;
+				state.clear_group = payload.group;
+			}
 		},
 		hideClearPopup(state) {
 			state.clear_popup = false;
+			state.clear_callback = null;
+			state.clear_group = null;
 		}
 	},
 	getters: {

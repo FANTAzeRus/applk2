@@ -3,10 +3,10 @@
 		<Settings />
 
 		<popup :show="displayClearPopup" @closePopup="closeClearPopup">
-			<h3>Вы действительно хотите <br>сбросить настройки группы параметров?</h3>
+			<h3>Вы действительно хотите <br>сбросить настройки?</h3>
 			<div class="btn-box btn-box--popup">
 				<button @click="clearSelectedGroup" class="button">Да, сбросить</button>
-				<button @click="closeDelPopup(false)" class="button button--grey">Нет, отменить</button>
+				<button @click="closeClearPopup(false)" class="button button--grey">Нет, отменить</button>
 			</div>
 		</popup>
 	</default-page>
@@ -45,7 +45,10 @@ export default {
 			this.$store.commit("settings/hideClearPopup");
 		},
 		clearSelectedGroup() {
-			//
+			if (this.$store.state.settings.clear_callback && typeof this.$store.state.settings.clear_callback === 'function') {
+				this.$store.state.settings.clear_callback(this.$store.state.settings.clear_group);
+				this.$store.commit("settings/hideClearPopup");
+			}
 		}
 	}
 
