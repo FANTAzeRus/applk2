@@ -12,7 +12,7 @@
 				<div class="img-description">Размер: 1000x1000 пикс, вес не более 600 кБ</div>
 				<div class="upload_wrapper">
 					<div class="upload_button">
-						<div class="plus">+</div>
+						<div class="plus" @click="onUploadClick">+</div>
 					</div>
 
 					<div>

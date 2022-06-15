@@ -1,7 +1,7 @@
 <template>
 	<div class="interfaces-wrapper">
 		<div class="interface" v-for="(item, idx) in items" :key="`theme_${idx}`">
-			<radio :name="item.name" :label="item.title" v-model="selectedInterface" selectName="selectedInterface" />
+			<radio :name="item.name" :current="selectedInterface" :label="item.title" v-model="selectedInterface" selectName="selectedInterface" />
 		</div>
 	</div>
 </template>
@@ -21,7 +21,7 @@ export default {
 
 	data() {
 		return {
-			selectedInterface: null,
+			selectedInterface: 'interface_0',
 		}
 	},
 

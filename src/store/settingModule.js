@@ -6,6 +6,7 @@ export default {
 		model_ready: false,
 		params_model: {},
 		color_picker_position: {},
+		clear_popup: false,
 		params_meta: {
 			header: {
 				group: "Настройка параметров Хедера",
@@ -178,6 +179,12 @@ export default {
 		},
 		setPreviewImg(state, img) {
 			state.preview_img = img;
+		},
+		showClearPopup(state) {
+			state.clear_popup = true;
+		},
+		hideClearPopup(state) {
+			state.clear_popup = false;
 		}
 	},
 	getters: {

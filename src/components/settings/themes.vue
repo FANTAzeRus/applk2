@@ -1,7 +1,7 @@
 <template>
 	<div class="themes-wrapper">
 		<div class="theme" v-for="(item, idx) in items" :key="`theme_${idx}`">
-			<radio :name="item.name" :label="item.title" v-model="selectedTheme" selectName="selectedTheme" />
+			<radio :name="item.name" :current="selectedTheme" :label="item.title" v-model="selectedTheme" selectName="selectedTheme" />
 		</div>
 	</div>
 </template>
@@ -20,7 +20,7 @@ export default {
 
 	data() {
 		return {
-			selectedTheme: null,
+			selectedTheme: "light",
 		}
 	},
 

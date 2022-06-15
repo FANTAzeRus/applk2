@@ -105,7 +105,9 @@ export default {
 			flex-wrap: wrap
 
 			img
-				border-radius: 10px
+				border-top-left-radius: 10px
+				border-top-right-radius: 10px
+				border-bottom-right-radius: 10px
 
 			.item1
 				flex: 1
@@ -126,10 +128,13 @@ export default {
 
 				.price
 					width: 100%
+					height: 35px
 					font-size: 10px
 					padding: 5px
 					border-radius: 5px
-					text-align: center
+					display: flex
+					justify-content: center
+					align-items: center
 					font-weight: 600
 					cursor: pointer
 
@@ -166,11 +171,14 @@ export default {
 					align-items: center
 
 					.inc, .dec
-						width: 100%
+						width: 35px
+						height: 35px
 						font-size: 14px
 						padding: 2px
 						border-radius: 5px
-						text-align: center
+						display: flex
+						justify-content: center
+						align-items: center
 						font-weight: 600
 						cursor: pointer
 						flex: 1

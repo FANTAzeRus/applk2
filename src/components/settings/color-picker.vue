@@ -1,6 +1,9 @@
 <template>
 	<div class="color-picker-wrapper" @mouseup.self="saveAndClosePicker">
 		<div class="color-picker" :style="calcPosition">
+			<div class="close" @click="saveAndClosePicker">
+				<close />
+			</div>
 			<chrome v-model="colors" @input="updateColor" />
 		</div>
 	</div>
@@ -8,11 +11,12 @@
 
 <script>
 import { Chrome } from "vue-color";
+import Close from "@/assets/icons/close";
 
 export default {
 	name: "color-picker",
 
-	components: {Chrome},
+	components: {Close, Chrome},
 
 	data() {
 		return {
@@ -71,4 +75,10 @@ export default {
 		position: absolute
 		left: 0
 		right: 0
+
+		.close
+			display: flex
+			justify-content: flex-end
+			cursor: pointer
+			padding-bottom: 7px
 </style>
