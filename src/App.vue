@@ -7,14 +7,15 @@
 </template>
 
 <script>
-import {mapGetters} from "vuex";
 import ColorPicker from "@/components/settings/color-picker";
 
 export default {
 	name: "App",
 	components: {ColorPicker},
 	computed: {
-		...mapGetters(['themeMode']),
+		themeMode() {
+			return this.$store.getters.themeMode;
+		},
 		showColorPicker() {
 			return this.$store.state.settings.showColorPicker;
 		},
