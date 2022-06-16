@@ -82,6 +82,7 @@ export default {
 				&:hover
 					color: #E6442F
 
+
 		.group-description
 			font-size: 13px
 			line-height: 14.3px

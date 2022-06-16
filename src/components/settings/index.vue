@@ -70,7 +70,7 @@ export default {
 		},
 		calcStyle() {
 			return {
-				height: `${window.innerHeight - 160}px`,
+				height: `${window.innerHeight - 180}px`,
 			}
 		}
 	},

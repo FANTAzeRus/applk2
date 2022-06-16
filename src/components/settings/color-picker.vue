@@ -2,7 +2,7 @@
 	<div class="color-picker-wrapper" @mouseup.self="saveAndClosePicker">
 		<div class="color-picker" :style="calcPosition">
 			<div class="close" @click="saveAndClosePicker">
-				<close />
+				<close :color="closeIconColor" />
 			</div>
 			<chrome v-model="colors" @input="updateColor" />
 		</div>
@@ -35,6 +35,9 @@ export default {
 				left: `${this.params_model.x}px`,
 			}
 		},
+		closeIconColor() {
+			return this.$store.state.applicationModule.theme.mode === "dark" ? "#ffffff":"#333333"
+		}
 	},
 
 	mounted() {

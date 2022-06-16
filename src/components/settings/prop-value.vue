@@ -28,7 +28,7 @@
 						<div class="preview-name">
 							Имя выбранного изображения
 
-							<span class="edit">
+							<span class="edit" @click="onUploadClick">
 								<pencil />
 							</span>
 							<span class="trash" @click="clearPreviewImg">
@@ -106,12 +106,12 @@ export default {
 			});
 		},
 		showPickerHandler(e) {
-			const pickerHeight = 240;
+			const pickerHeight = 259;
 			const wh = window.innerHeight;
 			const dir = (wh - e.clientY) > pickerHeight ? 1 : -1;
-			console.log(dir)
+			// console.log(dir)
 			const x = (e.pageX - e.offsetX) - 17;
-			const y = (e.pageY - e.offsetY) + (dir > 0 ? (e.target.clientHeight + 20): -(pickerHeight+20));
+			const y = (e.pageY - e.offsetY) + (dir > 0 ? (e.target.clientHeight + 3): -(pickerHeight+20));
 
 			this.$store.dispatch("settings/openColorPicker", {name: this.model_key, x, y});
 		},
@@ -222,6 +222,7 @@ export default {
 
 		.edit
 			margin-left: 9px
+			cursor: pointer
 
 		.trash
 			margin-left: 7px

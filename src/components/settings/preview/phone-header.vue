@@ -4,6 +4,10 @@
 		<div class="header__body">
 			<div class="phone-header">
 				<span :style="headerFontColorStyle">Заголовок</span>
+				<div class="icons-wrapper">
+					<search :color="headerIconsColor"/>
+					<gift :color="headerIconsColor"/>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -11,10 +15,12 @@
 
 <script>
 import moment from "moment";
+import Search from "@/components/settings/preview/icons/search";
+import Gift from "@/components/settings/preview/icons/gift";
 
 export default {
 	name: "phone-header",
-
+	components: {Gift, Search},
 	props: ["id"],
 
 	computed: {
@@ -34,6 +40,9 @@ export default {
 			}
 
 			return {};
+		},
+		headerIconsColor() {
+			return this.params_model['header_icons_color'];
 		}
 	},
 
@@ -79,4 +88,14 @@ export default {
 	.phone-header
 		font-weight: 600
 		padding: 25px 7px 15px 7px
+		display: flex
+		align-items: center
+
+		span
+			flex: 1
+
+		.icons-wrapper
+			display: flex
+			align-items: center
+			gap: 15px
 </style>
